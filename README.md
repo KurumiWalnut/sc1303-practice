@@ -1,38 +1,86 @@
 # SC1303 Practice
 
-A study site for SC1303 weeks 5–12. It has a topic tree (part → topic → subtopic), and each subtopic has notes, a base implementation question and LeetCode-style problems. A Python judge runs in the browser, and there's a tab of timed mock exams in the final quiz format (4 questions, 90 minutes).
+Practise SC1303 data structures and algorithms (weeks 5–12) the way you'll be tested: short notes, coding problems checked by a Python judge in your browser, and timed mock exams.
 
-It currently has all 30 subtopics written, with 137 problems (base implementations plus LeetCode-style practice, roughly Easy → Medium → Hard in each subtopic), and 2 mock exams of 4 questions each.
+**Open the site: https://kurumiwalnut.github.io/sc1303-practice/**
 
-It's a static site with no server, database or build step. Python runs in each visitor's browser through [Pyodide](https://pyodide.org).
+> An unofficial study tool made by SC1303 students. It isn't affiliated with the course team.
 
-## Run it locally
+## What's inside
+
+- **30 subtopics** in lecture order, each with short notes.
+- **27 base implementations**: the core code from the course templates (heap, BST, AVL tree, Dijkstra and more) that you should be able to write from memory.
+- **110 LeetCode-style problems** (44 Easy, 62 Medium, 4 Hard), from easy to hard within each subtopic. Most have hints you can open one at a time.
+- **A Python judge in your browser.** Run the sample tests as often as you like, or submit to run the hidden tests too. No sign-up needed.
+- **2 timed mock exams** in the final quiz format: 4 questions in 90 minutes, 25 marks each.
+
+## Topics
+
+| Week | Topic | Subtopics |
+|---|---|---|
+| 5–6 | Arrays & Big O | Array operations, Big O notation |
+| 6 | Searching | Ordered arrays, binary search |
+| 7 | Simple sorts | Bubble, selection and insertion sort, sorting as a tool |
+| 8 | Hash tables | Hashing & collisions, hash map patterns |
+| 8 | Stacks & queues | Stacks, queues |
+| 9–10 | Recursion & DP | Recursion & the call stack, memoization, DP problems |
+| 10 | Quicksort | Partitioning (Lomuto and Hoare), quicksort & quickselect |
+| 11 | Linked lists | Singly and doubly linked lists |
+| 11 | Binary search trees | Search & insert, deletion, traversals |
+| 11 | Tries | Insert & search, autocomplete |
+| 12 | AVL trees | Balance factor, rotations |
+| 12 | Heaps & priority queues | Max-heap |
+| 12 | Graphs | Representations, DFS & BFS |
+| 12 | Dijkstra's algorithm | Shortest paths |
+
+## How to use it
+
+1. Under **Learn**, pick a subtopic and read its notes.
+2. Write the **base implementation**, then work through the **LeetCode-style** problems.
+3. Press **Run samples** (⌘/Ctrl + Enter) to check the sample tests, and **Submit** (⌘/Ctrl + Shift + Enter) to run every test.
+4. Stuck? Open the **Hints** tab one hint at a time. Each problem also has a reference solution behind a button.
+5. When you're ready, sit a **mock exam**. It shows no notes or hints, and the timer keeps running even if you close the tab.
+
+The code box has a full-screen button, and Esc exits full screen.
+
+## Good to know
+
+- **The first visit downloads about 10 MB** (Python for the browser). After that it's cached.
+- **Your progress is saved in your browser only.** It doesn't sync between devices or browsers, and clearing your browsing data deletes it. To clear it yourself, use the **Reset my progress** link at the bottom of the home page.
+- **Tests and solutions are public** in this repository, because the judge runs in your browser. That's fine for practice, but don't use the site for anything graded.
+- Problem statements are written for this site. LeetCode links point to the original problems.
+
+## Run it on your own computer
 
 ```bash
-cd platform
+git clone https://github.com/KurumiWalnut/sc1303-practice.git
+cd sc1303-practice
 python3 -m http.server 8000
 ```
 
-Open http://localhost:8000. Opening `index.html` directly from your files won't work, because the browser blocks loading the content files that way.
+Then open http://localhost:8000. Opening `index.html` directly from your files won't work, because the browser blocks loading the content files that way.
 
+It's a static site with no server, database or build step. Python runs in the browser through [Pyodide](https://pyodide.org), and the code editor is [CodeMirror](https://codemirror.net/5/).
 
-## How it's organised
+## Adding or fixing problems
+
+Everything a student sees comes from the `content/` folder:
 
 ```text
 index.html, css/, js/        the site itself
-judge/harness.py             runs one test case (used by the browser AND by tools/verify.py)
+judge/harness.py             runs one test case (used by the browser and by tools/verify.py)
 content/
   tree.json                  parts → topics → subtopics ("leaves")
   exams.json                 mock exams
-  notes/<leaf>.md            notes for each ready subtopic
+  notes/<leaf>.md            notes for each subtopic
   problems/<id>/
     problem.json             title, difficulty, tests
     statement.md             the question (what to do, not how to do it)
     hints.md                 optional hints, shown one at a time in the Hints tab
-    starter.py               code students start from
-    solution.py              reference solution (shown after trying, or after a mock)
+    starter.py               the code students start from
+    solution.py              reference solution
     provided.py              optional code loaded before the student's (e.g. a Vertex class)
-tools/verify.py              checks every problem before you publish
+tools/verify.py              checks every problem
 ```
 
 ### Subtopics
@@ -40,9 +88,7 @@ tools/verify.py              checks every problem before you publish
 A subtopic in `tree.json` is either:
 
 - **ready**: `"status": "ready"`, with `notes`, `base` (a problem id, a list of ids such as `["lomuto-impl", "hoare-impl"]`, or `null`) and `practice` (a list of problem ids), or
-- **planned**: `"status": "planned"`, with an `outline`, and placeholder entries in `base` and `practice`, e.g. `{ "title": "Two Sum", "lc": 1, "slug": "two-sum", "difficulty": "Easy" }`. Planned subtopics show as labelled wireframes.
-
-To finish a planned subtopic, write its notes and problems, then switch it to `ready`.
+- **planned**: `"status": "planned"`, with an `outline` and placeholder entries in `base` and `practice`, e.g. `{ "title": "Two Sum", "lc": 1, "slug": "two-sum", "difficulty": "Easy" }`. Planned subtopics show as labelled outlines.
 
 ### Hints
 
@@ -77,11 +123,14 @@ Each test in `problem.json` runs in a fresh Python namespace, in this order: pro
 
 - `expected` is a Python expression. It's evaluated with only the provided code and `data` loaded, so student code can't change it.
 - Building `data` doesn't count towards the time limit, so large inputs are fine.
-- `hidden` tests only run on **Submit**. Their input isn't shown.
+- `hidden` tests only run on **Submit**, and their input isn't shown.
 - A problem can set `checker` (Python code defining `check(actual, expected)`) when more than one answer is right, e.g. groups in any order.
 - Add at least one large hidden test so slow solutions time out, and check that they really do.
 
-- **The test cases are public.** The judge runs in the browser, so anyone can read the tests (and solutions) in the site's files. That's fine for a study tool, but don't use it for anything graded.
-- **First run downloads about 10 MB** (Python for the browser). After that it's cached.
-- **Progress is saved in each browser only** (localStorage). Accounts and leaderboards would need a server.
-- Problem statements are written for this site. LeetCode links point to the original problems.
+### Check your changes
+
+```bash
+python3 tools/verify.py
+```
+
+This checks that every reference solution passes all its tests, that every starter fails at least one, and that `tree.json` and `exams.json` only point at problems that exist. To check only some problems, add their ids, e.g. `python3 tools/verify.py hoare-impl`.
