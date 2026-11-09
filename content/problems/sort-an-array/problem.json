@@ -1,0 +1,81 @@
+{
+  "id": "sort-an-array",
+  "title": "Sort an Array",
+  "kind": "leetcode",
+  "difficulty": "Medium",
+  "source": "Quicksort (Week 10)",
+  "leetcode": {
+    "number": 912,
+    "slug": "sort-an-array"
+  },
+  "timeLimitMs": 3000,
+  "hints": 2,
+  "tests": [
+    {
+      "name": "Example 1",
+      "expr": "sort_array([5, 2, 3, 1])",
+      "expected": "[1, 2, 3, 5]"
+    },
+    {
+      "name": "Example 2",
+      "expr": "sort_array([5, 1, 1, 2, 0, 0])",
+      "expected": "[0, 0, 1, 1, 2, 5]"
+    },
+    {
+      "name": "Empty and one value",
+      "expr": "(sort_array([]), sort_array([4]))",
+      "expected": "([], [4])",
+      "hidden": true
+    },
+    {
+      "name": "Negative numbers",
+      "expr": "sort_array([-1, -5, 3, 0, -5, 2])",
+      "expected": "[-5, -5, -1, 0, 2, 3]",
+      "hidden": true
+    },
+    {
+      "name": "300 random",
+      "data": "import random\nrandom.seed(912)\nnums = [random.randint(-100, 100) for _ in range(300)]",
+      "expr": "sort_array(nums)",
+      "expected": "[-100, -99, -97, -97, -97, -96, -96, -96, -95, -94, -94, -93, -93, -92, -92, -91, -91, -91, -90, -90, -88, -88, -88, -88, -86, -85, -85, -84, -83, -82, -81, -79, -76, -76, -76, -76, -75, -75, -75, -75, -71, -71, -70, -69, -69, -68, -68, -67, -66, -66, -65, -65, -65, -64, -64, -63, -63, -62, -62, -61, -61, -61, -59, -59, -58, -57, -57, -57, -55, -54, -53, -53, -52, -52, -49, -49, -47, -47, -46, -46, -44, -44, -44, -43, -43, -42, -42, -41, -40, -38, -37, -37, -36, -36, -36, -35, -34, -33, -33, -32, -31, -30, -30, -29, -29, -28, -27, -26, -26, -25, -24, -24, -23, -23, -23, -21, -21, -19, -19, -19, -18, -17, -17, -16, -14, -14, -14, -14, -13, -13, -12, -10, -9, -9, -9, -8, -8, -7, -6, -5, -5, -2, 0, 1, 2, 2, 4, 4, 4, 5, 6, 6, 6, 6, 6, 7, 7, 8, 8, 8, 9, 10, 11, 11, 11, 13, 14, 14, 15, 15, 17, 18, 18, 18, 20, 21, 21, 23, 23, 24, 24, 25, 25, 26, 26, 26, 27, 28, 28, 29, 30, 30, 31, 31, 31, 32, 32, 32, 34, 34, 35, 36, 36, 36, 37, 37, 37, 38, 38, 39, 40, 40, 41, 41, 43, 44, 44, 46, 50, 50, 50, 51, 51, 51, 51, 52, 52, 53, 53, 54, 55, 55, 55, 56, 57, 58, 59, 60, 60, 60, 60, 60, 61, 61, 61, 62, 62, 62, 63, 63, 63, 64, 64, 64, 66, 66, 66, 67, 67, 68, 69, 70, 72, 72, 72, 72, 73, 73, 75, 76, 77, 78, 79, 80, 84, 84, 85, 85, 85, 85, 86, 88, 89, 89, 90, 90, 92, 93, 94, 94, 95, 95, 95, 95, 95, 97, 98, 98, 100, 100]",
+      "hidden": true
+    },
+    {
+      "name": "50 000 random",
+      "data": "import random\nrandom.seed(9120)\nnums = [random.randint(-50000, 50000) for _ in range(50000)]",
+      "expr": "sort_array(nums) == sorted(nums)",
+      "expected": "True",
+      "hidden": true
+    },
+    {
+      "name": "50 000 already sorted",
+      "data": "nums = list(range(-25000, 25000))",
+      "expr": "sort_array(nums) == nums",
+      "expected": "True",
+      "hidden": true,
+      "hint": "A last-element pivot is the worst case on sorted input. Use a random pivot."
+    },
+    {
+      "name": "50 000 in reverse",
+      "data": "nums = list(range(50000, 0, -1))",
+      "expr": "sort_array(nums) == sorted(nums)",
+      "expected": "True",
+      "hidden": true
+    },
+    {
+      "name": "50 000 copies of one value",
+      "data": "nums = [7] * 50000",
+      "expr": "sort_array(nums) == nums",
+      "expected": "True",
+      "hidden": true,
+      "hint": "A two-way partition puts every equal value on one side. Use a three-way partition."
+    },
+    {
+      "name": "Few distinct values",
+      "data": "import random\nrandom.seed(9121)\nnums = [random.randint(0, 3) for _ in range(50000)]",
+      "expr": "sort_array(nums) == sorted(nums)",
+      "expected": "True",
+      "hidden": true
+    }
+  ]
+}

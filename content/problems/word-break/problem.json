@@ -1,0 +1,64 @@
+{
+  "id": "word-break",
+  "title": "Word Break",
+  "kind": "leetcode",
+  "difficulty": "Medium",
+  "source": "Memoization (Week 10)",
+  "leetcode": {
+    "number": 139,
+    "slug": "word-break"
+  },
+  "timeLimitMs": 3000,
+  "hints": 2,
+  "tests": [
+    {
+      "name": "Example 1",
+      "expr": "word_break(\"leetcode\", [\"leet\", \"code\"])",
+      "expected": "True"
+    },
+    {
+      "name": "Example 2",
+      "expr": "word_break(\"applepenapple\", [\"apple\", \"pen\"])",
+      "expected": "True"
+    },
+    {
+      "name": "Example 3",
+      "expr": "word_break(\"catsandog\", [\"cats\", \"dog\", \"sand\", \"and\", \"cat\"])",
+      "expected": "False"
+    },
+    {
+      "name": "Reusing a word",
+      "expr": "word_break(\"aaaa\", [\"aa\"])",
+      "expected": "True",
+      "hidden": true
+    },
+    {
+      "name": "Greedy fails",
+      "expr": "word_break(\"aaab\", [\"a\", \"aa\", \"aab\"])",
+      "expected": "True",
+      "hidden": true,
+      "hint": "Taking the longest word first isn't always right. Try every word that fits."
+    },
+    {
+      "name": "Random",
+      "data": "import random\nrandom.seed(139)\nwords = ['ab', 'ba', 'aab', 'b', 'abba']\nstrs = [''.join(random.choice('ab') for _ in range(random.randint(1, 14))) for _ in range(50)] + ['aaa', 'aaab']",
+      "expr": "[word_break(s, words) for s in strs]",
+      "expected": "[True, True, True, False, True, True, False, False, False, True, False, False, False, False, True, True, False, True, False, False, True, True, True, False, True, False, True, False, False, True, True, True, True, False, True, True, False, True, False, False, True, False, True, False, True, False, False, False, True, False, False, False]",
+      "hidden": true
+    },
+    {
+      "name": "Exponential trap",
+      "expr": "word_break(\"a\" * 250 + \"b\", [\"a\", \"aa\", \"aaa\", \"aaaa\", \"aaaaa\", \"aaaaaa\", \"aaaaaaa\"])",
+      "expected": "False",
+      "hidden": true,
+      "hint": "Without a memo this retries the same positions over and over."
+    },
+    {
+      "name": "Long string that works",
+      "data": "import random\nrandom.seed(1390)\nwords = [''.join(random.choices('abc', k=random.randint(1, 6))) for _ in range(300)]\ns = ''.join(random.choice(words) for _ in range(80))[:300]\nwhile not s:\n    s = random.choice(words)",
+      "expr": "word_break(s, words)",
+      "expected": "True",
+      "hidden": true
+    }
+  ]
+}

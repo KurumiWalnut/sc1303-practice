@@ -1,0 +1,66 @@
+{
+  "id": "insertion-sort-impl",
+  "title": "Insertion sort",
+  "kind": "base",
+  "difficulty": "Easy",
+  "source": "Week 7 lecture (Big O of Sorting)",
+  "timeLimitMs": 3000,
+  "tests": [
+    {
+      "name": "Reverse order (worst case)",
+      "setup": "a = [5, 4, 3, 2, 1]",
+      "expr": "(insertion_sort(a), a)",
+      "expected": "((10, 10), [1, 2, 3, 4, 5])"
+    },
+    {
+      "name": "Already sorted (best case)",
+      "setup": "a = [1, 2, 3, 4, 5]",
+      "expr": "(insertion_sort(a), a)",
+      "expected": "((4, 0), [1, 2, 3, 4, 5])"
+    },
+    {
+      "name": "Lecture letters",
+      "setup": "a = list(\"DCAEB\")",
+      "expr": "(insertion_sort(a), a)",
+      "expected": "((8, 6), ['A', 'B', 'C', 'D', 'E'])"
+    },
+    {
+      "name": "Empty and one value",
+      "expr": "(insertion_sort([]), insertion_sort([3]))",
+      "expected": "((0, 0), (0, 0))",
+      "hidden": true
+    },
+    {
+      "name": "Stop at the first smaller value",
+      "setup": "a = [1, 2, 6, 7, 5]",
+      "expr": "(insertion_sort(a), a)",
+      "expected": "((6, 2), [1, 2, 5, 6, 7])",
+      "hidden": true,
+      "hint": "Once you meet a value that isn't bigger than temp, stop comparing."
+    },
+    {
+      "name": "Equal values stay in order",
+      "setup": "x1, x2 = (2, 'first'), (2, 'second')\nclass K:\n    def __init__(self, v):\n        self.v = v\n    def __gt__(self, other):\n        return self.v[0] > other.v[0]\na = [K((3, 'a')), K(x1), K((1, 'b')), K(x2)]\norder = [a[2], a[1], a[3], a[0]]",
+      "expr": "(insertion_sort(a), [id(x) for x in a] == [id(x) for x in order])",
+      "expected": "((5, 4), True)",
+      "hidden": true
+    },
+    {
+      "name": "2 000 random values",
+      "data": "import random\nrandom.seed(79)\nvalues = [random.randint(0, 10**6) for _ in range(2000)]",
+      "setup": "a = values[:]",
+      "expr": "(insertion_sort(a), a == sorted(values))",
+      "expected": "((988864, 986874), True)",
+      "hidden": true
+    },
+    {
+      "name": "100 000 values, nearly sorted",
+      "data": "import random\nrandom.seed(790)\nvalues = list(range(100000))\nfor _ in range(200):\n    i = random.randrange(99999)\n    values[i], values[i + 1] = values[i + 1], values[i]",
+      "setup": "a = values[:]",
+      "expr": "insertion_sort(a)",
+      "expected": "(100199, 200)",
+      "hidden": true,
+      "hint": "On nearly sorted data, insertion sort should only do a little work per value."
+    }
+  ]
+}

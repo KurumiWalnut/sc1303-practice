@@ -1,0 +1,58 @@
+{
+  "id": "selection-sort-impl",
+  "title": "Selection sort",
+  "kind": "base",
+  "difficulty": "Easy",
+  "source": "Week 7 lecture (Big O of Sorting)",
+  "timeLimitMs": 3000,
+  "tests": [
+    {
+      "name": "Mixed",
+      "setup": "a = [4, 2, 7, 1, 3]",
+      "expr": "(selection_sort(a), a)",
+      "expected": "((10, 2), [1, 2, 3, 4, 7])"
+    },
+    {
+      "name": "Already sorted",
+      "setup": "a = [1, 2, 3, 4, 5]",
+      "expr": "(selection_sort(a), a)",
+      "expected": "((10, 0), [1, 2, 3, 4, 5])"
+    },
+    {
+      "name": "Reverse order",
+      "setup": "a = [5, 4, 3, 2, 1]",
+      "expr": "(selection_sort(a), a)",
+      "expected": "((10, 2), [1, 2, 3, 4, 5])",
+      "hidden": true
+    },
+    {
+      "name": "Only swap when needed",
+      "setup": "a = [1, 3, 2, 4]",
+      "expr": "(selection_sort(a), a)",
+      "expected": "((6, 1), [1, 2, 3, 4])",
+      "hidden": true,
+      "hint": "If the smallest value is already in place, don't count a swap."
+    },
+    {
+      "name": "Empty and one value",
+      "expr": "(selection_sort([]), selection_sort([8]))",
+      "expected": "((0, 0), (0, 0))",
+      "hidden": true
+    },
+    {
+      "name": "Duplicates",
+      "setup": "a = [3, 1, 3, 1, 2]",
+      "expr": "(selection_sort(a), a)",
+      "expected": "((10, 3), [1, 1, 2, 3, 3])",
+      "hidden": true
+    },
+    {
+      "name": "2 000 random values",
+      "data": "import random\nrandom.seed(78)\nvalues = [random.randint(0, 10**6) for _ in range(2000)]",
+      "setup": "a = values[:]",
+      "expr": "(selection_sort(a), a == sorted(values))",
+      "expected": "((1999000, 1996), True)",
+      "hidden": true
+    }
+  ]
+}

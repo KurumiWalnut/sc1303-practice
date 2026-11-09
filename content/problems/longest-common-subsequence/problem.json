@@ -1,0 +1,58 @@
+{
+  "id": "longest-common-subsequence",
+  "title": "Longest Common Subsequence",
+  "kind": "leetcode",
+  "difficulty": "Medium",
+  "source": "Dynamic programming (Week 10)",
+  "leetcode": {
+    "number": 1143,
+    "slug": "longest-common-subsequence"
+  },
+  "timeLimitMs": 3000,
+  "hints": 2,
+  "tests": [
+    {
+      "name": "Example 1",
+      "expr": "longest_common_subsequence(\"abcde\", \"ace\")",
+      "expected": "3"
+    },
+    {
+      "name": "Example 2",
+      "expr": "longest_common_subsequence(\"abc\", \"abc\")",
+      "expected": "3"
+    },
+    {
+      "name": "Example 3",
+      "expr": "longest_common_subsequence(\"abc\", \"def\")",
+      "expected": "0"
+    },
+    {
+      "name": "Order matters",
+      "expr": "longest_common_subsequence(\"abc\", \"cba\")",
+      "expected": "1",
+      "hidden": true
+    },
+    {
+      "name": "Repeated letters",
+      "expr": "longest_common_subsequence(\"aaaa\", \"aa\")",
+      "expected": "2",
+      "hidden": true
+    },
+    {
+      "name": "Random short pairs",
+      "data": "import random\nrandom.seed(1143)\npairs = [(''.join(random.choices('abc', k=random.randint(1, 12))), ''.join(random.choices('abc', k=random.randint(1, 12)))) for _ in range(40)]",
+      "expr": "[longest_common_subsequence(a, b) for a, b in pairs]",
+      "expected": "[1, 5, 2, 5, 0, 7, 2, 1, 1, 4, 2, 3, 3, 6, 1, 6, 5, 1, 4, 2, 2, 2, 6, 5, 4, 1, 3, 2, 1, 3, 6, 8, 1, 0, 2, 1, 1, 3, 6, 1]",
+      "hidden": true
+    },
+    {
+      "name": "1 000 × 1 000",
+      "data": "import random\nrandom.seed(11430)\na = ''.join(random.choices('abcdefgh', k=1000))\nb = ''.join(random.choices('abcdefgh', k=1000))",
+      "expr": "longest_common_subsequence(a, b)",
+      "expected": "506",
+      "hidden": true,
+      "hint": "Fill the table bottom-up. Recursion on (i, j) goes up to 2000 calls deep.",
+      "timeLimitMs": 6000
+    }
+  ]
+}

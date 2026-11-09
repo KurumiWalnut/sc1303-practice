@@ -1,0 +1,59 @@
+{
+  "id": "search-rotated",
+  "title": "Search in Rotated Sorted Array",
+  "kind": "leetcode",
+  "difficulty": "Medium",
+  "source": "Binary search (Week 6)",
+  "leetcode": {
+    "number": 33,
+    "slug": "search-in-rotated-sorted-array"
+  },
+  "timeLimitMs": 3000,
+  "hints": 2,
+  "tests": [
+    {
+      "name": "Example 1",
+      "expr": "search([4, 5, 6, 7, 0, 1, 2], 0)",
+      "expected": "4"
+    },
+    {
+      "name": "Example 2",
+      "expr": "search([4, 5, 6, 7, 0, 1, 2], 3)",
+      "expected": "-1"
+    },
+    {
+      "name": "Example 3",
+      "expr": "search([1], 0)",
+      "expected": "-1"
+    },
+    {
+      "name": "Not rotated",
+      "expr": "[search([1, 2, 3, 4, 5], t) for t in (1, 3, 5, 6)]",
+      "expected": "[0, 2, 4, -1]",
+      "hidden": true
+    },
+    {
+      "name": "Two values",
+      "expr": "[search([3, 1], 1), search([3, 1], 3), search([1, 3], 3)]",
+      "expected": "[1, 0, 1]",
+      "hidden": true
+    },
+    {
+      "name": "Every rotation of a small list",
+      "data": "base = [1, 3, 5, 7, 9, 11, 13]",
+      "setup": "results = []\nfor r in range(len(base)):\n    arr = base[r:] + base[:r]\n    results.append([search(arr, t) for t in range(0, 15)])",
+      "expr": "results",
+      "expected": "[[-1, 0, -1, 1, -1, 2, -1, 3, -1, 4, -1, 5, -1, 6, -1], [-1, 6, -1, 0, -1, 1, -1, 2, -1, 3, -1, 4, -1, 5, -1], [-1, 5, -1, 6, -1, 0, -1, 1, -1, 2, -1, 3, -1, 4, -1], [-1, 4, -1, 5, -1, 6, -1, 0, -1, 1, -1, 2, -1, 3, -1], [-1, 3, -1, 4, -1, 5, -1, 6, -1, 0, -1, 1, -1, 2, -1], [-1, 2, -1, 3, -1, 4, -1, 5, -1, 6, -1, 0, -1, 1, -1], [-1, 1, -1, 2, -1, 3, -1, 4, -1, 5, -1, 6, -1, 0, -1]]",
+      "hidden": true
+    },
+    {
+      "name": "500 000 values, 20 000 questions",
+      "data": "import random\nrandom.seed(330)\nvals = sorted(random.sample(range(10**7), 500000))\ncut = 123457\nnums = vals[cut:] + vals[:cut]\nqueries = [random.choice(vals) if random.random() < 0.7 else random.randint(0, 10**7) for _ in range(20000)]",
+      "setup": "res = [search(nums, q) for q in queries]",
+      "expr": "(sum(res), res[:5], res.count(-1))",
+      "expected": "(3543675971, [392466, -1, -1, -1, 167280], 5723)",
+      "hidden": true,
+      "hint": "Scanning the list is O(N) per question. Binary search: one half is always sorted."
+    }
+  ]
+}

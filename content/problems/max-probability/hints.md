@@ -1,0 +1,1 @@
+This is Dijkstra turned around: multiply instead of add, and always expand the node with the **highest** probability so far (push `-probability` into `heapq`). It works because multiplying by a probability can never make a path more likely.

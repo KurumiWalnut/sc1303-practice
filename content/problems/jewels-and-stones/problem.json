@@ -1,0 +1,44 @@
+{
+  "id": "jewels-and-stones",
+  "title": "Jewels and Stones",
+  "kind": "leetcode",
+  "difficulty": "Easy",
+  "source": "Hash tables (Week 8)",
+  "leetcode": {
+    "number": 771,
+    "slug": "jewels-and-stones"
+  },
+  "timeLimitMs": 3000,
+  "hints": 1,
+  "tests": [
+    {
+      "name": "Example 1",
+      "expr": "num_jewels_in_stones(\"aA\", \"aAAbbbb\")",
+      "expected": "3"
+    },
+    {
+      "name": "Example 2",
+      "expr": "num_jewels_in_stones(\"z\", \"ZZ\")",
+      "expected": "0"
+    },
+    {
+      "name": "No stones",
+      "expr": "num_jewels_in_stones(\"abc\", \"\")",
+      "expected": "0",
+      "hidden": true
+    },
+    {
+      "name": "Every stone is a jewel",
+      "expr": "num_jewels_in_stones(\"xyz\", \"zzyyxx\")",
+      "expected": "6",
+      "hidden": true
+    },
+    {
+      "name": "100 000 stones",
+      "data": "import random, string\nrandom.seed(771)\nletters = string.ascii_letters\njewels = ''.join(random.sample(letters, 20))\nstones = ''.join(random.choices(letters, k=100000))",
+      "expr": "num_jewels_in_stones(jewels, stones)",
+      "expected": "38380",
+      "hidden": true
+    }
+  ]
+}

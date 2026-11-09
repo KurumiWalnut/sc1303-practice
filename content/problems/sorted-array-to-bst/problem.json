@@ -1,0 +1,59 @@
+{
+  "id": "sorted-array-to-bst",
+  "title": "Convert Sorted Array to BST",
+  "kind": "leetcode",
+  "difficulty": "Easy",
+  "source": "AVL balance (Week 12)",
+  "leetcode": {
+    "number": 108,
+    "slug": "convert-sorted-array-to-binary-search-tree"
+  },
+  "provided": true,
+  "timeLimitMs": 3000,
+  "hints": 1,
+  "tests": [
+    {
+      "name": "Example 1",
+      "expr": "check_balanced_bst(sorted_array_to_bst([-10, -3, 0, 5, 9]), [-10, -3, 0, 5, 9])",
+      "expected": "'ok'"
+    },
+    {
+      "name": "Example 2",
+      "expr": "check_balanced_bst(sorted_array_to_bst([1, 3]), [1, 3])",
+      "expected": "'ok'"
+    },
+    {
+      "name": "Empty list",
+      "expr": "sorted_array_to_bst([])",
+      "expected": "None",
+      "hidden": true
+    },
+    {
+      "name": "One number",
+      "expr": "tree_to_list(sorted_array_to_bst([42]))",
+      "expected": "[42]",
+      "hidden": true
+    },
+    {
+      "name": "Seven numbers",
+      "expr": "check_balanced_bst(sorted_array_to_bst(list(range(7))), list(range(7)))",
+      "expected": "'ok'",
+      "hidden": true
+    },
+    {
+      "name": "Even length",
+      "data": "nums = [2 * i for i in range(10)]",
+      "expr": "check_balanced_bst(sorted_array_to_bst(nums), nums)",
+      "expected": "'ok'",
+      "hidden": true
+    },
+    {
+      "name": "20 000 numbers",
+      "data": "import random\nrandom.seed(108)\nnums = sorted(random.sample(range(-10**6, 10**6), 20000))",
+      "expr": "check_balanced_bst(sorted_array_to_bst(nums), nums)",
+      "expected": "'ok'",
+      "hidden": true,
+      "hint": "Inserting the numbers one at a time in order builds a chain. Pick the middle as the root."
+    }
+  ]
+}

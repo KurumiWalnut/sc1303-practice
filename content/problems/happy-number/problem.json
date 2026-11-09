@@ -1,0 +1,49 @@
+{
+  "id": "happy-number",
+  "title": "Happy Number",
+  "kind": "leetcode",
+  "difficulty": "Easy",
+  "source": "Hash tables (Week 8): a 'seen' set",
+  "leetcode": {
+    "number": 202,
+    "slug": "happy-number"
+  },
+  "timeLimitMs": 3000,
+  "hints": 1,
+  "tests": [
+    {
+      "name": "Example 1",
+      "expr": "is_happy(19)",
+      "expected": "True"
+    },
+    {
+      "name": "Example 2",
+      "expr": "is_happy(2)",
+      "expected": "False"
+    },
+    {
+      "name": "One",
+      "expr": "is_happy(1)",
+      "expected": "True",
+      "hidden": true
+    },
+    {
+      "name": "7 is happy, 4 isn't",
+      "expr": "[is_happy(7), is_happy(4)]",
+      "expected": "[True, False]",
+      "hidden": true
+    },
+    {
+      "name": "Big numbers",
+      "expr": "[is_happy(2**31 - 1), is_happy(1111111), is_happy(999999999)]",
+      "expected": "[False, True, False]",
+      "hidden": true
+    },
+    {
+      "name": "Happy numbers up to 1 000",
+      "expr": "[n for n in range(1, 1001) if is_happy(n)][:60]",
+      "expected": "[1, 7, 10, 13, 19, 23, 28, 31, 32, 44, 49, 68, 70, 79, 82, 86, 91, 94, 97, 100, 103, 109, 129, 130, 133, 139, 167, 176, 188, 190, 192, 193, 203, 208, 219, 226, 230, 236, 239, 262, 263, 280, 291, 293, 301, 302, 310, 313, 319, 320, 326, 329, 331, 338, 356, 362, 365, 367, 368, 376]",
+      "hidden": true
+    }
+  ]
+}

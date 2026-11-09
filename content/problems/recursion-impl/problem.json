@@ -1,0 +1,71 @@
+{
+  "id": "recursion-impl",
+  "title": "Recursion warm-ups (Week 9)",
+  "kind": "base",
+  "difficulty": "Easy",
+  "source": "Week 9 seminar: exercises 1-3 and coding exercise 1",
+  "timeLimitMs": 3000,
+  "tests": [
+    {
+      "name": "sum_range",
+      "expr": "[sum_range(1, 10), sum_range(5, 5), sum_range(3, 2)]",
+      "expected": "[55, 5, 0]"
+    },
+    {
+      "name": "double_array",
+      "setup": "a = [1, 2, 3, 4]\nresult = double_array(a)",
+      "expr": "(result, a)",
+      "expected": "(None, [2, 4, 6, 8])"
+    },
+    {
+      "name": "index_of_x",
+      "expr": "[index_of_x(\"abcdefghijklmnopqrstuvwxyz\"), index_of_x(\"x\"), index_of_x(\"axbx\")]",
+      "expected": "[23, 0, 1]"
+    },
+    {
+      "name": "add_until_100",
+      "expr": "[add_until_100([30, 50, 40, 20]), add_until_100([]), add_until_100([101, 1])]",
+      "expected": "[90, 0, 1]"
+    },
+    {
+      "name": "Negative ranges",
+      "expr": "[sum_range(-5, 5), sum_range(-3, -1)]",
+      "expected": "[0, -6]",
+      "hidden": true
+    },
+    {
+      "name": "double_array from an index",
+      "setup": "a = [1, 1, 1, 1]\ndouble_array(a, 2)",
+      "expr": "a",
+      "expected": "[1, 1, 2, 2]",
+      "hidden": true
+    },
+    {
+      "name": "add_until_100 skips a number in the middle",
+      "expr": "add_until_100([99, 2, 60, 40])",
+      "expected": "100",
+      "hidden": true
+    },
+    {
+      "name": "Deep recursion",
+      "expr": "(sum_range(1, 800), index_of_x('a' * 700 + 'x'))",
+      "expected": "(320400, 700)",
+      "hidden": true
+    },
+    {
+      "name": "double_array on 600 values",
+      "setup": "a = list(range(600))\ndouble_array(a)",
+      "expr": "a[:5] + a[-3:]",
+      "expected": "[0, 2, 4, 6, 8, 1194, 1196, 1198]",
+      "hidden": true
+    },
+    {
+      "name": "add_until_100 on 300 numbers",
+      "data": "import random\nrandom.seed(9)\nnums = [random.randint(1, 30) for _ in range(300)]",
+      "expr": "add_until_100(nums)",
+      "expected": "100",
+      "hidden": true,
+      "hint": "Calling add_until_100(array[1:]) twice per level is O(2^N). Call it once and store the result."
+    }
+  ]
+}

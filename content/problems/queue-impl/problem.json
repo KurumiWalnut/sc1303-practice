@@ -1,0 +1,44 @@
+{
+  "id": "queue-impl",
+  "title": "Queue class",
+  "kind": "base",
+  "difficulty": "Easy",
+  "source": "Week 8 lecture (Stacks and Queues)",
+  "timeLimitMs": 3000,
+  "tests": [
+    {
+      "name": "Enqueue, read, dequeue",
+      "setup": "q = Queue()\nfor v in 'abc':\n    q.enqueue(v)",
+      "expr": "(q.read(), q.dequeue(), q.dequeue(), len(q))",
+      "expected": "('a', 'a', 'b', 1)"
+    },
+    {
+      "name": "Empty queue",
+      "setup": "q = Queue()",
+      "expr": "(q.dequeue(), q.read(), q.is_empty(), len(q))",
+      "expected": "(None, None, True, 0)"
+    },
+    {
+      "name": "First in, first out",
+      "setup": "q = Queue()\nq.enqueue(1)\nq.enqueue(2)\nq.dequeue()\nq.enqueue(3)\nq.enqueue(4)",
+      "expr": "[q.dequeue() for _ in range(4)]",
+      "expected": "[2, 3, 4, None]",
+      "hidden": true
+    },
+    {
+      "name": "is_empty after taking everything",
+      "setup": "q = Queue()\nq.enqueue('x')",
+      "expr": "(q.is_empty(), q.dequeue(), q.is_empty(), q.dequeue())",
+      "expected": "(False, 'x', True, None)",
+      "hidden": true
+    },
+    {
+      "name": "300 000 in, 300 000 out",
+      "setup": "q = Queue()\nfor i in range(300000):\n    q.enqueue(i)\nfirst = q.read()\ntotal = 0\nwhile not q.is_empty():\n    last = q.dequeue()\n    total += last",
+      "expr": "(first, last, len(q), total)",
+      "expected": "(0, 299999, 0, 44999850000)",
+      "hidden": true,
+      "hint": "list.pop(0) is O(N), so emptying a big queue is O(N^2). Use deque.popleft()."
+    }
+  ]
+}

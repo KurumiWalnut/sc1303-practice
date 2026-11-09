@@ -1,0 +1,52 @@
+{
+  "id": "bst-from-preorder",
+  "title": "Rebuild a BST from its pre-order",
+  "kind": "leetcode",
+  "difficulty": "Medium",
+  "source": "Traversals + BST insertion",
+  "leetcode": {
+    "number": 1008,
+    "slug": "construct-binary-search-tree-from-preorder-traversal"
+  },
+  "provided": true,
+  "timeLimitMs": 3000,
+  "hints": 2,
+  "tests": [
+    {
+      "name": "Example 1",
+      "expr": "tree_to_list(bst_from_preorder([8, 5, 1, 7, 10, 12]))",
+      "expected": "[8, 5, 10, 1, 7, None, 12]"
+    },
+    {
+      "name": "Example 2",
+      "expr": "tree_to_list(bst_from_preorder([1, 3]))",
+      "expected": "[1, None, 3]"
+    },
+    {
+      "name": "One value",
+      "expr": "tree_to_list(bst_from_preorder([4]))",
+      "expected": "[4]",
+      "hidden": true
+    },
+    {
+      "name": "Only left children",
+      "expr": "tree_to_list(bst_from_preorder([5, 4, 3, 2, 1]))",
+      "expected": "[5, 4, None, 3, None, 2, None, 1]",
+      "hidden": true
+    },
+    {
+      "name": "Right subtree under a left child",
+      "expr": "tree_to_list(bst_from_preorder([10, 5, 1, 7, 6, 8, 15, 12, 20]))",
+      "expected": "[10, 5, 15, 1, 7, 12, 20, None, None, 6, 8]",
+      "hidden": true
+    },
+    {
+      "name": "3 000 random values",
+      "data": "import random\nrandom.seed(1008)\nsrc = build_bst(random.sample(range(10**6), 3000))\npre = []\nstack = [src]\nwhile stack:\n    n = stack.pop()\n    if n:\n        pre.append(n.value)\n        stack.append(n.right_child)\n        stack.append(n.left_child)",
+      "setup": "r = bst_from_preorder(pre)",
+      "expr": "(inorder_values(r) == sorted(pre), tree_to_list(r)[:7])",
+      "expected": "(True, [545074, 466722, 742585, 356825, 508745, 693452, 803962])",
+      "hidden": true
+    }
+  ]
+}

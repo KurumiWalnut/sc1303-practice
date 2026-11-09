@@ -1,0 +1,44 @@
+{
+  "id": "tribonacci",
+  "title": "N-th Tribonacci Number",
+  "kind": "leetcode",
+  "difficulty": "Easy",
+  "source": "Memoization (Week 10)",
+  "leetcode": {
+    "number": 1137,
+    "slug": "n-th-tribonacci-number"
+  },
+  "timeLimitMs": 3000,
+  "hints": 1,
+  "tests": [
+    {
+      "name": "Example 1",
+      "expr": "tribonacci(4)",
+      "expected": "4"
+    },
+    {
+      "name": "Example 2",
+      "expr": "tribonacci(25)",
+      "expected": "1389537"
+    },
+    {
+      "name": "The first three",
+      "expr": "[tribonacci(0), tribonacci(1), tribonacci(2)]",
+      "expected": "[0, 1, 1]",
+      "hidden": true
+    },
+    {
+      "name": "0 to 15",
+      "expr": "[tribonacci(n) for n in range(16)]",
+      "expected": "[0, 1, 1, 2, 4, 7, 13, 24, 44, 81, 149, 274, 504, 927, 1705, 3136]",
+      "hidden": true
+    },
+    {
+      "name": "n = 37",
+      "expr": "tribonacci(37)",
+      "expected": "2082876103",
+      "hidden": true,
+      "hint": "Plain recursion makes about 3^n calls. Memoize or loop."
+    }
+  ]
+}

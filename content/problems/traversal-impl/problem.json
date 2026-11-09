@@ -1,0 +1,78 @@
+{
+  "id": "traversal-impl",
+  "title": "Tree traversals and BST validation",
+  "kind": "base",
+  "difficulty": "Medium",
+  "source": "Week 11 lecture; BinarySearchTree_template.py (traverse_inorder, isValidBST)",
+  "provided": true,
+  "timeLimitMs": 3000,
+  "tests": [
+    {
+      "name": "Lecture tree: in-order",
+      "setup": "root = build_tree(['F', 'B', 'G', 'A', 'D', None, 'I', None, None, 'C', 'E', 'H'])",
+      "expr": "inorder(root)",
+      "expected": "['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']"
+    },
+    {
+      "name": "Lecture tree: pre-order",
+      "setup": "root = build_tree(['F', 'B', 'G', 'A', 'D', None, 'I', None, None, 'C', 'E', 'H'])",
+      "expr": "preorder(root)",
+      "expected": "['F', 'B', 'A', 'D', 'C', 'E', 'G', 'I', 'H']"
+    },
+    {
+      "name": "Lecture tree: post-order",
+      "setup": "root = build_tree(['F', 'B', 'G', 'A', 'D', None, 'I', None, None, 'C', 'E', 'H'])",
+      "expr": "postorder(root)",
+      "expected": "['A', 'C', 'E', 'D', 'B', 'H', 'I', 'G', 'F']"
+    },
+    {
+      "name": "Template: valid and invalid",
+      "expr": "(is_valid_bst(build_tree([2, 1, 3])), is_valid_bst(build_tree([5, 1, 4, None, None, 3, 6])))",
+      "expected": "(True, False)"
+    },
+    {
+      "name": "Empty tree",
+      "expr": "(inorder(None), preorder(None), postorder(None), is_valid_bst(None))",
+      "expected": "([], [], [], True)",
+      "hidden": true
+    },
+    {
+      "name": "Grandchild breaks the rule",
+      "expr": "is_valid_bst(build_tree([5, 4, 6, None, None, 3, 7]))",
+      "expected": "False",
+      "hidden": true,
+      "hint": "3 is in 5's right subtree, so it must be bigger than 5. Checking parent and child alone misses this. Pass down a range."
+    },
+    {
+      "name": "Deep violation on the left",
+      "expr": "is_valid_bst(build_tree([10, 5, 15, 1, 12]))",
+      "expected": "False",
+      "hidden": true
+    },
+    {
+      "name": "Equal values aren't allowed",
+      "expr": "(is_valid_bst(build_tree([2, 2, 2])), is_valid_bst(build_tree([2, 1, 2])))",
+      "expected": "(False, False)",
+      "hidden": true
+    },
+    {
+      "name": "Fruits BST in-order",
+      "expr": "inorder(build_bst(['durian', 'orange', 'banana', 'grape', 'cherry', 'apple', 'kiwifruit', 'blueberry']))",
+      "expected": "['apple', 'banana', 'blueberry', 'cherry', 'durian', 'grape', 'kiwifruit', 'orange']",
+      "hidden": true
+    },
+    {
+      "name": "Negative values are valid",
+      "expr": "is_valid_bst(build_bst([0, -10, 10, -20, -5, 5, 20]))",
+      "expected": "True",
+      "hidden": true
+    },
+    {
+      "name": "5 000 values",
+      "data": "import random\nrandom.seed(98)\nvals = random.sample(range(10**6), 5000)\nroot = build_bst(vals)",
+      "expr": "(inorder(root) == sorted(vals), preorder(root)[:3], postorder(root)[-1] == vals[0], is_valid_bst(root))",
+      "expected": "(True, [373710, 45173, 36214], True, True)",
+      "hidden": true
+    }
+  ]
+}

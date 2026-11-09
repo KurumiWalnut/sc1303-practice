@@ -1,0 +1,58 @@
+{
+  "id": "trim-bst",
+  "title": "Trim a BST",
+  "kind": "leetcode",
+  "difficulty": "Medium",
+  "source": "BST deletion by range",
+  "leetcode": {
+    "number": 669,
+    "slug": "trim-a-binary-search-tree"
+  },
+  "provided": true,
+  "timeLimitMs": 3000,
+  "hints": 1,
+  "tests": [
+    {
+      "name": "Example 1",
+      "expr": "tree_to_list(trim_bst(build_tree([1, 0, 2]), 1, 2))",
+      "expected": "[1, None, 2]"
+    },
+    {
+      "name": "Example 2",
+      "expr": "tree_to_list(trim_bst(build_tree([3, 0, 4, None, 2, None, None, 1]), 1, 3))",
+      "expected": "[3, 2, None, 1]"
+    },
+    {
+      "name": "Keep everything",
+      "expr": "tree_to_list(trim_bst(build_tree([2, 1, 3]), 0, 10))",
+      "expected": "[2, 1, 3]",
+      "hidden": true
+    },
+    {
+      "name": "Remove everything",
+      "expr": "tree_to_list(trim_bst(build_tree([2, 1, 3]), 5, 9))",
+      "expected": "[]",
+      "hidden": true
+    },
+    {
+      "name": "New root comes from below",
+      "expr": "tree_to_list(trim_bst(build_bst([10, 5, 15, 3, 7, 13, 18, 6, 8]), 6, 9))",
+      "expected": "[7, 6, 8]",
+      "hidden": true,
+      "hint": "When the root is out of range, the answer comes from one of its subtrees."
+    },
+    {
+      "name": "Single value range",
+      "expr": "tree_to_list(trim_bst(build_bst([10, 5, 15, 3, 7, 13, 18]), 7, 7))",
+      "expected": "[7]",
+      "hidden": true
+    },
+    {
+      "name": "3 000 random values",
+      "data": "import random\nrandom.seed(669)\nvals = random.sample(range(10**6), 3000)\nroot = build_bst(vals)",
+      "expr": "inorder_values(trim_bst(root, 250000, 750000)) == sorted(v for v in vals if 250000 <= v <= 750000)",
+      "expected": "True",
+      "hidden": true
+    }
+  ]
+}

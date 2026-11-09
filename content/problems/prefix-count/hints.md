@@ -1,0 +1,1 @@
+A one-line answer works here. As practice, also try it with a trie where every node keeps a **count** of the words that pass through it: the answer is the count on the node you reach after walking `pref`.

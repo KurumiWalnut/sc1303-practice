@@ -1,0 +1,80 @@
+{
+  "id": "lomuto-impl",
+  "title": "Lomuto partition",
+  "kind": "base",
+  "difficulty": "Easy",
+  "source": "Week 10 lecture (Quicksort); Week 9 seminar, coding exercise 2",
+  "provided": true,
+  "timeLimitMs": 3000,
+  "tests": [
+    {
+      "name": "Lecture example",
+      "setup": "a = [8, 7, 6, 1, 0, 9, 2]\np = partition(a, 0, len(a) - 1)",
+      "expr": "(p, a)",
+      "expected": "(2, [1, 0, 2, 8, 7, 9, 6])"
+    },
+    {
+      "name": "Pivot is the smallest",
+      "setup": "a = [1, 7, 4, 1, 10, 9, -2]\np = partition(a, 0, len(a) - 1)",
+      "expr": "(p, a)",
+      "expected": "(0, [-2, 7, 4, 1, 10, 9, 1])"
+    },
+    {
+      "name": "quick_sort uses your partition",
+      "setup": "a = [1, 7, 4, 1, 10, 9, -2]\nquick_sort(a, 0, len(a) - 1)",
+      "expr": "a",
+      "expected": "[-2, 1, 1, 4, 7, 9, 10]"
+    },
+    {
+      "name": "Only part of the array",
+      "setup": "a = [9, 5, 3, 8, 1, 4, 0]\np = partition(a, 1, 5)",
+      "expr": "(p, a)",
+      "expected": "(3, [9, 3, 1, 4, 5, 8, 0])",
+      "hidden": true,
+      "hint": "Only touch array[low..high], and start b at low, not 0."
+    },
+    {
+      "name": "Pivot is the largest",
+      "setup": "a = [3, 1, 2, 9]\np = partition(a, 0, 3)",
+      "expr": "(p, a)",
+      "expected": "(3, [3, 1, 2, 9])",
+      "hidden": true
+    },
+    {
+      "name": "Values equal to the pivot stay right",
+      "setup": "a = [5, 2, 5, 1, 5]\np = partition(a, 0, 4)",
+      "expr": "(p, a)",
+      "expected": "(2, [2, 1, 5, 5, 5])",
+      "hidden": true,
+      "hint": "Swap only when array[a] is strictly smaller than the pivot."
+    },
+    {
+      "name": "One element",
+      "setup": "a = [7]",
+      "expr": "(partition(a, 0, 0), a)",
+      "expected": "(0, [7])",
+      "hidden": true
+    },
+    {
+      "name": "Two elements",
+      "expr": "[(partition(x, 0, 1), x) for x in ([2, 1], [1, 2])]",
+      "expected": "[(0, [1, 2]), (1, [1, 2])]",
+      "hidden": true
+    },
+    {
+      "name": "Second step of the lecture example",
+      "setup": "a = [1, 0, 2, 8, 7, 9, 6]\np = partition(a, 3, 6)",
+      "expr": "(p, a)",
+      "expected": "(3, [1, 0, 2, 6, 7, 9, 8])",
+      "hidden": true
+    },
+    {
+      "name": "Sorts 20 000 values",
+      "data": "import random\nrandom.seed(910)\nvalues = [random.randint(-10**6, 10**6) for _ in range(20000)]",
+      "setup": "a = values[:]\nquick_sort(a, 0, len(a) - 1)",
+      "expr": "(a[:5], a[-5:], a == sorted(values))",
+      "expected": "([-999943, -999927, -999889, -999883, -999874], [999600, 999852, 999952, 999956, 999973], True)",
+      "hidden": true
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "id": "max-subarray",
+  "title": "Maximum Subarray",
+  "kind": "leetcode",
+  "difficulty": "Medium",
+  "source": "Big O (Week 6): O(N²) to O(N)",
+  "leetcode": {
+    "number": 53,
+    "slug": "maximum-subarray"
+  },
+  "timeLimitMs": 3000,
+  "hints": 2,
+  "tests": [
+    {
+      "name": "Example 1",
+      "expr": "max_sub_array([-2, 1, -3, 4, -1, 2, 1, -5, 4])",
+      "expected": "6"
+    },
+    {
+      "name": "Example 2",
+      "expr": "max_sub_array([1])",
+      "expected": "1"
+    },
+    {
+      "name": "Example 3",
+      "expr": "max_sub_array([5, 4, -1, 7, 8])",
+      "expected": "23"
+    },
+    {
+      "name": "All negative",
+      "expr": "max_sub_array([-3, -1, -2])",
+      "expected": "-1",
+      "hidden": true,
+      "hint": "The subarray can't be empty, so the answer is the biggest single value."
+    },
+    {
+      "name": "Random small",
+      "data": "import random\nrandom.seed(53)\narrays = [[random.randint(-10, 10) for _ in range(random.randint(1, 12))] for _ in range(50)]",
+      "expr": "[max_sub_array(a) for a in arrays]",
+      "expected": "[26, 1, 4, 17, 8, 10, 19, 9, -7, 5, 7, 7, 15, 12, 10, 13, 13, 7, 17, 22, 19, 23, 10, 15, 25, 10, 23, 9, 14, 8, 12, 15, 12, 8, 2, 10, 1, 10, 18, 16, 13, 24, -8, 10, 9, 2, 1, 14, 0, 0]",
+      "hidden": true
+    },
+    {
+      "name": "100 000 values",
+      "data": "import random\nrandom.seed(530)\nnums = [random.randint(-10**4, 10**4) for _ in range(100000)]",
+      "expr": "max_sub_array(nums)",
+      "expected": "2176378",
+      "hidden": true,
+      "hint": "Trying every start and end is O(N^2). Use Kadane's algorithm."
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+Insertion sort is **online**: keep a sorted list, and insert each new number into its place. Then the median is just the middle of the sorted list. Find the spot with binary search (or `bisect.insort`). Sorting the whole prefix again for every new number does far more work.

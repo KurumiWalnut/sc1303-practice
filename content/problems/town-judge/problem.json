@@ -1,0 +1,63 @@
+{
+  "id": "town-judge",
+  "title": "Find the Town Judge",
+  "kind": "leetcode",
+  "difficulty": "Easy",
+  "source": "Graph representations (Week 12): in- and out-degree",
+  "leetcode": {
+    "number": 997,
+    "slug": "find-the-town-judge"
+  },
+  "timeLimitMs": 3000,
+  "hints": 1,
+  "tests": [
+    {
+      "name": "Example 1",
+      "expr": "find_judge(2, [[1, 2]])",
+      "expected": "2"
+    },
+    {
+      "name": "Example 2",
+      "expr": "find_judge(3, [[1, 3], [2, 3]])",
+      "expected": "3"
+    },
+    {
+      "name": "Example 3",
+      "expr": "find_judge(3, [[1, 3], [2, 3], [3, 1]])",
+      "expected": "-1"
+    },
+    {
+      "name": "One person, no trust",
+      "expr": "find_judge(1, [])",
+      "expected": "1",
+      "hidden": true,
+      "hint": "With one person, nobody else needs to trust them."
+    },
+    {
+      "name": "Nobody trusts anyone",
+      "expr": "find_judge(3, [])",
+      "expected": "-1",
+      "hidden": true
+    },
+    {
+      "name": "Trusted by all but one",
+      "expr": "find_judge(4, [[1, 3], [2, 3], [4, 1]])",
+      "expected": "-1",
+      "hidden": true
+    },
+    {
+      "name": "Random small towns",
+      "data": "import random\nrandom.seed(997)\ntowns = []\nfor _ in range(40):\n    n = random.randint(1, 6)\n    pairs = [[a, b] for a in range(1, n + 1) for b in range(1, n + 1) if a != b and random.random() < 0.4]\n    if random.random() < 0.5 and n > 1:\n        j = random.randint(1, n)\n        pairs = [p for p in pairs if p[0] != j] + [[a, j] for a in range(1, n + 1) if a != j and [a, j] not in pairs]\n    towns.append((n, pairs))",
+      "expr": "[find_judge(n, t) for n, t in towns]",
+      "expected": "[4, -1, 2, 1, 2, 1, -1, 1, 2, -1, 2, 1, 2, -1, 1, 1, 4, -1, 2, 2, 1, -1, 1, -1, 1, 2, 3, -1, 1, 1, 3, -1, 5, -1, -1, 2, 1, 1, 1, -1]",
+      "hidden": true
+    },
+    {
+      "name": "1 000 people",
+      "data": "import random\nrandom.seed(9970)\nn = 1000\nj = 617\ntrust = [[a, j] for a in range(1, n + 1) if a != j]\nseen = set(map(tuple, trust))\nwhile len(trust) < 10000:\n    a, b = random.sample(range(1, n + 1), 2)\n    if a != j and (a, b) not in seen:\n        seen.add((a, b))\n        trust.append([a, b])",
+      "expr": "find_judge(n, trust)",
+      "expected": "617",
+      "hidden": true
+    }
+  ]
+}

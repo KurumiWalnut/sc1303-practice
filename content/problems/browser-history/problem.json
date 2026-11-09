@@ -1,0 +1,49 @@
+{
+  "id": "browser-history",
+  "title": "Browser history",
+  "kind": "leetcode",
+  "difficulty": "Medium",
+  "source": "Doubly linked lists",
+  "leetcode": {
+    "number": 1472,
+    "slug": "design-browser-history"
+  },
+  "timeLimitMs": 3000,
+  "hints": 1,
+  "tests": [
+    {
+      "name": "Example",
+      "setup": "h = BrowserHistory(\"leetcode.com\")\nfor url in [\"google.com\", \"facebook.com\", \"youtube.com\"]:\n    h.visit(url)\nout = [h.back(1), h.back(1), h.forward(1)]\nh.visit(\"linkedin.com\")\nout += [h.forward(2), h.back(2), h.back(7)]",
+      "expr": "out",
+      "expected": "['facebook.com', 'google.com', 'facebook.com', 'linkedin.com', 'google.com', 'leetcode.com']"
+    },
+    {
+      "name": "Only the homepage",
+      "setup": "h = BrowserHistory('a.com')",
+      "expr": "(h.back(3), h.forward(3))",
+      "expected": "('a.com', 'a.com')"
+    },
+    {
+      "name": "visit clears forward history",
+      "setup": "h = BrowserHistory(\"a\")\nh.visit(\"b\"); h.visit(\"c\"); h.back(2); h.visit(\"d\")",
+      "expr": "(h.forward(1), h.back(1), h.forward(5))",
+      "expected": "('d', 'a', 'd')",
+      "hidden": true,
+      "hint": "After visit, there are no forward pages any more."
+    },
+    {
+      "name": "Back and forward clamp at the ends",
+      "setup": "h = BrowserHistory('p0')\nfor i in range(1, 6):\n    h.visit(f'p{i}')",
+      "expr": "[h.back(100), h.forward(100), h.back(2), h.forward(1)]",
+      "expected": "['p0', 'p5', 'p3', 'p4']",
+      "hidden": true
+    },
+    {
+      "name": "100 000 calls",
+      "setup": "import random\nrandom.seed(1472)\nh = BrowserHistory(\"home\")\nout = []\nfor i in range(100000):\n    r = random.random()\n    if r < 0.5:\n        h.visit(f\"site{i}\")\n    elif r < 0.75:\n        out.append(h.back(random.randint(1, 5)))\n    else:\n        out.append(h.forward(random.randint(1, 5)))",
+      "expr": "(len(out), out[-5:], sum(len(u) for u in out))",
+      "expected": "(50107, ['site99989', 'site99983', 'site99987', 'site99986', 'site99984'], 415037)",
+      "hidden": true
+    }
+  ]
+}

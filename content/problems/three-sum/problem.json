@@ -1,0 +1,60 @@
+{
+  "id": "three-sum",
+  "title": "3Sum",
+  "kind": "leetcode",
+  "difficulty": "Medium",
+  "source": "Ordered arrays (Week 6): sort + two pointers",
+  "leetcode": {
+    "number": 15,
+    "slug": "3sum"
+  },
+  "timeLimitMs": 3000,
+  "hints": 1,
+  "tests": [
+    {
+      "name": "Example 1",
+      "expr": "sorted(sorted(t) for t in three_sum([-1, 0, 1, 2, -1, -4]))",
+      "expected": "[[-1, -1, 2], [-1, 0, 1]]"
+    },
+    {
+      "name": "Example 2",
+      "expr": "three_sum([0, 1, 1])",
+      "expected": "[]"
+    },
+    {
+      "name": "Example 3",
+      "expr": "three_sum([0, 0, 0])",
+      "expected": "[[0, 0, 0]]"
+    },
+    {
+      "name": "No repeats in the answer",
+      "expr": "sorted(sorted(t) for t in three_sum([0, 0, 0, 0, 0]))",
+      "expected": "[[0, 0, 0]]",
+      "hidden": true,
+      "hint": "Skip repeated values so each triplet appears once."
+    },
+    {
+      "name": "Several triplets",
+      "expr": "sorted(sorted(t) for t in three_sum([-2, 0, 1, 1, 2, -1, -4, 3]))",
+      "expected": "[[-4, 1, 3], [-2, -1, 3], [-2, 0, 2], [-2, 1, 1], [-1, 0, 1]]",
+      "hidden": true
+    },
+    {
+      "name": "Random small",
+      "data": "import random\nrandom.seed(15)\narrays = [[random.randint(-6, 6) for _ in range(random.randint(3, 12))] for _ in range(40)]",
+      "expr": "[sorted(sorted(t) for t in three_sum(a)) for a in arrays]",
+      "expected": "[[], [], [], [[-3, -3, 6], [-3, -2, 5]], [[-3, -2, 5], [-3, 0, 3], [-3, 1, 2], [-2, 0, 2]], [[-5, -1, 6]], [[-6, 0, 6], [-3, 1, 2]], [[-6, 0, 6], [-6, 1, 5], [-5, 0, 5], [-4, -2, 6], [-2, 0, 2]], [], [[-4, 2, 2]], [[-4, 0, 4], [-1, 0, 1]], [], [[-5, 1, 4]], [], [[-2, 1, 1]], [[-5, 2, 3], [-3, 1, 2]], [[-6, 1, 5], [-5, -1, 6], [-5, 1, 4], [-2, -1, 3]], [[-6, 1, 5], [-6, 3, 3], [-2, -1, 3], [-1, 0, 1]], [[-6, 0, 6], [-6, 2, 4], [0, 0, 0]], [[-3, 1, 2]], [[-6, 3, 3], [-3, -1, 4]], [[-6, 2, 4], [-4, -1, 5], [-3, -1, 4]], [], [], [[-6, 0, 6], [-6, 3, 3], [-5, 2, 3], [-4, 1, 3]], [[-4, 2, 2], [-3, -1, 4], [-1, -1, 2]], [[-5, 1, 4], [-3, 1, 2]], [[-6, 0, 6], [-6, 1, 5], [-6, 3, 3], [-4, -2, 6], [-4, -1, 5], [-4, 0, 4], [-4, 1, 3], [-2, -1, 3], [-1, 0, 1]], [[-6, 1, 5], [-4, -2, 6], [-4, -1, 5]], [[-3, -3, 6], [-3, -2, 5]], [[-3, 0, 3], [-1, -1, 2]], [[-4, -1, 5], [-4, 1, 3]], [[-5, 0, 5], [-4, 1, 3], [-2, 1, 1]], [[-1, 0, 1]], [[-6, 3, 3]], [[-6, 0, 6], [-2, -1, 3], [-2, 1, 1], [-1, 0, 1]], [[-5, -1, 6], [-5, 0, 5], [-5, 1, 4], [-4, -1, 5], [-4, 0, 4], [-1, 0, 1]], [[-5, -1, 6], [-5, 2, 3], [-4, -1, 5], [-4, 1, 3], [-3, -3, 6], [-3, 1, 2]], [[-5, 0, 5], [-5, 1, 4], [-2, 0, 2], [-1, -1, 2], [-1, 0, 1]], [[-5, 0, 5]]]",
+      "hidden": true
+    },
+    {
+      "name": "1 500 values",
+      "data": "import random\nrandom.seed(150)\nnums = [random.randint(-2000, 2000) for _ in range(1500)]",
+      "setup": "norm = sorted(tuple(sorted(t)) for t in three_sum(nums))",
+      "expr": "(len(norm), len(set(norm)), norm[:4], sum(a * 3 + b * 7 + c * 11 for a, b, c in norm))",
+      "expected": "(64633, 64633, [(-2000, 8, 1992), (-2000, 10, 1990), (-2000, 30, 1970), (-2000, 51, 1949)], 592329900)",
+      "hidden": true,
+      "hint": "Trying every triple is O(N^3). Sort, then use two pointers for each first value.",
+      "timeLimitMs": 6000
+    }
+  ]
+}

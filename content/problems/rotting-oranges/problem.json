@@ -1,0 +1,71 @@
+{
+  "id": "rotting-oranges",
+  "title": "Rotting Oranges",
+  "kind": "leetcode",
+  "difficulty": "Medium",
+  "source": "DFS and BFS (Week 12): BFS from many starts",
+  "leetcode": {
+    "number": 994,
+    "slug": "rotting-oranges"
+  },
+  "timeLimitMs": 3000,
+  "hints": 1,
+  "tests": [
+    {
+      "name": "Example 1",
+      "expr": "oranges_rotting([[2, 1, 1], [1, 1, 0], [0, 1, 1]])",
+      "expected": "4"
+    },
+    {
+      "name": "Example 2",
+      "expr": "oranges_rotting([[2, 1, 1], [0, 1, 1], [1, 0, 1]])",
+      "expected": "-1"
+    },
+    {
+      "name": "Example 3",
+      "expr": "oranges_rotting([[0, 2]])",
+      "expected": "0"
+    },
+    {
+      "name": "Fresh but nothing rotten",
+      "expr": "oranges_rotting([[1, 1], [0, 1]])",
+      "expected": "-1",
+      "hidden": true
+    },
+    {
+      "name": "Empty grid",
+      "expr": "oranges_rotting([[0, 0], [0, 0]])",
+      "expected": "0",
+      "hidden": true
+    },
+    {
+      "name": "Two sources meet in the middle",
+      "expr": "oranges_rotting([[2, 1, 1, 1, 1, 1, 2]])",
+      "expected": "3",
+      "hidden": true,
+      "hint": "Start the BFS from every rotten orange at once."
+    },
+    {
+      "name": "Random small",
+      "data": "import random\nrandom.seed(994)\ngrids = [[[random.choice([0, 1, 1, 1, 2]) for _ in range(random.randint(1, 6))] for _ in range(random.randint(1, 6))] for _ in range(40)]\ngrids = [[row[:min(map(len, g))] for row in g] for g in grids]",
+      "expr": "[oranges_rotting(g) for g in grids]",
+      "expected": "[-1, 5, -1, 2, 4, -1, 3, -1, -1, -1, 2, 2, 2, 3, 1, 3, -1, -1, -1, -1, -1, 4, -1, -1, -1, -1, 1, -1, 0, 1, 0, 5, -1, -1, 4, -1, 5, -1, -1, 2]",
+      "hidden": true
+    },
+    {
+      "name": "200 × 200 all fresh, one rotten corner",
+      "data": "grid = [[1] * 200 for _ in range(200)]\ngrid[0][0] = 2",
+      "expr": "oranges_rotting(grid)",
+      "expected": "398",
+      "hidden": true
+    },
+    {
+      "name": "199 × 199 snake",
+      "data": "n = 199\ngrid = [[1] * n if r % 2 == 0 else [0] * n for r in range(n)]\nfor r in range(1, n, 2):\n    grid[r][n - 1 if r % 4 == 1 else 0] = 1\ngrid[0][0] = 2",
+      "expr": "oranges_rotting(grid)",
+      "expected": "19998",
+      "hidden": true,
+      "hint": "The rot snakes along a 20 000-cell path. Re-scanning the grid every minute is far too slow."
+    }
+  ]
+}

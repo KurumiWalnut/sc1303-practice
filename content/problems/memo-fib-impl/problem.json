@@ -1,0 +1,53 @@
+{
+  "id": "memo-fib-impl",
+  "title": "Memoized Fibonacci and Golomb",
+  "kind": "base",
+  "difficulty": "Easy",
+  "source": "Week 10 lecture (Dynamic Programming); Week 9 seminar, exercise 4",
+  "timeLimitMs": 3000,
+  "tests": [
+    {
+      "name": "Small fib",
+      "expr": "[fib(n, {}) for n in range(11)]",
+      "expected": "[0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55]"
+    },
+    {
+      "name": "fib(100)",
+      "expr": "fib(100, {})",
+      "expected": "354224848179261915075"
+    },
+    {
+      "name": "Golomb",
+      "expr": "[golomb(n, {}) for n in range(1, 21)]",
+      "expected": "[1, 2, 2, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6, 6, 7, 7, 7, 7, 8]"
+    },
+    {
+      "name": "The memo is filled in",
+      "setup": "m = {}",
+      "expr": "(fib(30, m), len(m) >= 28, m.get(20))",
+      "expected": "(832040, True, 6765)",
+      "hidden": true,
+      "hint": "Store each answer in the dict you were given, and pass that same dict down."
+    },
+    {
+      "name": "fib(300)",
+      "expr": "fib(300, {})",
+      "expected": "222232244629420445529739893461909967206666939096499764990979600",
+      "hidden": true,
+      "hint": "Without a memo this would take longer than the age of the universe."
+    },
+    {
+      "name": "golomb(600)",
+      "expr": "golomb(600, {})",
+      "expected": "63",
+      "hidden": true
+    },
+    {
+      "name": "Many calls sharing one memo",
+      "setup": "m = {}",
+      "expr": "[fib(n, m) for n in range(0, 301, 30)]",
+      "expected": "[0, 832040, 1548008755920, 2880067194370816120, 5358359254990966640871840, 9969216677189303386214405760200, 18547707689471986212190138521399707760, 34507973060837282187130139035400899082304280, 64202014863723094126901777428873111802307548623680, 119447720249892581203851665820676436622934188700177088360, 222232244629420445529739893461909967206666939096499764990979600]",
+      "hidden": true
+    }
+  ]
+}

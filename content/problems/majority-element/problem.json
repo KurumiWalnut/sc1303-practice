@@ -1,0 +1,50 @@
+{
+  "id": "majority-element",
+  "title": "Majority Element",
+  "kind": "leetcode",
+  "difficulty": "Easy",
+  "source": "Week 8 seminar, exercise 1",
+  "leetcode": {
+    "number": 169,
+    "slug": "majority-element"
+  },
+  "timeLimitMs": 3000,
+  "hints": 1,
+  "tests": [
+    {
+      "name": "Example 1",
+      "expr": "majority_element([3, 2, 3])",
+      "expected": "3"
+    },
+    {
+      "name": "Course test cases",
+      "expr": "[majority_element([1, 2, 3, 1, 1, 1]), majority_element([4, 4, 6, 6, 4, 6, 4])]",
+      "expected": "[1, 4]"
+    },
+    {
+      "name": "One element",
+      "expr": "majority_element([9])",
+      "expected": "9",
+      "hidden": true
+    },
+    {
+      "name": "Negative majority",
+      "expr": "majority_element([-1, 5, -1, -1, 2])",
+      "expected": "-1",
+      "hidden": true
+    },
+    {
+      "name": "Majority at the end",
+      "expr": "majority_element([1, 2, 3, 7, 7, 7, 7])",
+      "expected": "7",
+      "hidden": true
+    },
+    {
+      "name": "100 001 numbers",
+      "data": "import random\nrandom.seed(169)\nnums = [42] * 50001 + [random.randint(-10**9, 10**9) for _ in range(50000)]\nrandom.shuffle(nums)",
+      "expr": "majority_element(nums)",
+      "expected": "42",
+      "hidden": true
+    }
+  ]
+}

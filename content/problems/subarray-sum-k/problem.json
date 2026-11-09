@@ -1,0 +1,59 @@
+{
+  "id": "subarray-sum-k",
+  "title": "Subarray Sum Equals K",
+  "kind": "leetcode",
+  "difficulty": "Medium",
+  "source": "Hash map patterns (Week 8): prefix sums",
+  "leetcode": {
+    "number": 560,
+    "slug": "subarray-sum-equals-k"
+  },
+  "timeLimitMs": 3000,
+  "hints": 2,
+  "tests": [
+    {
+      "name": "Example 1",
+      "expr": "subarray_sum([1, 1, 1], 2)",
+      "expected": "2"
+    },
+    {
+      "name": "Example 2",
+      "expr": "subarray_sum([1, 2, 3], 3)",
+      "expected": "2"
+    },
+    {
+      "name": "Negative numbers",
+      "expr": "subarray_sum([1, -1, 0], 0)",
+      "expected": "3",
+      "hidden": true,
+      "hint": "Start the dict with {0: 1} so subarrays starting at index 0 count."
+    },
+    {
+      "name": "Zeros",
+      "expr": "subarray_sum([0, 0, 0], 0)",
+      "expected": "6",
+      "hidden": true
+    },
+    {
+      "name": "No match",
+      "expr": "subarray_sum([5, 5], 3)",
+      "expected": "0",
+      "hidden": true
+    },
+    {
+      "name": "Random small",
+      "data": "import random\nrandom.seed(560)\ncases = [([random.randint(-3, 3) for _ in range(random.randint(1, 15))], random.randint(-3, 3)) for _ in range(50)]",
+      "expr": "[subarray_sum(a, k) for a, k in cases]",
+      "expected": "[3, 1, 2, 6, 0, 12, 8, 4, 6, 4, 0, 0, 1, 2, 4, 4, 4, 5, 0, 9, 5, 0, 4, 13, 2, 5, 0, 2, 11, 4, 2, 5, 12, 4, 6, 0, 1, 10, 6, 3, 4, 6, 0, 14, 7, 5, 8, 0, 10, 4]",
+      "hidden": true
+    },
+    {
+      "name": "20 000 numbers",
+      "data": "import random\nrandom.seed(5600)\nnums = [random.randint(-1000, 1000) for _ in range(20000)]",
+      "expr": "subarray_sum(nums, 7)",
+      "expected": "1954",
+      "hidden": true,
+      "hint": "Checking every start and end is O(N^2). Count running totals in a dict."
+    }
+  ]
+}

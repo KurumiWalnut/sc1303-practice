@@ -1,0 +1,58 @@
+{
+  "id": "remove-nth-from-end",
+  "title": "Remove the n-th node from the end",
+  "kind": "leetcode",
+  "difficulty": "Medium",
+  "source": "Linked lists: two pointers",
+  "leetcode": {
+    "number": 19,
+    "slug": "remove-nth-node-from-end-of-list"
+  },
+  "provided": true,
+  "timeLimitMs": 3000,
+  "hints": 2,
+  "tests": [
+    {
+      "name": "Example",
+      "expr": "to_pylist(remove_nth_from_end(build_list([1, 2, 3, 4, 5]), 2))",
+      "expected": "[1, 2, 3, 5]"
+    },
+    {
+      "name": "Only node",
+      "expr": "to_pylist(remove_nth_from_end(build_list([1]), 1))",
+      "expected": "[]"
+    },
+    {
+      "name": "Last node",
+      "expr": "to_pylist(remove_nth_from_end(build_list([1, 2]), 1))",
+      "expected": "[1]"
+    },
+    {
+      "name": "Remove the head",
+      "expr": "to_pylist(remove_nth_from_end(build_list([1, 2]), 2))",
+      "expected": "[2]",
+      "hidden": true,
+      "hint": "When n equals the length, the head itself is removed. A dummy node in front helps."
+    },
+    {
+      "name": "Remove the head of a longer list",
+      "expr": "to_pylist(remove_nth_from_end(build_list([10, 20, 30, 40]), 4))",
+      "expected": "[20, 30, 40]",
+      "hidden": true
+    },
+    {
+      "name": "Middle of an even list",
+      "expr": "to_pylist(remove_nth_from_end(build_list([1, 2, 3, 4, 5, 6]), 3))",
+      "expected": "[1, 2, 3, 5, 6]",
+      "hidden": true
+    },
+    {
+      "name": "100 000 nodes",
+      "data": "head = build_list(list(range(100000)))",
+      "setup": "r = to_pylist(remove_nth_from_end(head, 1))",
+      "expr": "(len(r), r[-3:])",
+      "expected": "(99999, [99996, 99997, 99998])",
+      "hidden": true
+    }
+  ]
+}

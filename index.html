@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SC1303 Practice</title>
+  <meta name="description" content="Notes, implementation drills, LeetCode-style problems and timed mock exams for SC1303 weeks 5–12, with a Python judge that runs in your browser.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%233157d5'/%3E%3Cpath d='M9 22V10h5.5a4 4 0 0 1 0 8H9m8 4 6-12' stroke='white' stroke-width='2.6' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <button class="icon-btn menu-btn" id="menuBtn" type="button" aria-label="Show topics">
+      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+    <a class="brand" href="#/">
+      <span class="brand-mark" aria-hidden="true">P</span>
+      <span>SC1303 <span class="brand-sub">Practice</span></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="#/learn" data-nav="learn">Learn</a>
+      <a href="#/exams" data-nav="exams">Mock exams</a>
+    </nav>
+    <span class="py-pill" id="pyPill" data-state="idle" title="Your code runs on Python 3.12 inside this browser tab.">
+      <span class="dot" aria-hidden="true"></span><span class="label">Python loads when you code</span>
+    </span>
+  </header>
+  <main id="app" tabindex="-1"><div class="page"><p class="muted">Loading…</p></div></main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/python/python.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/matchbrackets.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/comment/comment.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/runmode/runmode.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

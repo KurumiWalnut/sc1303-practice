@@ -1,0 +1,1 @@
+Use two indexes: a **read** index goes through every element, and a **write** index marks where the next kept value goes. Copy only the values that aren't `val`. That's one pass, O(N), with no extra list.

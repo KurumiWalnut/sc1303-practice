@@ -1,0 +1,47 @@
+{
+  "id": "min-swaps-permutation",
+  "title": "Minimum swaps to sort a permutation",
+  "kind": "leetcode",
+  "difficulty": "Medium",
+  "source": "Selection sort (Week 7): counting swaps",
+  "timeLimitMs": 3000,
+  "hints": 2,
+  "tests": [
+    {
+      "name": "Example 1",
+      "expr": "minimum_swaps([1, 0, 3, 2])",
+      "expected": "2"
+    },
+    {
+      "name": "Example 2",
+      "expr": "minimum_swaps([2, 0, 1])",
+      "expected": "2"
+    },
+    {
+      "name": "Example 3",
+      "expr": "minimum_swaps([0, 1, 2])",
+      "expected": "0"
+    },
+    {
+      "name": "Reversed",
+      "expr": "[minimum_swaps(list(range(n - 1, -1, -1))) for n in range(1, 8)]",
+      "expected": "[0, 1, 1, 2, 2, 3, 3]",
+      "hidden": true
+    },
+    {
+      "name": "Random small",
+      "data": "import random\nrandom.seed(2020)\nperms = []\nfor _ in range(50):\n    p = list(range(random.randint(1, 9)))\n    random.shuffle(p)\n    perms.append(p)",
+      "expr": "[minimum_swaps(p) for p in perms]",
+      "expected": "[0, 4, 6, 1, 5, 1, 2, 6, 6, 5, 1, 2, 1, 1, 4, 1, 2, 5, 6, 1, 2, 0, 0, 7, 2, 6, 6, 2, 6, 6, 5, 3, 4, 4, 1, 5, 2, 3, 4, 0, 6, 2, 7, 1, 0, 3, 5, 2, 3, 6]",
+      "hidden": true
+    },
+    {
+      "name": "100 000 values",
+      "data": "import random\nrandom.seed(20200)\nperm = list(range(100000))\nrandom.shuffle(perm)",
+      "expr": "minimum_swaps(perm)",
+      "expected": "99988",
+      "hidden": true,
+      "hint": "Selection sort is O(N^2) here. Count cycles instead."
+    }
+  ]
+}

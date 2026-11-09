@@ -1,0 +1,52 @@
+{
+  "id": "kth-smallest-bst",
+  "title": "Kth smallest in a BST",
+  "kind": "leetcode",
+  "difficulty": "Medium",
+  "source": "BST + in-order traversal",
+  "leetcode": {
+    "number": 230,
+    "slug": "kth-smallest-element-in-a-bst"
+  },
+  "provided": true,
+  "timeLimitMs": 3000,
+  "hints": 1,
+  "tests": [
+    {
+      "name": "Example 1",
+      "expr": "kth_smallest(build_tree([3, 1, 4, None, 2]), 1)",
+      "expected": "1"
+    },
+    {
+      "name": "Example 2",
+      "expr": "kth_smallest(build_tree([5, 3, 6, 2, 4, None, None, 1]), 3)",
+      "expected": "3"
+    },
+    {
+      "name": "Largest",
+      "expr": "kth_smallest(build_tree([5, 3, 6, 2, 4, None, None, 1]), 6)",
+      "expected": "6",
+      "hidden": true
+    },
+    {
+      "name": "One node",
+      "expr": "kth_smallest(build_tree([42]), 1)",
+      "expected": "42",
+      "hidden": true
+    },
+    {
+      "name": "Every k",
+      "setup": "root = build_bst([40, 20, 60, 10, 30, 50, 70])",
+      "expr": "[kth_smallest(root, k) for k in range(1, 8)]",
+      "expected": "[10, 20, 30, 40, 50, 60, 70]",
+      "hidden": true
+    },
+    {
+      "name": "5 000 values",
+      "data": "import random\nrandom.seed(230)\nroot = build_bst(random.sample(range(10**6), 5000))",
+      "expr": "[kth_smallest(root, k) for k in (1, 100, 2500, 5000)]",
+      "expected": "[16, 18047, 501485, 999683]",
+      "hidden": true
+    }
+  ]
+}

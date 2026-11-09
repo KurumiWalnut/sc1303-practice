@@ -1,0 +1,64 @@
+{
+  "id": "eval-rpn",
+  "title": "Evaluate Reverse Polish Notation",
+  "kind": "leetcode",
+  "difficulty": "Medium",
+  "source": "Stacks (Week 8)",
+  "leetcode": {
+    "number": 150,
+    "slug": "evaluate-reverse-polish-notation"
+  },
+  "timeLimitMs": 3000,
+  "hints": 2,
+  "tests": [
+    {
+      "name": "Example 1",
+      "expr": "eval_rpn([\"2\", \"1\", \"+\", \"3\", \"*\"])",
+      "expected": "9"
+    },
+    {
+      "name": "Example 2",
+      "expr": "eval_rpn([\"4\", \"13\", \"5\", \"/\", \"+\"])",
+      "expected": "6"
+    },
+    {
+      "name": "Example 3",
+      "expr": "eval_rpn([\"10\", \"6\", \"9\", \"3\", \"+\", \"-11\", \"*\", \"/\", \"*\", \"17\", \"+\", \"5\", \"+\"])",
+      "expected": "22"
+    },
+    {
+      "name": "Just a number",
+      "expr": "eval_rpn([\"-42\"])",
+      "expected": "-42",
+      "hidden": true
+    },
+    {
+      "name": "Order of operands",
+      "expr": "[eval_rpn([\"5\", \"3\", \"-\"]), eval_rpn([\"3\", \"5\", \"-\"]), eval_rpn([\"8\", \"2\", \"/\"]), eval_rpn([\"2\", \"8\", \"/\"])]",
+      "expected": "[2, -2, 4, 0]",
+      "hidden": true,
+      "hint": "The first value you pop is the RIGHT-hand operand."
+    },
+    {
+      "name": "Division truncates toward zero",
+      "expr": "[eval_rpn([\"7\", \"-2\", \"/\"]), eval_rpn([\"-7\", \"2\", \"/\"]), eval_rpn([\"-7\", \"-2\", \"/\"])]",
+      "expected": "[-3, -3, 3]",
+      "hidden": true,
+      "hint": "Use int(a / b), not a // b."
+    },
+    {
+      "name": "Random expressions",
+      "data": "import random\nrandom.seed(150)\ndef make(depth):\n    if depth == 0 or random.random() < 0.3:\n        return [str(random.randint(-20, 20))]\n    op = random.choice('+-*/')\n    left, right = make(depth - 1), make(depth - 1)\n    if op == '/':\n        right = [str(random.choice([-3, -2, -1, 1, 2, 3]))]\n    return left + right + [op]\nexprs = [make(4) for _ in range(40)]",
+      "expr": "[eval_rpn(t) for t in exprs]",
+      "expected": "[0, -6, 15, 895, 1, 39, -10, -409, 4, -11, 6, -9, 35280, -36, -2, 1699, -3, 0, -20, -9, 638, 6, 15, -6, -3, 15, -7, 13, 2562, -30, 43358, 4, 6560, 0, 1120, 0, -19, -4250, -42, 194]",
+      "hidden": true
+    },
+    {
+      "name": "10 000 tokens",
+      "data": "import random\nrandom.seed(1500)\ntokens = [str(random.randint(-100, 100))]\nwhile len(tokens) < 10000:\n    tokens += [str(random.randint(-100, 100)), random.choice('+-')]",
+      "expr": "eval_rpn(tokens)",
+      "expected": "7549",
+      "hidden": true
+    }
+  ]
+}

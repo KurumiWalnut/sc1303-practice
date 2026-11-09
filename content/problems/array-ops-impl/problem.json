@@ -1,0 +1,82 @@
+{
+  "id": "array-ops-impl",
+  "title": "Array operations with step counts",
+  "kind": "base",
+  "difficulty": "Easy",
+  "source": "Week 5 lecture (Data Structures); Week 5 seminar warm-up and exercise 1",
+  "timeLimitMs": 3000,
+  "tests": [
+    {
+      "name": "linear_search",
+      "expr": "[linear_search([10, 20, 30, 40, 50], 30), linear_search([10, 20, 30, 40, 50], 35)]",
+      "expected": "[(2, 3), (-1, 5)]"
+    },
+    {
+      "name": "insert_at",
+      "setup": "a = [10, 20, 30, 40]\nshifts = insert_at(a, 1, 15)",
+      "expr": "(shifts, a)",
+      "expected": "(3, [10, 15, 20, 30, 40])"
+    },
+    {
+      "name": "delete_by_value",
+      "setup": "a = [10, 20, 30, 20, 40]\nshifts = delete_by_value(a, 20)",
+      "expr": "(shifts, a, delete_by_value(a, 99))",
+      "expected": "(3, [10, 30, 20, 40], 'Value not found')"
+    },
+    {
+      "name": "reverse_array",
+      "setup": "a = [1, 2, 3, 4, 5]\nswaps = reverse_array(a)",
+      "expr": "(swaps, a)",
+      "expected": "(2, [5, 4, 3, 2, 1])"
+    },
+    {
+      "name": "Insert at the front and at the end",
+      "setup": "a = [1, 2, 3]",
+      "expr": "(insert_at(a, 0, 0), insert_at(a, len(a), 9), a)",
+      "expected": "(3, 0, [0, 1, 2, 3, 9])",
+      "hidden": true,
+      "hint": "Inserting at the front shifts all N values. At the end, none."
+    },
+    {
+      "name": "Insert into an empty list",
+      "setup": "a = []",
+      "expr": "(insert_at(a, 0, 'x'), a)",
+      "expected": "(0, ['x'])",
+      "hidden": true
+    },
+    {
+      "name": "Delete the last and the only value",
+      "setup": "a = [1, 2, 3]\nb = [7]",
+      "expr": "(delete_by_value(a, 3), a, delete_by_value(b, 7), b)",
+      "expected": "(0, [1, 2], 0, [])",
+      "hidden": true
+    },
+    {
+      "name": "Duplicates",
+      "setup": "a = [5, 1, 5]",
+      "expr": "(linear_search([5, 1, 5], 5), delete_by_value(a, 5), a)",
+      "expected": "((0, 1), 2, [1, 5])",
+      "hidden": true
+    },
+    {
+      "name": "Reverse an even-length and an empty list",
+      "setup": "a = [1, 2, 3, 4]\nb = []",
+      "expr": "(reverse_array(a), a, reverse_array(b), b)",
+      "expected": "(2, [4, 3, 2, 1], 0, [])",
+      "hidden": true
+    },
+    {
+      "name": "Empty search",
+      "expr": "linear_search([], 1)",
+      "expected": "(-1, 0)",
+      "hidden": true
+    },
+    {
+      "name": "100 000 values",
+      "setup": "a = list(range(100000))",
+      "expr": "(linear_search(a, 99999), insert_at(a, 0, -1), a[:3], reverse_array(a), a[:3], delete_by_value(a, 50000), len(a))",
+      "expected": "((99999, 100000), 100000, [-1, 0, 1], 50000, [99999, 99998, 99997], 50001, 100000)",
+      "hidden": true
+    }
+  ]
+}

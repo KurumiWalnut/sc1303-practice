@@ -1,0 +1,65 @@
+{
+  "id": "move-zeroes",
+  "title": "Move Zeroes",
+  "kind": "leetcode",
+  "difficulty": "Easy",
+  "source": "Bubble sort (Week 7)",
+  "leetcode": {
+    "number": 283,
+    "slug": "move-zeroes"
+  },
+  "timeLimitMs": 3000,
+  "hints": 2,
+  "tests": [
+    {
+      "name": "Example 1",
+      "setup": "nums = [0, 1, 0, 3, 12]\nmove_zeroes(nums)",
+      "expr": "nums",
+      "expected": "[1, 3, 12, 0, 0]"
+    },
+    {
+      "name": "Example 2",
+      "setup": "nums = [0]\nmove_zeroes(nums)",
+      "expr": "nums",
+      "expected": "[0]"
+    },
+    {
+      "name": "No zeros",
+      "setup": "nums = [4, -1, 2]\nmove_zeroes(nums)",
+      "expr": "nums",
+      "expected": "[4, -1, 2]",
+      "hidden": true
+    },
+    {
+      "name": "Keeps the order",
+      "setup": "nums = [0, 0, 5, 0, -3, 7, 0, 5]\nmove_zeroes(nums)",
+      "expr": "nums",
+      "expected": "[5, -3, 7, 5, 0, 0, 0, 0]",
+      "hidden": true,
+      "hint": "The non-zero values must stay in their original order."
+    },
+    {
+      "name": "In place",
+      "setup": "nums = [0, 1]\nresult = move_zeroes(nums)",
+      "expr": "(result, nums)",
+      "expected": "(None, [1, 0])",
+      "hidden": true
+    },
+    {
+      "name": "Random small",
+      "data": "import random\nrandom.seed(283)\ncases = [[random.choice([0, 0, 1, 2, 3]) for _ in range(random.randint(1, 10))] for _ in range(40)]",
+      "setup": "results = []\nfor c in cases:\n    a = c[:]\n    move_zeroes(a)\n    results.append(a)",
+      "expr": "results",
+      "expected": "[[0], [1, 2, 2, 2, 3, 3, 0, 0, 0], [3], [2, 2, 2], [1, 3, 1, 2, 2, 0, 0, 0], [2, 1, 0, 0, 0, 0, 0, 0, 0], [2, 3, 1, 1, 1, 2, 0, 0, 0], [3, 1, 1, 1, 0, 0, 0, 0, 0, 0], [1, 3, 1, 1, 0, 0], [3], [0], [3, 0, 0], [3, 2, 1, 2, 1, 3, 0, 0, 0], [1, 1], [1, 3, 0, 0, 0], [1], [3, 1, 0], [0], [2, 2, 2, 2, 0, 0, 0, 0, 0], [1, 2, 2, 0, 0, 0, 0], [3, 1], [2, 2, 0], [2, 3, 2], [3, 1, 0, 0], [3, 3, 3, 1, 3, 1, 0, 0], [3, 3, 1], [1, 0], [2, 1, 0, 0], [2], [1, 3, 3], [3, 1, 0, 0], [1, 1, 0], [2, 2, 0], [1, 2, 0, 0, 0], [3, 3], [1, 1, 2, 2, 0, 0, 0], [2, 3, 2, 2, 3, 1, 0, 0], [2, 3, 2, 3, 0], [2, 1, 2, 3, 1, 3, 2, 3, 0, 0], [2, 2, 2, 3, 0, 0, 0, 0]]",
+      "hidden": true
+    },
+    {
+      "name": "100 000 values",
+      "data": "import random\nrandom.seed(2830)\nstart = [random.choice([0, 0, 0, random.randint(1, 99)]) for _ in range(100000)]",
+      "setup": "nums = start[:]\nmove_zeroes(nums)",
+      "expr": "(nums[:8], nums[-3:], nums.count(0), sum(i * v for i, v in enumerate(nums[::13])))",
+      "expected": "([82, 30, 56, 6, 10, 9, 84, 84], [0, 0, 0], 75014, 93334426)",
+      "hidden": true
+    }
+  ]
+}

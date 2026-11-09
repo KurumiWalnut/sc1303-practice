@@ -1,0 +1,58 @@
+{
+  "id": "largest-number",
+  "title": "Largest Number",
+  "kind": "leetcode",
+  "difficulty": "Medium",
+  "source": "Week 7 seminar, exercise 7",
+  "leetcode": {
+    "number": 179,
+    "slug": "largest-number"
+  },
+  "timeLimitMs": 3000,
+  "hints": 2,
+  "tests": [
+    {
+      "name": "Example 1",
+      "expr": "largest_number([10, 2])",
+      "expected": "'210'"
+    },
+    {
+      "name": "Course example",
+      "expr": "largest_number([3, 30, 34, 5, 9])",
+      "expected": "'9534330'"
+    },
+    {
+      "name": "All zeros",
+      "expr": "largest_number([0, 0])",
+      "expected": "'0'",
+      "hint": "If the answer would start with 0, it's just \"0\"."
+    },
+    {
+      "name": "One number",
+      "expr": "largest_number([1000000000])",
+      "expected": "'1000000000'",
+      "hidden": true
+    },
+    {
+      "name": "Prefixes",
+      "expr": "largest_number([121, 12])",
+      "expected": "'12121'",
+      "hidden": true
+    },
+    {
+      "name": "Random small",
+      "data": "import random\nrandom.seed(179)\narrays = [[random.choice([0, 1, 3, 9, 10, 30, 34, 121, 12, 5, 98, 989]) for _ in range(random.randint(1, 6))] for _ in range(40)]",
+      "expr": "[largest_number(a) for a in arrays]",
+      "expected": "['11', '12', '51210', '995', '3012121', '5553330', '933', '10', '0', '9891210', '9851212110', '12', '1', '9533010', '981', '9853121', '989512121', '30121211210', '5', '9343110', '121', '301', '53', '98985', '98983', '98933', '12121', '99301210', '53', '95343120', '3012', '1200', '9981', '951211100', '998343012', '99831010', '98910', '30301212120', '998998', '55343412']",
+      "hidden": true
+    },
+    {
+      "name": "2 000 numbers",
+      "data": "import random\nrandom.seed(1790)\nnums = [random.randint(0, 10**random.randint(1, 9)) for _ in range(2000)]",
+      "setup": "r = largest_number(nums)",
+      "expr": "(len(r), r[:60], r[-60:])",
+      "expected": "(9828, '999999999999999999999999999994999019984099791997659973899969', '010101010101010086411007733010010010010002551000000000000000')",
+      "hidden": true
+    }
+  ]
+}

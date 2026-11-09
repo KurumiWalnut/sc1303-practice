@@ -1,0 +1,59 @@
+{
+  "id": "k-closest-points",
+  "title": "K Closest Points to Origin",
+  "kind": "leetcode",
+  "difficulty": "Medium",
+  "source": "Quickselect (Week 10)",
+  "leetcode": {
+    "number": 973,
+    "slug": "k-closest-points-to-origin"
+  },
+  "timeLimitMs": 3000,
+  "hints": 2,
+  "tests": [
+    {
+      "name": "Example 1",
+      "expr": "sorted(k_closest([[1, 3], [-2, 2]], 1))",
+      "expected": "[[-2, 2]]"
+    },
+    {
+      "name": "Example 2",
+      "expr": "sorted(k_closest([[3, 3], [5, -1], [-2, 4]], 2))",
+      "expected": "[[-2, 4], [3, 3]]"
+    },
+    {
+      "name": "k equals the number of points",
+      "expr": "sorted(k_closest([[1, 1], [2, 2], [0, 0]], 3))",
+      "expected": "[[0, 0], [1, 1], [2, 2]]",
+      "hidden": true
+    },
+    {
+      "name": "The origin itself",
+      "expr": "sorted(k_closest([[0, 0], [1, 0], [0, 2]], 1))",
+      "expected": "[[0, 0]]",
+      "hidden": true
+    },
+    {
+      "name": "Negative coordinates",
+      "expr": "sorted(k_closest([[-5, -5], [4, 4], [-1, 0], [0, -2], [3, -3]], 3))",
+      "expected": "[[-1, 0], [0, -2], [3, -3]]",
+      "hidden": true
+    },
+    {
+      "name": "300 points (ties allowed)",
+      "data": "import random\nrandom.seed(973)\npoints = [list(p) for p in random.sample([(x, y) for x in range(-30, 31) for y in range(-30, 31)], 300)]\nallowed = set(map(tuple, points))",
+      "setup": "r = k_closest(points, 40)",
+      "expr": "(sorted(x * x + y * y for x, y in r), all(tuple(p) in allowed for p in r), len({tuple(p) for p in r}))",
+      "expected": "([1, 1, 5, 8, 9, 10, 13, 13, 13, 18, 20, 25, 25, 29, 34, 40, 41, 49, 49, 58, 58, 65, 65, 68, 68, 68, 74, 80, 82, 85, 85, 90, 97, 98, 101, 106, 116, 117, 121, 125], True, 40)",
+      "hidden": true
+    },
+    {
+      "name": "100 000 points",
+      "data": "import random\nrandom.seed(9730)\npoints = [[random.randint(-10**4, 10**4), random.randint(-10**4, 10**4)] for _ in range(100000)]\nallowed = set(map(tuple, points))",
+      "setup": "r = k_closest(points, 5000)",
+      "expr": "(len(r), all(tuple(p) in allowed for p in r), sum(p[0] * p[0] + p[1] * p[1] for p in r), max(p[0] * p[0] + p[1] * p[1] for p in r))",
+      "expected": "(5000, True, 15678522143, 6255869)",
+      "hidden": true
+    }
+  ]
+}

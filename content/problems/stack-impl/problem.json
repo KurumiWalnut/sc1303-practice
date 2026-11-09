@@ -1,0 +1,66 @@
+{
+  "id": "stack-impl",
+  "title": "Stack class",
+  "kind": "base",
+  "difficulty": "Easy",
+  "source": "Week 8 lecture (Stacks and Queues)",
+  "timeLimitMs": 3000,
+  "tests": [
+    {
+      "name": "Push, read, pop",
+      "setup": "s = Stack()\nfor v in [1, 2, 3]:\n    s.push(v)",
+      "expr": "(s.read(), s.pop(), s.pop(), len(s))",
+      "expected": "(3, 3, 2, 1)"
+    },
+    {
+      "name": "reverse_string",
+      "expr": "[reverse_string(\"abc\"), reverse_string(\"\"), reverse_string(\"racecar\")]",
+      "expected": "['cba', '', 'racecar']"
+    },
+    {
+      "name": "Empty stack",
+      "setup": "s = Stack()",
+      "expr": "(s.pop(), s.read(), s.is_empty(), len(s))",
+      "expected": "(None, None, True, 0)",
+      "hidden": true,
+      "hint": "pop() and read() on an empty stack should return None, not crash."
+    },
+    {
+      "name": "Last in, first out",
+      "setup": "s = Stack()\ns.push('a')\ns.push('b')\ns.pop()\ns.push('c')\ns.push('d')",
+      "expr": "[s.pop() for _ in range(4)]",
+      "expected": "['d', 'c', 'a', None]",
+      "hidden": true
+    },
+    {
+      "name": "is_empty after popping everything",
+      "setup": "s = Stack()\ns.push(0)",
+      "expr": "(s.is_empty(), s.pop(), s.is_empty())",
+      "expected": "(False, 0, True)",
+      "hidden": true
+    },
+    {
+      "name": "Values can be anything",
+      "setup": "s = Stack()\ns.push(None)\ns.push([1, 2])\ns.push((3,))",
+      "expr": "(s.pop(), s.pop(), s.read())",
+      "expected": "((3,), [1, 2], None)",
+      "hidden": true
+    },
+    {
+      "name": "100 000 pushes and pops",
+      "setup": "s = Stack()\ntotal = 0\nfor i in range(100000):\n    s.push(i)\n    if i % 3 == 2:\n        total += s.pop()",
+      "expr": "(len(s), total, s.read())",
+      "expected": "(66667, 1666650000, 99999)",
+      "hidden": true,
+      "hint": "Push and pop at the end of the list. insert(0, ...) shifts every element."
+    },
+    {
+      "name": "Reverse a long string",
+      "data": "text = 'abcdefghij' * 20000",
+      "setup": "r = reverse_string(text)",
+      "expr": "(r[:20], len(r))",
+      "expected": "('jihgfedcbajihgfedcba', 200000)",
+      "hidden": true
+    }
+  ]
+}

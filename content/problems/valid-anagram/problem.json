@@ -1,0 +1,58 @@
+{
+  "id": "valid-anagram",
+  "title": "Valid Anagram",
+  "kind": "leetcode",
+  "difficulty": "Easy",
+  "source": "Sorting as a tool (Week 7)",
+  "leetcode": {
+    "number": 242,
+    "slug": "valid-anagram"
+  },
+  "timeLimitMs": 3000,
+  "hints": 1,
+  "tests": [
+    {
+      "name": "Example 1",
+      "expr": "is_anagram(\"anagram\", \"nagaram\")",
+      "expected": "True"
+    },
+    {
+      "name": "Example 2",
+      "expr": "is_anagram(\"rat\", \"car\")",
+      "expected": "False"
+    },
+    {
+      "name": "Different lengths",
+      "expr": "is_anagram(\"ab\", \"abb\")",
+      "expected": "False",
+      "hidden": true
+    },
+    {
+      "name": "Same letters, different counts",
+      "expr": "is_anagram(\"aab\", \"abb\")",
+      "expected": "False",
+      "hidden": true,
+      "hint": "Each letter must appear the same number of times."
+    },
+    {
+      "name": "Empty strings",
+      "expr": "is_anagram(\"\", \"\")",
+      "expected": "True",
+      "hidden": true
+    },
+    {
+      "name": "Random small",
+      "data": "import random\nrandom.seed(242)\npairs = []\nfor _ in range(40):\n    a = ''.join(random.choices('abc', k=random.randint(0, 6)))\n    b = ''.join(random.sample(a, len(a))) if random.random() < 0.5 else ''.join(random.choices('abc', k=len(a)))\n    pairs.append((a, b))",
+      "expr": "[is_anagram(a, b) for a, b in pairs]",
+      "expected": "[False, True, True, False, False, True, False, False, False, True, True, False, True, False, True, True, True, False, True, True, False, False, True, True, True, True, True, True, True, True, True, True, False, True, False, False, False, True, True, False]",
+      "hidden": true
+    },
+    {
+      "name": "100 000 letters",
+      "data": "import random\nrandom.seed(2420)\ns = ''.join(random.choices('abcdefghijklmnopqrstuvwxyz', k=100000))\nt = ''.join(random.sample(s, len(s)))\nu = t[:-1] + ('a' if t[-1] != 'a' else 'b')",
+      "expr": "[is_anagram(s, t), is_anagram(s, u)]",
+      "expected": "[True, False]",
+      "hidden": true
+    }
+  ]
+}

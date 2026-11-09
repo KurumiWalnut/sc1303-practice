@@ -1,0 +1,75 @@
+{
+  "id": "autocomplete-impl",
+  "title": "Trie: collect all words and autocomplete",
+  "kind": "base",
+  "difficulty": "Medium",
+  "source": "Week 11 lecture (Trie): collecting all the words, autocomplete",
+  "timeLimitMs": 3000,
+  "tests": [
+    {
+      "name": "collect_all_words from the root",
+      "setup": "t = Trie()\nfor w in [\"get\", \"go\", \"got\", \"gotten\", \"hall\", \"ham\", \"hammer\", \"hill\", \"zebra\"]:\n    t.insert(w)",
+      "expr": "sorted(t.collect_all_words())",
+      "expected": "['get', 'go', 'got', 'gotten', 'hall', 'ham', 'hammer', 'hill', 'zebra']"
+    },
+    {
+      "name": "autocomplete",
+      "setup": "t = Trie()\nfor w in [\"get\", \"go\", \"got\", \"gotten\", \"hall\", \"ham\", \"hammer\", \"hill\", \"zebra\"]:\n    t.insert(w)",
+      "expr": "[sorted(t.autocomplete(p)) for p in [\"ha\", \"go\", \"z\"]]",
+      "expected": "[['hall', 'ham', 'hammer'], ['go', 'got', 'gotten'], ['zebra']]"
+    },
+    {
+      "name": "No match",
+      "setup": "t = Trie()\nfor w in [\"get\", \"go\"]:\n    t.insert(w)",
+      "expr": "t.autocomplete(\"x\")",
+      "expected": "[]",
+      "hint": "Return an empty list, not None."
+    },
+    {
+      "name": "Collect from a node",
+      "setup": "t = Trie()\nfor w in [\"hall\", \"ham\", \"hammer\"]:\n    t.insert(w)",
+      "expr": "(sorted(t.collect_all_words(t.search(\"ham\"), \"ham\")), sorted(t.collect_all_words(t.search(\"ham\"))))",
+      "expected": "(['ham', 'hammer'], ['', 'mer'])",
+      "hidden": true,
+      "hint": "`word` is put in front of everything found below the node."
+    },
+    {
+      "name": "Calling twice (mutable default)",
+      "setup": "t = Trie()\nfor w in [\"cat\", \"car\", \"dog\"]:\n    t.insert(w)",
+      "expr": "(sorted(t.collect_all_words()), sorted(t.collect_all_words()), sorted(t.autocomplete('ca')), sorted(t.autocomplete('do')))",
+      "expected": "(['car', 'cat', 'dog'], ['car', 'cat', 'dog'], ['car', 'cat'], ['dog'])",
+      "hidden": true,
+      "hint": "A default argument like words=[] is shared by every call. Use words=None and make a new list inside."
+    },
+    {
+      "name": "The prefix is a word",
+      "setup": "t = Trie()\nfor w in [\"car\", \"card\", \"care\", \"cart\", \"cat\"]:\n    t.insert(w)",
+      "expr": "sorted(t.autocomplete(\"car\"))",
+      "expected": "['car', 'card', 'care', 'cart']",
+      "hidden": true
+    },
+    {
+      "name": "Empty prefix",
+      "setup": "t = Trie()\nfor w in [\"b\", \"a\", \"ab\"]:\n    t.insert(w)",
+      "expr": "sorted(t.autocomplete(\"\"))",
+      "expected": "['a', 'ab', 'b']",
+      "hidden": true
+    },
+    {
+      "name": "Empty trie",
+      "setup": "t = Trie()",
+      "expr": "(t.collect_all_words(), t.autocomplete(\"a\"))",
+      "expected": "([], [])",
+      "hidden": true
+    },
+    {
+      "name": "20 000 words, 3 000 lookups",
+      "data": "import random\nrandom.seed(1103)\nletters = 'abcdefgh'\nwords = [''.join(random.choices(letters, k=random.randint(4, 10))) for _ in range(20000)]\nprefixes = [w[:random.randint(4, 6)] for w in random.sample(words, 3000)]",
+      "setup": "t = Trie()\nfor w in words:\n    t.insert(w)\nresults = [t.autocomplete(p) for p in prefixes]",
+      "expr": "(sum(map(len, results)), sorted(results[0]), sorted(results[1]))",
+      "expected": "(9279, ['hedh', 'hedhadcf', 'hedhafhhh', 'hedhbedgc', 'hedhbfah', 'hedhdahfc', 'hedhf', 'hedhgd'], ['dgga', 'dggagdg', 'dggah'])",
+      "hidden": true,
+      "hint": "Only collect below the prefix's node. Collecting the whole trie and filtering is too slow."
+    }
+  ]
+}

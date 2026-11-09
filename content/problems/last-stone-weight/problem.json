@@ -1,0 +1,26 @@
+{
+  "id": "last-stone-weight",
+  "title": "Last stone weight",
+  "kind": "leetcode",
+  "difficulty": "Easy",
+  "source": "Priority queues (Week 12)",
+  "leetcode": { "number": 1046, "slug": "last-stone-weight" },
+  "timeLimitMs": 3000,
+  "hints": 2,
+  "tests": [
+    { "name": "Example", "expr": "last_stone_weight([2, 7, 4, 1, 8, 1])", "expected": "1" },
+    { "name": "One stone", "expr": "last_stone_weight([1])", "expected": "1" },
+    { "name": "Two equal stones", "expr": "last_stone_weight([2, 2])", "expected": "0" },
+    { "name": "Equal heaviest pair", "expr": "last_stone_weight([10, 4, 2, 10])", "expected": "2", "hidden": true },
+    { "name": "Leftover goes back in", "expr": "last_stone_weight([3, 7, 2])", "expected": "2", "hidden": true, "hint": "The difference y - x is a new stone and has to go back into the pile." },
+    { "name": "Three equal stones", "expr": "last_stone_weight([1, 1, 1])", "expected": "1", "hidden": true },
+    { "name": "Input isn't sorted", "expr": "last_stone_weight([1, 3])", "expected": "2", "hidden": true },
+    {
+      "name": "5 000 stones",
+      "data": "import random\nrandom.seed(1045)\nstones = [random.randint(1, 1000) for _ in range(5000)]",
+      "expr": "last_stone_weight(stones)",
+      "expected": "1",
+      "hidden": true
+    }
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "id": "ordered-insert-impl",
+  "title": "Ordered array: insert and search",
+  "kind": "base",
+  "difficulty": "Easy",
+  "source": "Week 6 lecture (Search Algorithms): insertion for ordered arrays",
+  "timeLimitMs": 3000,
+  "tests": [
+    {
+      "name": "Lecture example",
+      "setup": "a = [6, 28, 82, 120, 230]\nsteps = ordered_insert(a, 65)",
+      "expr": "(steps, a)",
+      "expected": "(7, [6, 28, 65, 82, 120, 230])"
+    },
+    {
+      "name": "Insert at the end",
+      "setup": "a = [6, 28, 82, 120, 230]\nsteps = ordered_insert(a, 300)",
+      "expr": "(steps, a)",
+      "expected": "(6, [6, 28, 82, 120, 230, 300])"
+    },
+    {
+      "name": "ordered_search",
+      "data": "a = [6, 28, 82, 120, 230]",
+      "expr": "[ordered_search(a, 82), ordered_search(a, 65), ordered_search(a, 300)]",
+      "expected": "[(2, 3), (-1, 3), (-1, 5)]"
+    },
+    {
+      "name": "Insert at the front",
+      "setup": "a = [6, 28, 82, 120, 230]\nsteps = ordered_insert(a, 1)",
+      "expr": "(steps, a)",
+      "expected": "(7, [1, 6, 28, 82, 120, 230])",
+      "hidden": true
+    },
+    {
+      "name": "Insert into an empty list",
+      "setup": "a = []\nsteps = ordered_insert(a, 5)",
+      "expr": "(steps, a)",
+      "expected": "(1, [5])",
+      "hidden": true
+    },
+    {
+      "name": "Equal values go after",
+      "setup": "a = [6, 28, 82]\nsteps = ordered_insert(a, 28)",
+      "expr": "(steps, a)",
+      "expected": "(5, [6, 28, 28, 82])",
+      "hidden": true,
+      "hint": "Stop at the first value strictly bigger than the new one."
+    },
+    {
+      "name": "Search stops early",
+      "expr": "[ordered_search([1, 3, 5, 7, 9, 11], t) for t in (0, 4, 11, 12)]",
+      "expected": "[(-1, 1), (-1, 3), (5, 6), (-1, 6)]",
+      "hidden": true
+    },
+    {
+      "name": "Build a sorted list by inserting 2 000 values",
+      "data": "import random\nrandom.seed(66)\nvalues = [random.randint(0, 10**6) for _ in range(2000)]",
+      "setup": "a = []\ntotal = 0\nfor v in values:\n    total += ordered_insert(a, v)",
+      "expr": "(a == sorted(values), total, a[:5])",
+      "expected": "(True, 2002993, [1242, 2770, 4692, 4749, 6171])",
+      "hidden": true
+    }
+  ]
+}

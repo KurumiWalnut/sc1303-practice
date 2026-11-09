@@ -1,0 +1,1 @@
+Work out every city's degree, and put the roads in a set (or an adjacency matrix) so you can ask "are these two connected?" in O(1). Then try every pair: `degree[a] + degree[b]`, minus 1 if `a` and `b` are joined.

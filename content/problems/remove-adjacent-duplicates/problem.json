@@ -1,0 +1,66 @@
+{
+  "id": "remove-adjacent-duplicates",
+  "title": "Remove All Adjacent Duplicates In String",
+  "kind": "leetcode",
+  "difficulty": "Easy",
+  "source": "Stacks (Week 8)",
+  "leetcode": {
+    "number": 1047,
+    "slug": "remove-all-adjacent-duplicates-in-string"
+  },
+  "timeLimitMs": 3000,
+  "hints": 2,
+  "tests": [
+    {
+      "name": "Example 1",
+      "expr": "remove_duplicates(\"abbaca\")",
+      "expected": "'ca'"
+    },
+    {
+      "name": "Example 2",
+      "expr": "remove_duplicates(\"azxxzy\")",
+      "expected": "'ay'"
+    },
+    {
+      "name": "Everything cancels",
+      "expr": "remove_duplicates(\"abccba\")",
+      "expected": "''",
+      "hidden": true
+    },
+    {
+      "name": "Three in a row",
+      "expr": "remove_duplicates(\"aaa\")",
+      "expected": "'a'",
+      "hidden": true,
+      "hint": "Only pairs cancel: one 'a' is left."
+    },
+    {
+      "name": "Nothing cancels",
+      "expr": "remove_duplicates(\"abcabc\")",
+      "expected": "'abcabc'",
+      "hidden": true
+    },
+    {
+      "name": "Random short",
+      "data": "import random\nrandom.seed(1047)\nwords = [''.join(random.choices('ab', k=random.randint(1, 14))) for _ in range(50)]",
+      "expr": "[remove_duplicates(w) for w in words]",
+      "expected": "['', 'ababa', '', '', 'ab', '', 'b', '', 'babab', 'a', 'ba', 'b', 'ab', 'a', '', '', '', 'ab', '', 'bababa', 'ababab', 'ababa', 'bab', 'b', '', 'ababa', 'ba', 'a', '', 'bab', 'bababab', '', 'babab', 'baba', 'ab', 'babab', 'b', 'baba', 'a', 'ba', 'bab', '', 'baba', 'bab', 'bababa', 'baba', 'b', 'bab', 'b', 'babab']",
+      "hidden": true
+    },
+    {
+      "name": "100 000 letters that all cancel",
+      "data": "import random\nrandom.seed(10470)\nhalf = ''.join(random.choices('abcdefghij', k=50000))\ns = half + half[::-1]",
+      "expr": "remove_duplicates(s)",
+      "expected": "''",
+      "hidden": true
+    },
+    {
+      "name": "100 000 random letters",
+      "data": "import random\nrandom.seed(10471)\ns = ''.join(random.choices('abc', k=100000))",
+      "setup": "r = remove_duplicates(s)",
+      "expr": "(len(r), r[:40])",
+      "expected": "(33556, 'bacbabcabcacacbacacabcacabacabababcacbab')",
+      "hidden": true
+    }
+  ]
+}

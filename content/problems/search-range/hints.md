@@ -1,0 +1,1 @@
+Run binary search **twice**. To find the **first** index, when `nums[mid] == target`, record `mid` and keep searching **left** (`high = mid - 1`). For the **last** index, keep searching **right** instead.

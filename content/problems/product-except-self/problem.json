@@ -1,0 +1,54 @@
+{
+  "id": "product-except-self",
+  "title": "Product of Array Except Self",
+  "kind": "leetcode",
+  "difficulty": "Medium",
+  "source": "Array operations (Week 5)",
+  "leetcode": {
+    "number": 238,
+    "slug": "product-of-array-except-self"
+  },
+  "timeLimitMs": 3000,
+  "hints": 2,
+  "tests": [
+    {
+      "name": "Example 1",
+      "expr": "product_except_self([1, 2, 3, 4])",
+      "expected": "[24, 12, 8, 6]"
+    },
+    {
+      "name": "Example 2",
+      "expr": "product_except_self([-1, 1, 0, -3, 3])",
+      "expected": "[0, 0, 9, 0, 0]"
+    },
+    {
+      "name": "Two zeros",
+      "expr": "product_except_self([0, 4, 0])",
+      "expected": "[0, 0, 0]",
+      "hidden": true,
+      "hint": "With two zeros, every product includes a zero."
+    },
+    {
+      "name": "Two values",
+      "expr": "product_except_self([5, -2])",
+      "expected": "[-2, 5]",
+      "hidden": true
+    },
+    {
+      "name": "Random small",
+      "data": "import random\nrandom.seed(238)\narrays = [[random.randint(-3, 3) for _ in range(random.randint(2, 8))] for _ in range(40)]",
+      "expr": "[product_except_self(a) for a in arrays]",
+      "expected": "[[0, 0, -216, 0, 0, 0, 0, 0], [-18, 27, 18, -54, -54, -54, -54, 18], [-1, -2], [0, 0, 0, 0], [0, 0, 0, 0, 0, 108, 0], [-9, 0, 0], [2, 4, 2], [108, 324, 324, 108, 162, 108, -108, -162], [9, 9, -9, 27], [0, 0, 0, -3, 0], [0, 0, 24, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [-108, 0, 0, 0, 0, 0, 0, 0], [0, 0, -12, 0], [0, 0, 0, 0, 0, -2, 0], [0, 0, 0, 0, -36, 0], [4, 0, 0, 0], [0, 0, -6, 0], [-54, 54, 81, -162, 162, -54, 162, 54], [-3, -2, 6], [6, -3, 2, -6], [0, 3], [0, 0, 0, 0, 0, 0, 0, 0], [-12, -36, -18, -12, 18], [0, 0, 0, 0, 0], [-2, 2, -1], [-2, 2, -1], [0, 0, -108, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, -486, 0, 0], [-3, 0], [2, 0], [9, -27, 9, -9, 27, -27], [0, 0, 0, 0, 0, 0, 0], [0, 0, -324, 0, 0, 0, 0], [0, -3, 0], [0, 0, 0, 486, 0, 0, 0], [-18, 18, 18, 6, -9, 18, 6], [-3, 3], [54, -54, -81, -54, -54], [-6, 6, 2, -3, 6, -6]]",
+      "hidden": true
+    },
+    {
+      "name": "100 000 values",
+      "data": "import random\nrandom.seed(2380)\nnums = [random.choice([-1, 1, 1, 1]) for _ in range(100000)]\nfor i in random.sample(range(100000), 20):\n    nums[i] = 2",
+      "setup": "r = product_except_self(nums)",
+      "expr": "(r[:6], r[-6:], sum(r), r.count(0))",
+      "expected": "([1048576, 1048576, 1048576, -1048576, 1048576, 1048576], [1048576, 1048576, -1048576, 1048576, 1048576, -1048576], 52586086400, 0)",
+      "hidden": true,
+      "hint": "Multiplying everything else for each i is O(N^2). Use left and right running products."
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "id": "kth-smallest-selection",
+  "title": "K-th smallest with partial selection sort",
+  "kind": "leetcode",
+  "difficulty": "Medium",
+  "source": "Week 7 seminar, exercise 3",
+  "timeLimitMs": 3000,
+  "hints": 1,
+  "tests": [
+    {
+      "name": "Example 1",
+      "expr": "kth_smallest([7, 10, 4, 3, 20, 15], 3)",
+      "expected": "7"
+    },
+    {
+      "name": "Example 2",
+      "expr": "kth_smallest([7, 10, 4, 3, 20, 15], 1)",
+      "expected": "3"
+    },
+    {
+      "name": "Example 3",
+      "expr": "kth_smallest([2, 1, 2], 3)",
+      "expected": "2"
+    },
+    {
+      "name": "Doesn't change the input",
+      "setup": "a = [5, 3, 9, 1]",
+      "expr": "(kth_smallest(a, 2), a)",
+      "expected": "(3, [5, 3, 9, 1])",
+      "hidden": true,
+      "hint": "Work on a copy of the list."
+    },
+    {
+      "name": "Every k for a small list",
+      "expr": "[kth_smallest([8, 3, 5, 3, 9, 1, 7, 2, 6, 4], k) for k in range(1, 11)]",
+      "expected": "[1, 2, 3, 3, 4, 5, 6, 7, 8, 9]",
+      "hidden": true
+    },
+    {
+      "name": "100 000 values",
+      "data": "import random\nrandom.seed(7300)\nnums = [random.randint(-10**9, 10**9) for _ in range(100000)]",
+      "expr": "[kth_smallest(nums, k) for k in (1, 5, 10)]",
+      "expected": "[-999999652, -999936552, -999839684]",
+      "hidden": true,
+      "hint": "Stop after k passes. A full selection sort is O(N^2)."
+    }
+  ]
+}

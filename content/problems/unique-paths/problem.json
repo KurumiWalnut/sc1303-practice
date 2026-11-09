@@ -1,0 +1,50 @@
+{
+  "id": "unique-paths",
+  "title": "Unique Paths",
+  "kind": "leetcode",
+  "difficulty": "Medium",
+  "source": "Memoization (Week 10): grid states",
+  "leetcode": {
+    "number": 62,
+    "slug": "unique-paths"
+  },
+  "timeLimitMs": 3000,
+  "hints": 2,
+  "tests": [
+    {
+      "name": "Example 1",
+      "expr": "unique_paths(3, 7)",
+      "expected": "28"
+    },
+    {
+      "name": "Example 2",
+      "expr": "unique_paths(3, 2)",
+      "expected": "3"
+    },
+    {
+      "name": "One row or column",
+      "expr": "[unique_paths(1, 1), unique_paths(1, 50), unique_paths(40, 1)]",
+      "expected": "[1, 1, 1]",
+      "hidden": true
+    },
+    {
+      "name": "Square grids",
+      "expr": "[unique_paths(k, k) for k in range(1, 9)]",
+      "expected": "[1, 2, 6, 20, 70, 252, 924, 3432]",
+      "hidden": true
+    },
+    {
+      "name": "17 × 17",
+      "expr": "unique_paths(17, 17)",
+      "expected": "601080390",
+      "hidden": true,
+      "hint": "Plain recursion makes about as many calls as there are paths (600 million here). Memoize."
+    },
+    {
+      "name": "Long and thin",
+      "expr": "[unique_paths(100, 3), unique_paths(4, 100)]",
+      "expected": "[5050, 171700]",
+      "hidden": true
+    }
+  ]
+}

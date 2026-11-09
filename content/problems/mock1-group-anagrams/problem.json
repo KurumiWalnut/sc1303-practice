@@ -1,0 +1,42 @@
+{
+  "id": "mock1-group-anagrams",
+  "title": "Group anagrams",
+  "kind": "exam",
+  "difficulty": "Medium",
+  "source": "Mock exam 1, question 3 (hash tables)",
+  "leetcode": { "number": 49, "slug": "group-anagrams" },
+  "timeLimitMs": 3000,
+  "checker": "def check(actual, expected):\n    def normalise(groups):\n        return sorted(sorted(group) for group in groups)\n    try:\n        return normalise(actual) == normalise(expected)\n    except TypeError:\n        return False\n",
+  "tests": [
+    {
+      "name": "Example",
+      "expr": "group_anagrams([\"eat\", \"tea\", \"tan\", \"ate\", \"nat\", \"bat\"])",
+      "expected": "[[\"bat\"], [\"nat\", \"tan\"], [\"ate\", \"eat\", \"tea\"]]"
+    },
+    { "name": "One empty word", "expr": "group_anagrams([\"\"])", "expected": "[[\"\"]]" },
+    { "name": "One word", "expr": "group_anagrams([\"a\"])", "expected": "[[\"a\"]]" },
+    {
+      "name": "Several groups",
+      "expr": "group_anagrams([\"abc\", \"bca\", \"cab\", \"xyz\", \"zyx\", \"q\"])",
+      "expected": "[[\"abc\", \"bca\", \"cab\"], [\"xyz\", \"zyx\"], [\"q\"]]",
+      "hidden": true
+    },
+    { "name": "Repeated words stay separate", "expr": "group_anagrams([\"a\", \"a\"])", "expected": "[[\"a\", \"a\"]]", "hidden": true },
+    {
+      "name": "Same letters, different counts",
+      "expr": "group_anagrams([\"aab\", \"abb\", \"bab\", \"baa\"])",
+      "expected": "[[\"aab\", \"baa\"], [\"abb\", \"bab\"]]",
+      "hidden": true,
+      "hint": "Two words are anagrams only if each letter appears the same number of times. Comparing sets of letters isn't enough."
+    },
+    { "name": "Different lengths", "expr": "group_anagrams([\"ab\", \"ba\", \"abc\"])", "expected": "[[\"ab\", \"ba\"], [\"abc\"]]", "hidden": true },
+    {
+      "name": "20 000 words",
+      "data": "import random\nrandom.seed(49)\nwords = []\nfor _ in range(4000):\n    letters = [random.choice(\"abcdefghij\") for _ in range(7)]\n    for _ in range(5):\n        random.shuffle(letters)\n        words.append(\"\".join(letters))\nrandom.shuffle(words)\ndef _reference(ws):\n    groups = {}\n    for w in ws:\n        groups.setdefault(\"\".join(sorted(w)), []).append(w)\n    return list(groups.values())",
+      "expr": "group_anagrams(words)",
+      "expected": "_reference(words)",
+      "hidden": true,
+      "hint": "Comparing every pair of words is O(N²). Give each word a key that all its anagrams share, and group them in a dict."
+    }
+  ]
+}

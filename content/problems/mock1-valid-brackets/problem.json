@@ -1,0 +1,34 @@
+{
+  "id": "mock1-valid-brackets",
+  "title": "Balanced brackets",
+  "kind": "exam",
+  "difficulty": "Easy",
+  "source": "Mock exam 1, question 1 (stacks)",
+  "leetcode": { "number": 20, "slug": "valid-parentheses" },
+  "timeLimitMs": 3000,
+  "tests": [
+    { "name": "One pair", "expr": "is_valid(\"()\")", "expected": "True" },
+    { "name": "Pairs side by side", "expr": "is_valid(\"()[]{}\")", "expected": "True" },
+    { "name": "Wrong closing bracket", "expr": "is_valid(\"(]\")", "expected": "False" },
+    { "name": "Nested", "expr": "is_valid(\"{[()]}\")", "expected": "True", "hidden": true },
+    { "name": "Crossed pairs", "expr": "is_valid(\"([)]\")", "expected": "False", "hidden": true },
+    { "name": "Empty string", "expr": "is_valid(\"\")", "expected": "True", "hidden": true },
+    { "name": "Only an opener", "expr": "is_valid(\"(\")", "expected": "False", "hidden": true },
+    { "name": "Only a closer", "expr": "is_valid(\")\")", "expected": "False", "hidden": true },
+    { "name": "Unclosed at the end", "expr": "is_valid(\"{[]}(\")", "expected": "False", "hidden": true },
+    {
+      "name": "100 000 nested brackets",
+      "data": "s = \"(\" * 50000 + \"[]\" * 1000 + \")\" * 50000",
+      "expr": "is_valid(s)",
+      "expected": "True",
+      "hidden": true
+    },
+    {
+      "name": "Long string, wrong last bracket",
+      "data": "s = \"(\" * 50000 + \")\" * 49999 + \"]\"",
+      "expr": "is_valid(s)",
+      "expected": "False",
+      "hidden": true
+    }
+  ]
+}

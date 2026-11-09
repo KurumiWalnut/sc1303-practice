@@ -1,0 +1,50 @@
+{
+  "id": "delete-leaves",
+  "title": "Delete leaves with a given value",
+  "kind": "leetcode",
+  "difficulty": "Medium",
+  "source": "Tree deletion (returning the new subtree)",
+  "leetcode": {
+    "number": 1325,
+    "slug": "delete-leaves-with-a-given-value"
+  },
+  "provided": true,
+  "timeLimitMs": 3000,
+  "hints": 1,
+  "tests": [
+    {
+      "name": "Example 1",
+      "expr": "tree_to_list(remove_leaf_nodes(build_tree([1, 2, 3, 2, None, 2, 4]), 2))",
+      "expected": "[1, None, 3, None, 4]"
+    },
+    {
+      "name": "Example 2",
+      "expr": "tree_to_list(remove_leaf_nodes(build_tree([1, 3, 3, 3, 2]), 3))",
+      "expected": "[1, 3, None, None, 2]"
+    },
+    {
+      "name": "Chain of deletions",
+      "expr": "tree_to_list(remove_leaf_nodes(build_tree([1, 2, None, 2, None, 2]), 2))",
+      "expected": "[1]"
+    },
+    {
+      "name": "Everything goes",
+      "expr": "tree_to_list(remove_leaf_nodes(build_tree([1, 1, 1]), 1))",
+      "expected": "[]",
+      "hidden": true,
+      "hint": "If the root ends up a target leaf, the whole tree is deleted: return None."
+    },
+    {
+      "name": "Nothing to delete",
+      "expr": "tree_to_list(remove_leaf_nodes(build_tree([1, 2, 3]), 5))",
+      "expected": "[1, 2, 3]",
+      "hidden": true
+    },
+    {
+      "name": "Inner target nodes stay if they have other children",
+      "expr": "tree_to_list(remove_leaf_nodes(build_tree([2, 2, 2, 3, None, None, 2]), 2))",
+      "expected": "[2, 2, None, 3]",
+      "hidden": true
+    }
+  ]
+}

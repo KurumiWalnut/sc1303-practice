@@ -1,0 +1,79 @@
+{
+  "id": "graph-traversal-impl",
+  "title": "Depth-first and breadth-first traversal",
+  "kind": "base",
+  "difficulty": "Medium",
+  "source": "Week 12 seminar, graph_template.py",
+  "provided": true,
+  "timeLimitMs": 3000,
+  "tests": [
+    {
+      "name": "Friends graph: DFS from Alice",
+      "data": "friends = {\n    \"Alice\": [\"Bob\", \"Diana\", \"Fred\"],\n    \"Bob\": [\"Alice\", \"Diana\", \"Cynthia\"],\n    \"Cynthia\": [\"Bob\"],\n    \"Diana\": [\"Alice\", \"Bob\", \"Fred\"],\n    \"Elise\": [\"Fred\"],\n    \"Fred\": [\"Alice\", \"Diana\", \"Elise\"],\n}",
+      "setup": "g = build_graph(friends)",
+      "expr": "dfs_order(g[\"Alice\"])",
+      "expected": "[\"Alice\", \"Bob\", \"Diana\", \"Fred\", \"Elise\", \"Cynthia\"]"
+    },
+    {
+      "name": "Friends graph: BFS from Alice",
+      "data": "friends = {\n    \"Alice\": [\"Bob\", \"Diana\", \"Fred\"],\n    \"Bob\": [\"Alice\", \"Diana\", \"Cynthia\"],\n    \"Cynthia\": [\"Bob\"],\n    \"Diana\": [\"Alice\", \"Bob\", \"Fred\"],\n    \"Elise\": [\"Fred\"],\n    \"Fred\": [\"Alice\", \"Diana\", \"Elise\"],\n}",
+      "setup": "g = build_graph(friends)",
+      "expr": "bfs_order(g[\"Alice\"])",
+      "expected": "[\"Alice\", \"Bob\", \"Diana\", \"Fred\", \"Cynthia\", \"Elise\"]"
+    },
+    {
+      "name": "Lecture case study: DFS",
+      "data": "people = {\n    \"Alice\": [\"Bob\", \"Candy\", \"Derek\", \"Elaine\"],\n    \"Bob\": [\"Alice\", \"Fred\"],\n    \"Candy\": [\"Helen\", \"Alice\"],\n    \"Derek\": [\"Alice\", \"Elaine\", \"Gina\"],\n    \"Elaine\": [\"Alice\", \"Derek\"],\n    \"Fred\": [\"Bob\", \"Helen\"],\n    \"Gina\": [\"Derek\", \"Irena\"],\n    \"Helen\": [\"Fred\", \"Candy\"],\n    \"Irena\": [\"Gina\"],\n}",
+      "setup": "g = build_graph(people)",
+      "expr": "dfs_order(g[\"Alice\"])",
+      "expected": "[\"Alice\", \"Bob\", \"Fred\", \"Helen\", \"Candy\", \"Derek\", \"Elaine\", \"Gina\", \"Irena\"]"
+    },
+    {
+      "name": "Lecture case study: BFS",
+      "data": "people = {\n    \"Alice\": [\"Bob\", \"Candy\", \"Derek\", \"Elaine\"],\n    \"Bob\": [\"Alice\", \"Fred\"],\n    \"Candy\": [\"Helen\", \"Alice\"],\n    \"Derek\": [\"Alice\", \"Elaine\", \"Gina\"],\n    \"Elaine\": [\"Alice\", \"Derek\"],\n    \"Fred\": [\"Bob\", \"Helen\"],\n    \"Gina\": [\"Derek\", \"Irena\"],\n    \"Helen\": [\"Fred\", \"Candy\"],\n    \"Irena\": [\"Gina\"],\n}",
+      "setup": "g = build_graph(people)",
+      "expr": "bfs_order(g[\"Alice\"])",
+      "expected": "[\"Alice\", \"Bob\", \"Candy\", \"Derek\", \"Elaine\", \"Fred\", \"Helen\", \"Gina\", \"Irena\"]"
+    },
+    {
+      "name": "A single vertex",
+      "setup": "g = build_graph({\"A\": []})",
+      "expr": "(dfs_order(g[\"A\"]), bfs_order(g[\"A\"]))",
+      "expected": "([\"A\"], [\"A\"])",
+      "hidden": true
+    },
+    {
+      "name": "Directed graph with a cycle",
+      "setup": "g = build_graph({\"A\": [\"B\", \"C\"], \"B\": [\"D\"], \"C\": [\"D\", \"E\"], \"D\": [\"A\"], \"E\": []})",
+      "expr": "(dfs_order(g[\"A\"]), bfs_order(g[\"A\"]))",
+      "expected": "([\"A\", \"B\", \"D\", \"C\", \"E\"], [\"A\", \"B\", \"C\", \"D\", \"E\"])",
+      "hidden": true,
+      "hint": "Cycles: make sure every vertex is recorded as visited before you move on, so you never visit it twice."
+    },
+    {
+      "name": "Only reachable vertices",
+      "setup": "g = build_graph({\"A\": [\"B\"], \"B\": [], \"C\": [\"A\"]})",
+      "expr": "(dfs_order(g[\"A\"]), bfs_order(g[\"A\"]), dfs_order(g[\"C\"]))",
+      "expected": "([\"A\", \"B\"], [\"A\", \"B\"], [\"C\", \"A\", \"B\"])",
+      "hidden": true
+    },
+    {
+      "name": "Friends graph from Elise",
+      "data": "friends = {\n    \"Alice\": [\"Bob\", \"Diana\", \"Fred\"],\n    \"Bob\": [\"Alice\", \"Diana\", \"Cynthia\"],\n    \"Cynthia\": [\"Bob\"],\n    \"Diana\": [\"Alice\", \"Bob\", \"Fred\"],\n    \"Elise\": [\"Fred\"],\n    \"Fred\": [\"Alice\", \"Diana\", \"Elise\"],\n}",
+      "setup": "g = build_graph(friends)",
+      "expr": "(dfs_order(g[\"Elise\"]), bfs_order(g[\"Elise\"]))",
+      "expected": "([\"Elise\", \"Fred\", \"Alice\", \"Bob\", \"Diana\", \"Cynthia\"], [\"Elise\", \"Fred\", \"Alice\", \"Diana\", \"Bob\", \"Cynthia\"])",
+      "hidden": true,
+      "hint": "BFS: mark a vertex as visited when you add it to the queue, not when you take it out."
+    },
+    {
+      "name": "Tree with 2 047 vertices",
+      "data": "N = 2047\ntree = {i: [c for c in (2 * i, 2 * i + 1) if c <= N] for i in range(1, N + 1)}\ndef _preorder(i):\n    out = [i]\n    for c in tree[i]:\n        out += _preorder(c)\n    return out",
+      "setup": "g = build_graph(tree)",
+      "expr": "(dfs_order(g[1]), bfs_order(g[1]))",
+      "expected": "(_preorder(1), list(range(1, N + 1)))",
+      "hidden": true,
+      "hint": "Use a dict or set for visited vertices: checking a list is O(N) per lookup."
+    }
+  ]
+}

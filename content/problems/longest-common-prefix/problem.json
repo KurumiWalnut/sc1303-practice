@@ -1,0 +1,62 @@
+{
+  "id": "longest-common-prefix",
+  "title": "Longest Common Prefix",
+  "kind": "leetcode",
+  "difficulty": "Easy",
+  "source": "Trie (Week 11)",
+  "leetcode": {
+    "number": 14,
+    "slug": "longest-common-prefix"
+  },
+  "timeLimitMs": 3000,
+  "hints": 1,
+  "tests": [
+    {
+      "name": "Example 1",
+      "expr": "longest_common_prefix([\"flower\", \"flow\", \"flight\"])",
+      "expected": "'fl'"
+    },
+    {
+      "name": "Example 2",
+      "expr": "longest_common_prefix([\"dog\", \"racecar\", \"car\"])",
+      "expected": "''"
+    },
+    {
+      "name": "One string",
+      "expr": "longest_common_prefix([\"alone\"])",
+      "expected": "'alone'",
+      "hidden": true
+    },
+    {
+      "name": "Contains an empty string",
+      "expr": "longest_common_prefix([\"abc\", \"\", \"abd\"])",
+      "expected": "''",
+      "hidden": true
+    },
+    {
+      "name": "One string is the prefix",
+      "expr": "longest_common_prefix([\"interview\", \"inter\", \"internet\"])",
+      "expected": "'inter'",
+      "hidden": true
+    },
+    {
+      "name": "All the same",
+      "expr": "longest_common_prefix([\"same\", \"same\", \"same\"])",
+      "expected": "'same'",
+      "hidden": true
+    },
+    {
+      "name": "Mismatch at the first letter of the last string",
+      "expr": "longest_common_prefix([\"abab\", \"abac\", \"bbab\"])",
+      "expected": "''",
+      "hidden": true
+    },
+    {
+      "name": "1 000 long strings",
+      "data": "import random\nrandom.seed(14)\nbase = ''.join(random.choices('ab', k=1000))\nstrs = [base[:900] + ''.join(random.choices('ab', k=100)) for _ in range(1000)]\nstrs.append(base[:613] + 'c')",
+      "expr": "longest_common_prefix(strs)",
+      "expected": "'abbbaabbababaabaabbabbabaaaabababbbabbaabbaaabbabaaababaabbaaabaaabbaabbabbaabbaaabaaaaabbabaaaaaabaabbababbbbbbaabbbabbabaaaaabaaababaaaaaabababbabbbaaaabbabbbababbbbabaaabaababababbababbbbaaabaabbbbbbabaabbabbaaabaabaaaabaabbabbbbaabbbaabababaabaabababbabbababababaabbaaabaabbabbaaabaababaabababbabbababbababbbabababaaaaabbabaaabbbaaaaaaabbbbaabaabbbbbabbbaaaabaabaaaaabbabbababbababbaaababbbbbbbaababaaaabbaaabaabaaaababbbbabbbbaababaaabaabbbbabaabbbbaaabaababaabaaababbbbababaaababaaabbbaabbbabbbbbaaaabaabbabbabaabbbaaaabbbbaaaaabbababbbbbbbbbabbbabaabababaaaabaaababbbaaaababbaabaabbaaababbaababaaaaaabbbbab'",
+      "hidden": true
+    }
+  ]
+}

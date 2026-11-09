@@ -1,0 +1,50 @@
+{
+  "id": "two-sum-sorted",
+  "title": "Two Sum II (sorted input)",
+  "kind": "leetcode",
+  "difficulty": "Medium",
+  "source": "Big O (Week 6): O(N²) to O(N)",
+  "leetcode": {
+    "number": 167,
+    "slug": "two-sum-ii-input-array-is-sorted"
+  },
+  "timeLimitMs": 3000,
+  "hints": 2,
+  "tests": [
+    {
+      "name": "Example 1",
+      "expr": "two_sum_sorted([2, 7, 11, 15], 9)",
+      "expected": "[1, 2]"
+    },
+    {
+      "name": "Example 2",
+      "expr": "two_sum_sorted([2, 3, 4], 6)",
+      "expected": "[1, 3]"
+    },
+    {
+      "name": "Example 3",
+      "expr": "two_sum_sorted([-1, 0], -1)",
+      "expected": "[1, 2]"
+    },
+    {
+      "name": "Repeated values",
+      "expr": "two_sum_sorted([1, 3, 3, 8], 6)",
+      "expected": "[2, 3]",
+      "hidden": true
+    },
+    {
+      "name": "Answer in the middle",
+      "expr": "two_sum_sorted([1, 2, 5, 9, 14, 20], 14)",
+      "expected": "[3, 4]",
+      "hidden": true
+    },
+    {
+      "name": "100 000 numbers",
+      "data": "import random\nrandom.seed(167)\nnumbers = sorted(random.sample(range(0, 10**9, 2), 99998) + [1000000001, 1000000002])\ntarget = 2000000003",
+      "expr": "two_sum_sorted(numbers, target)",
+      "expected": "[99999, 100000]",
+      "hidden": true,
+      "hint": "Checking every pair is about 5 billion sums. Use two pointers."
+    }
+  ]
+}

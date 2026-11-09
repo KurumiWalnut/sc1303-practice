@@ -1,0 +1,98 @@
+{
+  "id": "avl-delete",
+  "title": "AVL delete with rebalancing",
+  "kind": "leetcode",
+  "difficulty": "Hard",
+  "source": "Week 12 lecture (AVL Tree): insertion/deletion followed by rebalancing",
+  "provided": true,
+  "timeLimitMs": 3000,
+  "hints": 1,
+  "tests": [
+    {
+      "name": "RR after a delete",
+      "expr": "preorder(delete(build_avl([20, 10, 30, 40]), 10))",
+      "expected": "[30, 20, 40]"
+    },
+    {
+      "name": "Two children: successor takes over",
+      "expr": "preorder(delete(build_avl([20, 10, 30, 25, 40]), 20))",
+      "expected": "[25, 10, 30, 40]"
+    },
+    {
+      "name": "Value not in the tree",
+      "expr": "preorder(delete(build_avl([20, 10, 30]), 99))",
+      "expected": "[20, 10, 30]"
+    },
+    {
+      "name": "RL after a delete",
+      "expr": "preorder(delete(build_avl([20, 10, 30, 25]), 10))",
+      "expected": "[25, 20, 30]",
+      "hidden": true
+    },
+    {
+      "name": "Heavy child with balance factor 0",
+      "expr": "preorder(delete(build_avl([20, 10, 30, 25, 35]), 10))",
+      "expected": "[30, 20, 25, 35]",
+      "hidden": true,
+      "hint": "The right child is balanced (0), so a single left rotation is enough."
+    },
+    {
+      "name": "LR after a delete",
+      "expr": "preorder(delete(build_avl([30, 20, 40, 25, 50]), 50))",
+      "expected": "[30, 20, 25, 40]",
+      "hidden": true
+    },
+    {
+      "name": "Delete a leaf",
+      "setup": "root = delete(build_avl([20, 10, 30, 5]), 5)",
+      "expr": "(preorder(root), check_avl(root))",
+      "expected": "([20, 10, 30], 'ok')",
+      "hidden": true
+    },
+    {
+      "name": "Delete the only node",
+      "expr": "preorder(delete(build_avl([7]), 7))",
+      "expected": "[]",
+      "hidden": true
+    },
+    {
+      "name": "Heights are updated",
+      "setup": "root = build_avl(range(1, 8))\nfor v in [1, 3, 5, 7]:\n    root = delete(root, v)",
+      "expr": "(root.height, check_avl(root))",
+      "expected": "(2, 'ok')",
+      "hidden": true
+    },
+    {
+      "name": "Rotations at two levels",
+      "setup": "root = build_avl([5, 3, 8, 2, 4, 7, 10, 1, 6, 9, 11, 12])\nroot = delete(root, 4)",
+      "expr": "(preorder(root), check_avl(root))",
+      "expected": "([8, 5, 2, 1, 3, 7, 6, 10, 9, 11, 12], 'ok')",
+      "hidden": true,
+      "hint": "After fixing one node, keep checking its ancestors."
+    },
+    {
+      "name": "Delete everything",
+      "setup": "root = build_avl(range(50))\nfor v in range(0, 50, 3):\n    root = delete(root, v)\nfor v in range(50):\n    root = delete(root, v)",
+      "expr": "preorder(root)",
+      "expected": "[]",
+      "hidden": true
+    },
+    {
+      "name": "300 random inserts and deletes",
+      "data": "import random\nrandom.seed(4040)\nops = [(random.random() < 0.6, random.randint(0, 120)) for _ in range(300)]",
+      "setup": "root = None\nfor add, v in ops:\n    root = insert(root, v) if add else delete(root, v)",
+      "expr": "(preorder(root), check_avl(root))",
+      "expected": "([58, 23, 7, 2, 0, 1, 5, 3, 12, 9, 8, 11, 10, 14, 16, 48, 36, 26, 24, 30, 27, 43, 37, 54, 52, 50, 49, 53, 55, 56, 85, 72, 67, 60, 59, 65, 69, 68, 70, 77, 75, 74, 76, 80, 79, 104, 97, 92, 88, 86, 89, 95, 93, 96, 100, 98, 102, 101, 103, 112, 107, 106, 109, 117, 115, 120], 'ok')",
+      "hidden": true
+    },
+    {
+      "name": "10 000 inserts, 6 000 deletes",
+      "data": "import random\nrandom.seed(4041)\nvalues = random.sample(range(10**6), 10000)\ngone = random.sample(values, 6000)",
+      "setup": "root = build_avl(values)\nfor v in gone:\n    root = delete(root, v)",
+      "expr": "(check_avl(root), root.height, preorder(root)[:12])",
+      "expected": "('ok', 14, [442354, 239900, 126334, 67110, 35293, 22670, 11704, 5217, 3144, 811, 529, 450])",
+      "hidden": true,
+      "timeLimitMs": 6000
+    }
+  ]
+}

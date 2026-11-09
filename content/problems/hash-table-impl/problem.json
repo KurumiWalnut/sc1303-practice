@@ -1,0 +1,90 @@
+{
+  "id": "hash-table-impl",
+  "title": "Hash table with separate chaining",
+  "kind": "base",
+  "difficulty": "Medium",
+  "source": "Week 8 lecture (Hash): collisions, separate chaining, load factor 0.7",
+  "provided": true,
+  "timeLimitMs": 3000,
+  "tests": [
+    {
+      "name": "put and get",
+      "setup": "t = HashTable()\nt.put(\"apple\", 3)\nt.put(\"banana\", 5)",
+      "expr": "[t.get(\"apple\"), t.get(\"banana\"), t.get(\"cherry\"), len(t)]",
+      "expected": "[3, 5, None, 2]"
+    },
+    {
+      "name": "Collisions share a cell",
+      "setup": "t = HashTable(10)\nt.put(3, \"a\")\nt.put(13, \"b\")\nt.put(23, \"c\")",
+      "expr": "(t.buckets[3], t.get(13), t.get(33))",
+      "expected": "([[3, 'a'], [13, 'b'], [23, 'c']], 'b', None)"
+    },
+    {
+      "name": "Resizing",
+      "setup": "t = HashTable(10)\nfor k in range(8):\n    t.put(k, k * k)",
+      "expr": "(len(t.buckets), t.buckets[:3], len(t))",
+      "expected": "(20, [[[0, 0]], [[1, 1]], [[2, 4]]], 8)"
+    },
+    {
+      "name": "Overwrite an existing key",
+      "setup": "t = HashTable()\nt.put(\"x\", 1)\nt.put(\"x\", 2)",
+      "expr": "(t.get(\"x\"), len(t), t.buckets[t._index(\"x\")])",
+      "expected": "(2, 1, [['x', 2]])",
+      "hidden": true,
+      "hint": "If the key is already in its cell, replace the value instead of adding a second pair."
+    },
+    {
+      "name": "remove",
+      "setup": "t = HashTable()\nt.put(\"a\", 1)\nt.put(\"b\", 2)",
+      "expr": "(t.remove(\"a\"), t.get(\"a\"), len(t), t.remove(\"a\"), t.remove(\"zzz\"))",
+      "expected": "(True, None, 1, False, False)",
+      "hidden": true
+    },
+    {
+      "name": "remove from the middle of a chain",
+      "setup": "t = HashTable(10)\nt.put(3, \"a\")\nt.put(13, \"b\")\nt.put(23, \"c\")\nt.remove(13)",
+      "expr": "(t.buckets[3], len(t))",
+      "expected": "([[3, 'a'], [23, 'c']], 2)",
+      "hidden": true
+    },
+    {
+      "name": "Exactly 0.7 doesn't resize",
+      "setup": "t = HashTable(10)\nfor k in range(7):\n    t.put(k, k)",
+      "expr": "len(t.buckets)",
+      "expected": "10",
+      "hidden": true
+    },
+    {
+      "name": "Rehashing moves pairs to new cells",
+      "setup": "t = HashTable(4)\nfor k in [1, 5, 9]:\n    t.put(k, str(k))",
+      "expr": "t.buckets",
+      "expected": "[[], [[1, '1'], [9, '9']], [], [], [], [[5, '5']], [], []]",
+      "hidden": true,
+      "hint": "After resizing, every pair goes into the cell for the NEW size."
+    },
+    {
+      "name": "Many resizes",
+      "setup": "t = HashTable()\nfor k in range(1000):\n    t.put(k, -k)",
+      "expr": "(len(t.buckets), len(t), max(map(len, t.buckets)), t.get(999), t.get(1000))",
+      "expected": "(2560, 1000, 1, -999, None)",
+      "hidden": true
+    },
+    {
+      "name": "String keys",
+      "data": "words = [f'word{i}' for i in range(500)]",
+      "setup": "t = HashTable()\nfor i, w in enumerate(words):\n    t.put(w, i)",
+      "expr": "[t.get(w) for w in words[::50]] + [len(t)]",
+      "expected": "[0, 50, 100, 150, 200, 250, 300, 350, 400, 450, 500]",
+      "hidden": true
+    },
+    {
+      "name": "50 000 puts and gets",
+      "data": "import random\nrandom.seed(808)\nkeys = random.sample(range(10**9), 50000)\nlook = keys[::3] + random.sample(range(10**9), 20000)",
+      "setup": "t = HashTable()\nfor i, k in enumerate(keys):\n    t.put(k, i)",
+      "expr": "(len(t), len(t.buckets), sum(t.get(k) or 0 for k in look), t.get(-5))",
+      "expected": "(50000, 81920, 416791223, None)",
+      "hidden": true,
+      "hint": "Without resizing, every cell's chain grows to thousands of pairs and each lookup becomes O(N)."
+    }
+  ]
+}

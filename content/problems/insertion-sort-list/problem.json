@@ -1,0 +1,67 @@
+{
+  "id": "insertion-sort-list",
+  "title": "Insertion Sort List",
+  "kind": "leetcode",
+  "difficulty": "Medium",
+  "source": "Insertion sort (Week 7) on a linked list",
+  "leetcode": {
+    "number": 147,
+    "slug": "insertion-sort-list"
+  },
+  "provided": true,
+  "timeLimitMs": 3000,
+  "hints": 2,
+  "tests": [
+    {
+      "name": "Example 1",
+      "expr": "to_pylist(insertion_sort_list(build_list([4, 2, 1, 3])))",
+      "expected": "[1, 2, 3, 4]"
+    },
+    {
+      "name": "Example 2",
+      "expr": "to_pylist(insertion_sort_list(build_list([-1, 5, 3, 4, 0])))",
+      "expected": "[-1, 0, 3, 4, 5]"
+    },
+    {
+      "name": "Empty and one node",
+      "expr": "(insertion_sort_list(None), to_pylist(insertion_sort_list(build_list([7]))))",
+      "expected": "(None, [7])",
+      "hidden": true
+    },
+    {
+      "name": "Duplicates",
+      "expr": "to_pylist(insertion_sort_list(build_list([3, 1, 3, 1, 2])))",
+      "expected": "[1, 1, 2, 3, 3]",
+      "hidden": true
+    },
+    {
+      "name": "Reverse order",
+      "expr": "to_pylist(insertion_sort_list(build_list(list(range(10, 0, -1)))))",
+      "expected": "[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]",
+      "hidden": true
+    },
+    {
+      "name": "Uses the original nodes",
+      "setup": "head = build_list([5, 2, 8, 1])\nnodes = []\nn = head\nwhile n:\n    nodes.append(n)\n    n = n.next\nresult = insertion_sort_list(head)\nafter = []\nwhile result:\n    after.append(result)\n    result = result.next",
+      "expr": "sorted(map(id, nodes)) == sorted(map(id, after))",
+      "expected": "True",
+      "hidden": true,
+      "hint": "Relink the nodes you were given. Don't build new ones."
+    },
+    {
+      "name": "2 000 random values",
+      "data": "import random\nrandom.seed(147)\nvalues = [random.randint(-10**5, 10**5) for _ in range(2000)]",
+      "expr": "to_pylist(insertion_sort_list(build_list(values))) == sorted(values)",
+      "expected": "True",
+      "hidden": true
+    },
+    {
+      "name": "20 000 values already in order",
+      "data": "values = list(range(20000))",
+      "expr": "to_pylist(insertion_sort_list(build_list(values)))[-5:]",
+      "expected": "[19995, 19996, 19997, 19998, 19999]",
+      "hidden": true,
+      "hint": "Check the end of the sorted part first. Walking from the front every time is O(N^2) here."
+    }
+  ]
+}

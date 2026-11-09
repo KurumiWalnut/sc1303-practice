@@ -1,0 +1,80 @@
+{
+  "id": "mock1-bst-range-sum",
+  "title": "BST with range sum",
+  "kind": "exam",
+  "difficulty": "Medium",
+  "source": "Mock exam 1, question 2 (binary search trees)",
+  "provided": true,
+  "timeLimitMs": 3000,
+  "tests": [
+    {
+      "name": "In-order after inserts",
+      "data": "values = [50, 25, 75, 10, 30, 60, 90, 27]",
+      "setup": "t = BST()\nfor v in values:\n    t.insert(v)",
+      "expr": "t.inorder()",
+      "expected": "[10, 25, 27, 30, 50, 60, 75, 90]"
+    },
+    {
+      "name": "contains",
+      "data": "values = [50, 25, 75, 10, 30, 60, 90, 27]",
+      "setup": "t = BST()\nfor v in values:\n    t.insert(v)",
+      "expr": "[t.contains(x) for x in (27, 60, 55, 100)]",
+      "expected": "[True, True, False, False]"
+    },
+    {
+      "name": "range_sum(25, 60)",
+      "data": "values = [50, 25, 75, 10, 30, 60, 90, 27]",
+      "setup": "t = BST()\nfor v in values:\n    t.insert(v)",
+      "expr": "t.range_sum(25, 60)",
+      "expected": "192"
+    },
+    {
+      "name": "Tree shape uses TreeNode links",
+      "data": "values = [50, 25, 75, 10, 30, 60, 90, 27]",
+      "setup": "t = BST()\nfor v in values:\n    t.insert(v)",
+      "expr": "(t.root.value, t.root.left_child.value, t.root.right_child.value, t.root.left_child.right_child.left_child.value)",
+      "expected": "(50, 25, 75, 27)",
+      "hidden": true,
+      "hint": "Build the tree out of TreeNode objects, with smaller values in left_child and bigger values in right_child."
+    },
+    {
+      "name": "Empty tree",
+      "setup": "t = BST()",
+      "expr": "(t.inorder(), t.contains(5), t.range_sum(0, 100))",
+      "expected": "([], False, 0)",
+      "hidden": true
+    },
+    {
+      "name": "Duplicates are ignored",
+      "setup": "t = BST()\nfor v in [5, 3, 5, 8, 3]:\n    t.insert(v)",
+      "expr": "t.inorder()",
+      "expected": "[3, 5, 8]",
+      "hidden": true
+    },
+    {
+      "name": "Range with nothing in it",
+      "data": "values = [50, 25, 75, 10, 30, 60, 90, 27]",
+      "setup": "t = BST()\nfor v in values:\n    t.insert(v)",
+      "expr": "t.range_sum(31, 49)",
+      "expected": "0",
+      "hidden": true
+    },
+    {
+      "name": "Range covering everything (bounds inclusive)",
+      "data": "values = [50, 25, 75, 10, 30, 60, 90, 27]",
+      "setup": "t = BST()\nfor v in values:\n    t.insert(v)",
+      "expr": "(t.range_sum(10, 90), t.range_sum(90, 90))",
+      "expected": "(367, 90)",
+      "hidden": true,
+      "hint": "Both ends of the range are included."
+    },
+    {
+      "name": "5 000 shuffled values",
+      "data": "import random\nrandom.seed(5)\nvalues = list(range(1, 5001))\nrandom.shuffle(values)",
+      "setup": "t = BST()\nfor v in values:\n    t.insert(v)",
+      "expr": "(t.inorder() == sorted(values), t.range_sum(1000, 2000), t.contains(4999), t.contains(5001))",
+      "expected": "(True, sum(range(1000, 2001)), True, False)",
+      "hidden": true
+    }
+  ]
+}

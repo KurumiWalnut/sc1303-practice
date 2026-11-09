@@ -1,0 +1,85 @@
+{
+  "id": "bst-impl",
+  "title": "BST search, insert, min and max",
+  "kind": "base",
+  "difficulty": "Easy",
+  "source": "Week 10 seminar, exercise 4; BinarySearchTree_template.py",
+  "provided": true,
+  "timeLimitMs": 3000,
+  "tests": [
+    {
+      "name": "search finds a node",
+      "setup": "root = TreeNode(50, TreeNode(25), TreeNode(75))",
+      "expr": "search(25, root).value",
+      "expected": "25"
+    },
+    {
+      "name": "search misses",
+      "setup": "root = TreeNode(50, TreeNode(25), TreeNode(75))",
+      "expr": "search(19, root)",
+      "expected": "None"
+    },
+    {
+      "name": "insert builds the tree",
+      "setup": "root = TreeNode(50)\nfor v in [30, 70, 20, 40, 60, 80]:\n    insert(v, root)",
+      "expr": "tree_to_list(root)",
+      "expected": "[50, 30, 70, 20, 40, 60, 80]"
+    },
+    {
+      "name": "max and min",
+      "setup": "root = TreeNode(50)\nfor v in [30, 70, 20, 40, 60, 80, 65]:\n    insert(v, root)",
+      "expr": "(max_value(root), min_value(root))",
+      "expected": "(80, 20)"
+    },
+    {
+      "name": "search returns the node itself",
+      "setup": "root = build_bst([50, 30, 70, 20, 40])",
+      "expr": "search(40, root) is root.left_child.right_child",
+      "expected": "True",
+      "hidden": true,
+      "hint": "Return the TreeNode, not its value or True."
+    },
+    {
+      "name": "search in an empty tree",
+      "expr": "search(5, None)",
+      "expected": "None",
+      "hidden": true
+    },
+    {
+      "name": "Duplicates are ignored",
+      "setup": "root = TreeNode(5)\nfor v in [3, 8, 3, 5, 8]:\n    insert(v, root)",
+      "expr": "tree_to_list(root)",
+      "expected": "[5, 3, 8]",
+      "hidden": true
+    },
+    {
+      "name": "Template fruits",
+      "data": "fruits = [\"orange\", \"banana\", \"grape\", \"cherry\", \"apple\", \"kiwifruit\", \"blueberry\", \"pineapple\", \"watermelon\", \"apricot\"]",
+      "setup": "root = TreeNode('durian')\nfor f in fruits:\n    insert(f, root)",
+      "expr": "inorder_values(root) == sorted(fruits + ['durian'])",
+      "expected": "True",
+      "hidden": true
+    },
+    {
+      "name": "One node",
+      "expr": "(max_value(TreeNode(7)), min_value(TreeNode(7)))",
+      "expected": "(7, 7)",
+      "hidden": true
+    },
+    {
+      "name": "Skewed tree (600 values in order)",
+      "setup": "root = TreeNode(0)\nfor v in range(1, 600):\n    insert(v, root)",
+      "expr": "(max_value(root), min_value(root), search(599, root).value)",
+      "expected": "(599, 0, 599)",
+      "hidden": true
+    },
+    {
+      "name": "5 000 random values",
+      "data": "import random\nrandom.seed(5)\nvalues = [random.randint(0, 10**6) for _ in range(5000)]",
+      "setup": "root = TreeNode(values[0])\nfor v in values[1:]:\n    insert(v, root)",
+      "expr": "(inorder_values(root) == sorted(set(values)), max_value(root), min_value(root), search(-1, root))",
+      "expected": "(True, 999708, 78, None)",
+      "hidden": true
+    }
+  ]
+}

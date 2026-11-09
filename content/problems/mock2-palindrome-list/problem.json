@@ -1,0 +1,45 @@
+{
+  "id": "mock2-palindrome-list",
+  "title": "Palindrome linked list",
+  "kind": "exam",
+  "difficulty": "Easy",
+  "source": "Mock exam 2, question 2 (linked lists)",
+  "leetcode": {
+    "number": 234,
+    "slug": "palindrome-linked-list"
+  },
+  "provided": true,
+  "timeLimitMs": 3000,
+  "tests": [
+    {
+      "name": "Example 1",
+      "expr": "is_palindrome(build_list([1, 2, 2, 1]))",
+      "expected": "True"
+    },
+    {
+      "name": "Example 2",
+      "expr": "is_palindrome(build_list([1, 2]))",
+      "expected": "False"
+    },
+    {
+      "name": "Empty and one node",
+      "expr": "[is_palindrome(None), is_palindrome(build_list([4]))]",
+      "expected": "[True, True]",
+      "hidden": true
+    },
+    {
+      "name": "Odd length",
+      "expr": "[is_palindrome(build_list([1, 2, 3, 2, 1])), is_palindrome(build_list([1, 2, 3, 1, 1]))]",
+      "expected": "[True, False]",
+      "hidden": true
+    },
+    {
+      "name": "100 000 nodes",
+      "data": "import random\nrandom.seed(234)\nhalf = [random.randint(0, 9) for _ in range(50000)]",
+      "expr": "[is_palindrome(build_list(half + half[::-1])), is_palindrome(build_list(half + [7] + half[::-1][1:] + [0]))]",
+      "expected": "[True, False]",
+      "hidden": true,
+      "hint": "Recursion one level per node goes past Python's limit. Walk the list with a loop."
+    }
+  ]
+}

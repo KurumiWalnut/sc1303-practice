@@ -1,0 +1,63 @@
+{
+  "id": "network-delay",
+  "title": "Network Delay Time",
+  "kind": "leetcode",
+  "difficulty": "Medium",
+  "source": "Dijkstra (Week 12)",
+  "leetcode": {
+    "number": 743,
+    "slug": "network-delay-time"
+  },
+  "timeLimitMs": 3000,
+  "hints": 1,
+  "tests": [
+    {
+      "name": "Example 1",
+      "expr": "network_delay_time([[2, 1, 1], [2, 3, 1], [3, 4, 1]], 4, 2)",
+      "expected": "2"
+    },
+    {
+      "name": "Example 2",
+      "expr": "network_delay_time([[1, 2, 1]], 2, 1)",
+      "expected": "1"
+    },
+    {
+      "name": "Example 3",
+      "expr": "network_delay_time([[1, 2, 1]], 2, 2)",
+      "expected": "-1"
+    },
+    {
+      "name": "One node",
+      "expr": "network_delay_time([], 1, 1)",
+      "expected": "0",
+      "hidden": true
+    },
+    {
+      "name": "Longer path is faster",
+      "expr": "network_delay_time([[1, 2, 10], [1, 3, 1], [3, 2, 1], [2, 4, 1]], 4, 1)",
+      "expected": "3",
+      "hidden": true
+    },
+    {
+      "name": "Zero-time edges",
+      "expr": "network_delay_time([[1, 2, 0], [2, 3, 0], [3, 1, 5]], 3, 1)",
+      "expected": "0",
+      "hidden": true
+    },
+    {
+      "name": "Random small",
+      "data": "import random\nrandom.seed(7430)\ncases = []\nfor _ in range(40):\n    n = random.randint(1, 7)\n    pairs = sorted({(random.randint(1, n), random.randint(1, n)) for _ in range(random.randint(0, 14))})\n    t = [[u, v, random.randint(0, 20)] for u, v in pairs if u != v]\n    cases.append((t, n, random.randint(1, n)))",
+      "expr": "[network_delay_time(t, n, k) for t, n, k in cases]",
+      "expected": "[-1, 23, -1, -1, 0, -1, 8, -1, 44, 17, -1, 32, -1, -1, -1, 0, 0, -1, 23, -1, 0, -1, 3, 0, -1, -1, -1, 0, -1, -1, -1, -1, -1, -1, -1, -1, 2, 20, -1, -1]",
+      "hidden": true
+    },
+    {
+      "name": "2 000 nodes, 20 000 edges",
+      "data": "import random\nrandom.seed(74300)\ntimes = [[i, i + 1, random.randint(50, 100)] for i in range(1, 2000)]\nseen = {(i, i + 1) for i in range(1, 2000)}\nwhile len(times) < 20000:\n    u, v = random.randint(1, 2000), random.randint(1, 2000)\n    if u != v and (u, v) not in seen:\n        seen.add((u, v))\n        times.append([u, v, random.randint(0, 100)])",
+      "expr": "network_delay_time(times, 2000, 1)",
+      "expected": "157",
+      "hidden": true,
+      "hint": "Use a heap to pick the next closest node. Scanning every node each time is O(n^2)."
+    }
+  ]
+}

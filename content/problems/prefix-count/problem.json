@@ -1,0 +1,56 @@
+{
+  "id": "prefix-count",
+  "title": "Counting Words With a Given Prefix",
+  "kind": "leetcode",
+  "difficulty": "Easy",
+  "source": "Trie (Week 11)",
+  "leetcode": {
+    "number": 2185,
+    "slug": "counting-words-with-a-given-prefix"
+  },
+  "timeLimitMs": 3000,
+  "hints": 1,
+  "tests": [
+    {
+      "name": "Example 1",
+      "expr": "prefix_count([\"pay\", \"attention\", \"practice\", \"attend\"], \"at\")",
+      "expected": "2"
+    },
+    {
+      "name": "Example 2",
+      "expr": "prefix_count([\"leetcode\", \"win\", \"loops\", \"success\"], \"code\")",
+      "expected": "0"
+    },
+    {
+      "name": "Prefix longer than some words",
+      "expr": "prefix_count([\"a\", \"ab\", \"abc\", \"abcd\"], \"abc\")",
+      "expected": "2",
+      "hidden": true
+    },
+    {
+      "name": "Prefix equals a word",
+      "expr": "prefix_count([\"code\", \"coder\", \"co\"], \"code\")",
+      "expected": "2",
+      "hidden": true
+    },
+    {
+      "name": "Repeated words",
+      "expr": "prefix_count([\"go\", \"go\", \"gone\", \"og\"], \"go\")",
+      "expected": "3",
+      "hidden": true
+    },
+    {
+      "name": "Prefix in the middle doesn't count",
+      "expr": "prefix_count([\"xat\", \"at\", \"bat\"], \"at\")",
+      "expected": "1",
+      "hidden": true
+    },
+    {
+      "name": "20 000 words",
+      "data": "import random\nrandom.seed(2185)\nwords = [''.join(random.choices('abc', k=random.randint(1, 8))) for _ in range(20000)]",
+      "expr": "prefix_count(words, 'ab')",
+      "expected": "1959",
+      "hidden": true
+    }
+  ]
+}

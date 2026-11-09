@@ -1,0 +1,54 @@
+{
+  "id": "generate-parentheses",
+  "title": "Generate Parentheses",
+  "kind": "leetcode",
+  "difficulty": "Medium",
+  "source": "Recursion (Week 9): backtracking",
+  "leetcode": {
+    "number": 22,
+    "slug": "generate-parentheses"
+  },
+  "timeLimitMs": 3000,
+  "hints": 1,
+  "tests": [
+    {
+      "name": "Example 1",
+      "expr": "sorted(generate_parenthesis(3))",
+      "expected": "['((()))', '(()())', '(())()', '()(())', '()()()']"
+    },
+    {
+      "name": "Example 2",
+      "expr": "sorted(generate_parenthesis(1))",
+      "expected": "['()']"
+    },
+    {
+      "name": "n = 2",
+      "expr": "sorted(generate_parenthesis(2))",
+      "expected": "['(())', '()()']",
+      "hidden": true
+    },
+    {
+      "name": "n = 4",
+      "expr": "sorted(generate_parenthesis(4))",
+      "expected": "['(((())))', '((()()))', '((())())', '((()))()', '(()(()))', '(()()())', '(()())()', '(())(())', '(())()()', '()((()))', '()(()())', '()(())()', '()()(())', '()()()()']",
+      "hidden": true
+    },
+    {
+      "name": "n = 8 (1 430 strings)",
+      "data": "def _valid(s):\n    depth = 0\n    for c in s:\n        depth += 1 if c == '(' else -1\n        if depth < 0:\n            return False\n    return depth == 0\n\ndef _all(n):\n    out = ['']\n    for _ in range(2 * n):\n        out = [s + c for s in out for c in '()' if s.count('(') + (c == '(') <= n]\n    return [s for s in out if _valid(s)]\n\nwant = sorted(_all(8))",
+      "setup": "r = generate_parenthesis(8)",
+      "expr": "(len(r), sorted(r) == want)",
+      "expected": "(1430, True)",
+      "hidden": true
+    },
+    {
+      "name": "n = 12 (208 012 strings)",
+      "setup": "r = generate_parenthesis(12)",
+      "expr": "(len(r), len(set(r)), sorted(r)[:3], sorted(r)[-3:])",
+      "expected": "(208012, 208012, ['(((((((((((())))))))))))', '((((((((((()()))))))))))', '((((((((((())())))))))))'], ['()()()()()()()()()(())()', '()()()()()()()()()()(())', '()()()()()()()()()()()()'])",
+      "hidden": true,
+      "hint": "Only add ')' when it closes an open '('. Building every string and filtering is too slow.",
+      "timeLimitMs": 1500
+    }
+  ]
+}

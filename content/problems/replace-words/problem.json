@@ -1,0 +1,60 @@
+{
+  "id": "replace-words",
+  "title": "Replace Words",
+  "kind": "leetcode",
+  "difficulty": "Medium",
+  "source": "Trie (Week 11)",
+  "leetcode": {
+    "number": 648,
+    "slug": "replace-words"
+  },
+  "timeLimitMs": 3000,
+  "hints": 1,
+  "tests": [
+    {
+      "name": "Example 1",
+      "expr": "replace_words([\"cat\", \"bat\", \"rat\"], \"the cattle was rattled by the battery\")",
+      "expected": "'the cat was rat by the bat'"
+    },
+    {
+      "name": "Example 2",
+      "expr": "replace_words([\"a\", \"b\", \"c\"], \"aadsfasf absbs bbab cadsfafs\")",
+      "expected": "'a a b c'"
+    },
+    {
+      "name": "The shortest root wins",
+      "expr": "replace_words([\"aaa\", \"a\", \"aa\"], \"aaaa aa a b\")",
+      "expected": "'a a a b'",
+      "hidden": true,
+      "hint": "Stop at the first end-of-root marker on the way down."
+    },
+    {
+      "name": "A word that is exactly a root",
+      "expr": "replace_words([\"cat\"], \"cat cats ca\")",
+      "expected": "'cat cat ca'",
+      "hidden": true
+    },
+    {
+      "name": "No roots fit",
+      "expr": "replace_words([\"xyz\"], \"hello world\")",
+      "expected": "'hello world'",
+      "hidden": true
+    },
+    {
+      "name": "300 roots, 500 words",
+      "data": "import random\nrandom.seed(6480)\nroots = list({''.join(random.choices('abcd', k=random.randint(2, 5))) for _ in range(300)})\nsentence = ' '.join(''.join(random.choices('abcd', k=random.randint(1, 8))) for _ in range(500))",
+      "expr": "replace_words(roots, sentence)",
+      "expected": "'cb dc ba da dc bb aa d ac bdb bb b dc ac ab ac dd cc b cd bdb db db ad cc a aa cd aa aa cb bdd ca da dc b cd bb dd db bb cb cb ad ba da ac aa dd bc dd bd d ca bdb ca cc ca c ba cc aa ca b aa b a ba ac cb ba ab cc bb ab ac c ba aa bb dd dd cd bdc ba ba cc db c bc ab bc dc ac ac dd bc d bc a dc bb d b ad db dd ba ad bdc d cc c dd db d db ba da ba dd da b b bd db db bc dd dd ca cb ca db dc cc cc ca cb ba ac dc dc cd ca d bc ca ba da bc ab c ab c cc da aa bc ac cc da a ac bdd da ad cb cb db dc da cb ca bb cc db ca cd dd cb dc ab cb bb dc ab cc bc d cd aa cd ad ac d dc ba d da ac db dc c bc ba bb dc dc bc ca dd dd ba dd cc cb ab ab da ba cd d ac cd dd ad cc ba cc cd cc ca dc dc cd cb b ac da db ab db bc ad db ad b db cc dc da bb ba bdac b cb db da ac da ac d cd c ad bc ad d bc d ca dc bddabaa ab aa bc dd dc ac bdc ac ad c aa d aa bb dd cc ac cb bddc c dd ab ab aa dd bb d c d a dd cd bb bb bdad bb ac ab bdc dd cd a db dc d a aa ad ca cd b da ad ad ad bb da dd cc da ad cc aa cd c dd dd da dd cc db da ca cd cd d db cc bc ba dd bc da ab db ca bdc bdd bb ca ba aa bc ab bb a ba cc bdb b db d ab cc da cb ca ac aa cb cb aa ca ca ba ba cb cd bb bdb bd cd ca bdc aa bdadb aa bb b cb ad ab bb ac ba ca dc aa cc ad db ad aa cd ca da cd ad cc cb bdb ba ad ac cd aa dc db ba cd ab bb c bb ab cb ca ca b da db a c bc ba da ad db da a cb bc b ba db bc bc db ac ca cc cd c ba ad db bdd b bb ca bb da ba db ab aa aa ba cd ba d bb cb cb ba dd cb cc ba cc a bb cc bb db ad'",
+      "hidden": true
+    },
+    {
+      "name": "20 000 roots, 20 000 words",
+      "data": "import random\nrandom.seed(648)\nletters = 'abcdefghij'\nroots = list({''.join(random.choices(letters, k=random.randint(5, 9))) for _ in range(20000)})\nsentence = ' '.join(''.join(random.choices(letters, k=random.randint(1, 12))) for _ in range(20000))",
+      "setup": "out = replace_words(roots, sentence)",
+      "expr": "(len(out), out[:120], sum(i * len(w) for i, w in enumerate(out.split())))",
+      "expected": "(147570, 'ddgebbbjhfa ejchbhgf cdj djghbfjd igdddf hgdafgcbf caijacchbcdj eai behh behecbb cda acdjd bihaigchceca highcahbbiac g d', 1273161753)",
+      "hidden": true,
+      "hint": "Checking every root against every word is too slow. Walk a trie of roots instead."
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "id": "queue-from-stacks",
+  "title": "Implement Queue using Stacks",
+  "kind": "leetcode",
+  "difficulty": "Easy",
+  "source": "Queues (Week 8)",
+  "leetcode": {
+    "number": 232,
+    "slug": "implement-queue-using-stacks"
+  },
+  "provided": true,
+  "timeLimitMs": 3000,
+  "hints": 2,
+  "tests": [
+    {
+      "name": "Example",
+      "expr": "run_ops([(\"push\", 1), (\"push\", 2), (\"peek\",), (\"pop\",), (\"empty\",)])",
+      "expected": "[1, 1, False]"
+    },
+    {
+      "name": "Empty at the start",
+      "expr": "run_ops([(\"empty\",), (\"push\", 9), (\"empty\",), (\"pop\",), (\"empty\",)])",
+      "expected": "[True, False, 9, True]"
+    },
+    {
+      "name": "Pushing after a pop",
+      "expr": "run_ops([(\"push\", 1), (\"push\", 2), (\"pop\",), (\"push\", 3), (\"push\", 4), (\"pop\",), (\"pop\",), (\"peek\",), (\"pop\",)])",
+      "expected": "[1, 2, 3, 4, 4]",
+      "hidden": true,
+      "hint": "Only move values from the in stack when the out stack is empty, or the order gets mixed up."
+    },
+    {
+      "name": "300 random operations",
+      "data": "import random\nrandom.seed(232)\nops, size = [], 0\nfor _ in range(300):\n    r = random.random()\n    if size == 0 or r < 0.45:\n        ops.append(('push', random.randint(0, 99)))\n        size += 1\n    elif r < 0.75:\n        ops.append(('pop',))\n        size -= 1\n    else:\n        ops.append(random.choice([('peek',), ('empty',)]))",
+      "expr": "run_ops(ops)",
+      "expected": "[29, False, 29, False, 29, False, False, 64, 46, 83, 9, 0, False, 0, 0, 20, 20, 1, 1, 1, False, False, 12, False, False, 12, 12, 61, 82, 54, False, 31, 18, 18, 59, 59, 59, 56, 13, 16, False, 16, 72, False, 66, 56, False, 82, False, 27, 41, False, 84, False, 42, 42, 77, 77, 11, 11, 74, 33, 2, 37, 44, False, 44, False, 5, False, 54, 28, False, 89, 63, 25, 25, False, 4, False, False, 4, 4, 15, False, 86, False, False, 77, 77, 38, 38, 2, 99, 74, 74, 89, False, 38, False, 58, 95, False, 66, 34, 62, 79, 86, False, 86, 99, 97, 96, 34, False, 46, 46, 46, 26, 68, 39, 75, 48, 74, 74, 74, False, 33, 34, False, 76, 76, False, 19, 97, 97, False, 80, 92, 52, 35, 1, 52, 72, False, 55, 55, False, 32, False, 6, 26, 2, 2, 84, 69, False, 1, 1, 26, False]",
+      "hidden": true
+    },
+    {
+      "name": "200 000 operations",
+      "data": "ops = []\nfor i in range(50000):\n    ops += [('push', i), ('push', -i), ('pop',), ('peek',)]",
+      "setup": "res = run_ops(ops)",
+      "expr": "(len(res), sum(r for r in res if r is not True and r is not False), res[-5:])",
+      "expected": "(100000, 25000, [24999, 24999, -24999, -24999, 25000])",
+      "hidden": true,
+      "hint": "Move everything across only when the out stack is empty. Each value should move at most once."
+    }
+  ]
+}

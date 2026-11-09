@@ -1,0 +1,113 @@
+{
+  "id": "hoare-impl",
+  "title": "Hoare partition",
+  "kind": "base",
+  "difficulty": "Medium",
+  "source": "Week 10 lecture (Quicksort)",
+  "provided": true,
+  "timeLimitMs": 3000,
+  "tests": [
+    {
+      "name": "Lecture example",
+      "setup": "arr = [8, 7, 6, 1, 0, 9, 2]\np = partition(arr, 0, len(arr) - 1)",
+      "expr": "(p, arr)",
+      "expected": "(2, [0, 1, 2, 7, 8, 9, 6])"
+    },
+    {
+      "name": "Second step of the lecture example",
+      "setup": "arr = [0, 1, 2, 7, 8, 9, 6]\np = partition(arr, 3, 6)",
+      "expr": "(p, arr)",
+      "expected": "(3, [0, 1, 2, 6, 8, 9, 7])"
+    },
+    {
+      "name": "quick_sort uses your partition",
+      "setup": "arr = [1, 7, 4, 1, 10, 9, -2]\nquick_sort(arr, 0, len(arr) - 1)",
+      "expr": "arr",
+      "expected": "[-2, 1, 1, 4, 7, 9, 10]"
+    },
+    {
+      "name": "Only part of the array",
+      "setup": "arr = [9, 5, 3, 8, 1, 4, 0]\np = partition(arr, 1, 5)",
+      "expr": "(p, arr)",
+      "expected": "(3, [9, 1, 3, 4, 5, 8, 0])",
+      "hidden": true,
+      "hint": "Only touch array[low..high]: start a at low and b at high - 1."
+    },
+    {
+      "name": "Pivot is the largest",
+      "setup": "arr = [3, 1, 2, 9]\np = partition(arr, 0, len(arr) - 1)",
+      "expr": "(p, arr)",
+      "expected": "(3, [3, 1, 2, 9])",
+      "hidden": true,
+      "hint": "a should stop on the pivot itself, at index high."
+    },
+    {
+      "name": "Pivot is the smallest",
+      "setup": "arr = [5, 6, 7, 1]\np = partition(arr, 0, len(arr) - 1)",
+      "expr": "(p, arr)",
+      "expected": "(0, [1, 6, 7, 5])",
+      "hidden": true,
+      "hint": "b stops when it reaches a, and the pivot then goes where a is."
+    },
+    {
+      "name": "All values equal",
+      "setup": "arr = [4, 4, 4, 4, 4]\np = partition(arr, 0, len(arr) - 1)",
+      "expr": "(p, arr)",
+      "expected": "(3, [4, 4, 4, 4, 4])",
+      "hidden": true,
+      "hint": "Move a on by one after every swap, or two equal values swap with each other forever.",
+      "timeLimitMs": 2000
+    },
+    {
+      "name": "Values equal to the pivot",
+      "setup": "arr = [3, 1, 3, 2, 3]\np = partition(arr, 0, len(arr) - 1)",
+      "expr": "(p, arr)",
+      "expected": "(3, [2, 1, 3, 3, 3])",
+      "hidden": true,
+      "hint": "a stops on values >= pivot and b stops on values <= pivot, so values equal to the pivot get swapped too."
+    },
+    {
+      "name": "One element",
+      "setup": "arr = [7]\np = partition(arr, 0, len(arr) - 1)",
+      "expr": "(p, arr)",
+      "expected": "(0, [7])",
+      "hidden": true
+    },
+    {
+      "name": "Two elements",
+      "expr": "[(partition(x, 0, len(x) - 1), x) for x in ([2, 1], [1, 2])]",
+      "expected": "[(0, [1, 2]), (1, [1, 2])]",
+      "hidden": true
+    },
+    {
+      "name": "Already sorted, and reversed",
+      "expr": "[(partition(x, 0, len(x) - 1), x) for x in ([1, 2, 3, 4, 5], [5, 4, 3, 2, 1])]",
+      "expected": "[(4, [1, 2, 3, 4, 5]), (0, [1, 4, 3, 2, 5])]",
+      "hidden": true
+    },
+    {
+      "name": "Negative numbers and zero",
+      "setup": "arr = [0, -3, 5, -1, 2, -2, 1]\np = partition(arr, 0, len(arr) - 1)",
+      "expr": "(p, arr)",
+      "expected": "(4, [0, -3, -2, -1, 1, 5, 2])",
+      "hidden": true
+    },
+    {
+      "name": "500 small random arrays with repeats",
+      "data": "import random\nrandom.seed(1303)\n\ndef _hoare(array, low, high):\n    pivot = array[high]\n    a, b = low, high - 1\n    while True:\n        while array[a] < pivot:              # stops on a value >= pivot (the pivot itself stops it)\n            a += 1\n        while b > a and array[b] > pivot:    # stops on a value <= pivot, or on reaching a\n            b -= 1\n        if a >= b:                           # the pointers have met\n            break\n        array[a], array[b] = array[b], array[a]\n        a += 1\n    array[a], array[high] = array[high], array[a]   # pivot into its final place\n    return a\n\ncases = []\nfor _ in range(500):\n    n = random.randint(1, 10)\n    arr = [random.randint(-3, 3) for _ in range(n)]\n    low = random.randint(0, n - 1)\n    cases.append((arr, low, random.randint(low, n - 1)))\nwant = []\nfor arr, low, high in cases:\n    x = arr[:]\n    want.append((_hoare(x, low, high), x))",
+      "setup": "got = []\nfor arr, low, high in cases:\n    x = arr[:]\n    got.append((partition(x, low, high), x))",
+      "expr": "next(({'array': cases[i][0], 'low': cases[i][1], 'high': cases[i][2], 'you returned': got[i], 'expected': want[i]} for i in range(len(cases)) if got[i] != want[i]), None)",
+      "expected": "None",
+      "hidden": true,
+      "hint": "This shows the first array your partition gets wrong. Check how each pointer treats values equal to the pivot, and that only a moves on after a swap."
+    },
+    {
+      "name": "Sorts 20 000 values",
+      "data": "import random\nrandom.seed(1010)\nvalues = [random.randint(-10**6, 10**6) for _ in range(20000)]",
+      "setup": "arr = values[:]\nquick_sort(arr, 0, len(arr) - 1)",
+      "expr": "(arr[:5], arr[-5:], arr == sorted(values))",
+      "expected": "([-999985, -999740, -999716, -999674, -999478], [999729, 999747, 999801, 999803, 999992], True)",
+      "hidden": true
+    }
+  ]
+}

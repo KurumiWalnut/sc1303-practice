@@ -1,0 +1,76 @@
+{
+  "id": "avl-preorder",
+  "title": "Build an AVL tree from scratch",
+  "kind": "leetcode",
+  "difficulty": "Medium",
+  "source": "AVL_tree_template.py; Week 12 lecture (AVL Tree)",
+  "timeLimitMs": 3000,
+  "hints": 1,
+  "tests": [
+    {
+      "name": "The template's four cases",
+      "expr": "[avl_preorder(seq) for seq in ([10, 20, 30], [30, 20, 10], [30, 10, 20], [10, 30, 20])]",
+      "expected": "[[20, 10, 30], [20, 10, 30], [20, 10, 30], [20, 10, 30]]"
+    },
+    {
+      "name": "1 to 7 in order",
+      "expr": "avl_preorder([1, 2, 3, 4, 5, 6, 7])",
+      "expected": "[4, 2, 1, 3, 6, 5, 7]"
+    },
+    {
+      "name": "Empty",
+      "expr": "avl_preorder([])",
+      "expected": "[]"
+    },
+    {
+      "name": "Duplicates are ignored",
+      "expr": "avl_preorder([5, 3, 5, 8, 3, 8, 1])",
+      "expected": "[5, 3, 1, 8]",
+      "hidden": true
+    },
+    {
+      "name": "Double rotation below the root",
+      "expr": "avl_preorder([50, 20, 70, 10, 30, 25])",
+      "expected": "[30, 20, 10, 25, 50, 70]",
+      "hidden": true
+    },
+    {
+      "name": "Descending",
+      "expr": "avl_preorder(list(range(20, 0, -1)))",
+      "expected": "[13, 5, 3, 2, 1, 4, 9, 7, 6, 8, 11, 10, 12, 17, 15, 14, 16, 19, 18, 20]",
+      "hidden": true
+    },
+    {
+      "name": "Mixed sequence",
+      "expr": "avl_preorder([43, 18, 22, 9, 21, 6, 8, 20, 63, 50, 62, 51])",
+      "expected": "[22, 18, 8, 6, 9, 21, 20, 50, 43, 62, 51, 63]",
+      "hidden": true
+    },
+    {
+      "name": "200 random values",
+      "data": "import random\nrandom.seed(1200)\nvalues = [random.randint(0, 300) for _ in range(200)]",
+      "expr": "avl_preorder(values)",
+      "expected": "[157, 100, 39, 17, 9, 4, 0, 6, 13, 10, 15, 31, 23, 19, 18, 21, 28, 24, 29, 36, 34, 35, 37, 61, 49, 44, 40, 46, 45, 47, 51, 50, 54, 70, 65, 64, 68, 69, 88, 79, 73, 72, 85, 80, 87, 93, 91, 90, 96, 95, 98, 136, 124, 111, 103, 102, 101, 106, 110, 119, 118, 122, 123, 129, 126, 127, 131, 145, 138, 137, 142, 154, 149, 146, 152, 155, 156, 231, 193, 170, 165, 163, 168, 167, 169, 181, 172, 171, 177, 186, 182, 183, 192, 216, 203, 195, 194, 198, 210, 208, 206, 212, 211, 214, 223, 221, 219, 230, 226, 279, 248, 242, 236, 232, 239, 237, 240, 246, 245, 265, 255, 253, 258, 256, 260, 272, 269, 277, 290, 285, 281, 289, 286, 294, 293, 292, 298, 296, 295, 297, 299]",
+      "hidden": true
+    },
+    {
+      "name": "15 000 random values",
+      "data": "import random\nrandom.seed(1201)\nvalues = [random.randint(0, 10**6) for _ in range(15000)]",
+      "setup": "p = avl_preorder(values)",
+      "expr": "(len(p), p[:15], sum(i * v for i, v in enumerate(p)))",
+      "expected": "(14882, [407139, 168122, 70644, 44077, 17356, 8102, 5052, 1572, 725, 448, 140, 41, 229, 147, 344], 73748356722001)",
+      "hidden": true,
+      "hint": "Store heights in the nodes. Recomputing a height walks the whole subtree.",
+      "timeLimitMs": 5000
+    },
+    {
+      "name": "10 000 sorted values",
+      "data": "values = list(range(10000))",
+      "setup": "p = avl_preorder(values)",
+      "expr": "(len(p), p[:15])",
+      "expected": "(10000, [4095, 2047, 1023, 511, 255, 127, 63, 31, 15, 7, 3, 1, 0, 2, 5])",
+      "hidden": true,
+      "timeLimitMs": 5000
+    }
+  ]
+}

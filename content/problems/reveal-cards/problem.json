@@ -1,0 +1,53 @@
+{
+  "id": "reveal-cards",
+  "title": "Reveal Cards In Increasing Order",
+  "kind": "leetcode",
+  "difficulty": "Medium",
+  "source": "Queues (Week 8): simulation",
+  "leetcode": {
+    "number": 950,
+    "slug": "reveal-cards-in-increasing-order"
+  },
+  "timeLimitMs": 3000,
+  "hints": 2,
+  "tests": [
+    {
+      "name": "Example 1",
+      "expr": "deck_revealed_increasing([17, 13, 11, 2, 3, 5, 7])",
+      "expected": "[2, 13, 3, 11, 5, 17, 7]"
+    },
+    {
+      "name": "Example 2",
+      "expr": "deck_revealed_increasing([1, 1000])",
+      "expected": "[1, 1000]"
+    },
+    {
+      "name": "One card",
+      "expr": "deck_revealed_increasing([5])",
+      "expected": "[5]",
+      "hidden": true
+    },
+    {
+      "name": "Already sorted input",
+      "expr": "deck_revealed_increasing([1, 2, 3, 4, 5, 6])",
+      "expected": "[1, 4, 2, 6, 3, 5]",
+      "hidden": true
+    },
+    {
+      "name": "Random small",
+      "data": "import random\nrandom.seed(950)\ndecks = [random.sample(range(1, 100), random.randint(1, 10)) for _ in range(40)]",
+      "expr": "[deck_revealed_increasing(dk) for dk in decks]",
+      "expected": "[[26, 53, 28, 89], [4, 37, 7, 55, 24, 45, 27, 99], [5, 98, 6, 64, 60], [83], [6, 49, 43], [9, 94, 31, 44, 35], [12, 63, 21], [9, 85, 31, 80, 61, 97, 62], [1, 92, 9], [6, 85, 43, 95, 64, 94], [18, 73, 22, 79, 39, 74, 54, 89], [14, 77, 30, 73, 32, 78, 54], [14, 40, 16, 89, 20, 53, 21, 86, 24, 65], [19, 76, 47, 74, 62, 77, 69], [71], [6, 88, 10, 26, 23], [22, 69], [41, 50, 45, 75], [5, 93, 7, 83, 61], [35, 71, 58, 91, 60, 88, 68, 98], [25, 83, 26, 66, 34], [95], [14, 25, 15, 69, 17, 38, 20, 82], [37, 97], [59], [15, 86, 38, 66, 40, 96, 48], [18, 57, 21, 93, 31, 58, 34, 90, 45, 88], [18, 52, 27, 77, 38, 67, 42, 83], [47, 57, 52, 66], [3, 43, 4, 99, 24, 53, 28, 92, 33, 84], [10, 84, 13, 58, 14, 75, 24, 67, 35], [25], [33], [7, 75, 10, 33, 11, 59, 16, 55, 26], [3, 97, 4, 73, 34], [8, 58, 9, 48, 15, 98, 22], [3, 72, 14, 52, 23], [26, 71, 48, 95], [32, 73], [17, 48, 26, 74, 28, 49, 29, 71, 41, 54]]",
+      "hidden": true
+    },
+    {
+      "name": "100 000 cards",
+      "data": "import random\nrandom.seed(9500)\ndeck = random.sample(range(10**6), 100000)",
+      "setup": "r = deck_revealed_increasing(deck)",
+      "expr": "(r[:12], r[-6:], sum(i * v for i, v in enumerate(r[::101])))",
+      "expected": "([7, 500730, 9, 749780, 12, 500734, 16, 874675, 20, 500746, 43, 749783], [500702, 874669, 500715, 749777, 500723, 984619], 272091607891)",
+      "hidden": true,
+      "hint": "Use a deque: list.pop(0) and insert(0, ...) are O(N) each."
+    }
+  ]
+}

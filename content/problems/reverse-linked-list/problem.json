@@ -1,0 +1,62 @@
+{
+  "id": "reverse-linked-list",
+  "title": "Reverse a linked list",
+  "kind": "leetcode",
+  "difficulty": "Easy",
+  "source": "Linked lists (Week 11)",
+  "leetcode": {
+    "number": 206,
+    "slug": "reverse-linked-list"
+  },
+  "provided": true,
+  "timeLimitMs": 3000,
+  "hints": 1,
+  "tests": [
+    {
+      "name": "Five nodes",
+      "expr": "to_pylist(reverse_list(build_list([1, 2, 3, 4, 5])))",
+      "expected": "[5, 4, 3, 2, 1]"
+    },
+    {
+      "name": "Two nodes",
+      "expr": "to_pylist(reverse_list(build_list([1, 2])))",
+      "expected": "[2, 1]"
+    },
+    {
+      "name": "Empty list",
+      "expr": "to_pylist(reverse_list(None))",
+      "expected": "[]"
+    },
+    {
+      "name": "One node",
+      "expr": "to_pylist(reverse_list(build_list([7])))",
+      "expected": "[7]",
+      "hidden": true
+    },
+    {
+      "name": "Uses the same nodes",
+      "setup": "head = build_list(['a', 'b', 'c'])\nold_tail = head.next.next\nnew_head = reverse_list(head)",
+      "expr": "(new_head is old_tail, to_pylist(new_head))",
+      "expected": "(True, ['c', 'b', 'a'])",
+      "hidden": true,
+      "hint": "Don't build a new list. Re-link the nodes you were given."
+    },
+    {
+      "name": "Old head becomes the tail",
+      "setup": "head = build_list([1, 2, 3])\nreverse_list(head)",
+      "expr": "head.next is None",
+      "expected": "True",
+      "hidden": true,
+      "hint": "After reversing, the old head's next must be None, or the list loops forever."
+    },
+    {
+      "name": "20 000 nodes",
+      "data": "head = build_list(list(range(20000)))",
+      "setup": "r = to_pylist(reverse_list(head))",
+      "expr": "(len(r), r[:3], r[-3:])",
+      "expected": "(20000, [19999, 19998, 19997], [2, 1, 0])",
+      "hidden": true,
+      "hint": "Recursion goes one call deep per node. Use a loop."
+    }
+  ]
+}

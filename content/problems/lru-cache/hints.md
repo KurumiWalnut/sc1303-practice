@@ -1,0 +1,1 @@
+The classic design is a dict mapping key → node, plus a doubly linked list ordered from most to least recently used. Move a node to the front when it's used, and remove from the back when the cache is full.

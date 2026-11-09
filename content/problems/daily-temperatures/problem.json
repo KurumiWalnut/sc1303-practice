@@ -1,0 +1,59 @@
+{
+  "id": "daily-temperatures",
+  "title": "Daily Temperatures",
+  "kind": "leetcode",
+  "difficulty": "Medium",
+  "source": "Stacks (Week 8): monotonic stack",
+  "leetcode": {
+    "number": 739,
+    "slug": "daily-temperatures"
+  },
+  "timeLimitMs": 3000,
+  "hints": 2,
+  "tests": [
+    {
+      "name": "Example 1",
+      "expr": "daily_temperatures([73, 74, 75, 71, 69, 72, 76, 73])",
+      "expected": "[1, 1, 4, 2, 1, 1, 0, 0]"
+    },
+    {
+      "name": "Example 2",
+      "expr": "daily_temperatures([30, 40, 50, 60])",
+      "expected": "[1, 1, 1, 0]"
+    },
+    {
+      "name": "Example 3",
+      "expr": "daily_temperatures([30, 60, 90])",
+      "expected": "[1, 1, 0]"
+    },
+    {
+      "name": "Equal isn't warmer",
+      "expr": "daily_temperatures([50, 50, 50, 51])",
+      "expected": "[3, 2, 1, 0]",
+      "hidden": true,
+      "hint": "Only a strictly warmer day counts."
+    },
+    {
+      "name": "Getting colder",
+      "expr": "daily_temperatures([90, 80, 70, 60])",
+      "expected": "[0, 0, 0, 0]",
+      "hidden": true
+    },
+    {
+      "name": "Random short",
+      "data": "import random\nrandom.seed(739)\ncases = [[random.randint(30, 40) for _ in range(random.randint(1, 12))] for _ in range(40)]",
+      "expr": "[daily_temperatures(t) for t in cases]",
+      "expected": "[[1, 2, 1, 0], [1, 1, 0], [2, 1, 1, 0, 1, 0, 0], [1, 2, 1, 0, 0, 0], [0, 1, 1, 5, 1, 3, 1, 1, 0, 1, 0], [3, 2, 1, 0], [0, 1, 2, 1, 1, 3, 1, 1, 0, 0], [0, 1, 5, 4, 1, 2, 1, 0, 0, 0], [3, 2, 1, 3, 1, 1, 0, 3, 1, 1, 1, 0], [0], [2, 1, 1, 2, 1, 0, 0, 2, 1, 0, 0], [3, 2, 1, 0, 0, 0], [0, 0, 0], [4, 1, 2, 1, 3, 2, 1, 1, 0, 0, 0], [1, 0, 0], [3, 1, 1, 6, 3, 2, 1, 2, 1, 0, 0, 0], [2, 1, 2, 1, 0, 1, 2, 1, 0, 0], [0], [1, 2, 1, 0, 3, 2, 1, 0, 0, 1, 0], [1, 2, 1, 2, 1, 0, 0], [1, 2, 1, 0, 0, 0], [1, 0, 0], [0, 0, 0, 3, 1, 1, 0, 0], [2, 1, 0], [0, 1, 0, 1, 0], [1, 1, 0, 0], [0, 2, 1, 1, 0, 0, 0], [0, 1, 5, 1, 3, 2, 1, 1, 0, 1, 0, 0], [0], [1, 0], [8, 3, 2, 1, 4, 2, 1, 1, 2, 1, 0], [2, 1, 1, 0, 2, 1, 1, 0, 0, 0], [1, 4, 3, 1, 1, 0, 1, 1, 0, 1, 0, 0], [0, 0], [0, 0, 0], [3, 2, 1, 2, 1, 0, 0], [2, 1, 0, 2, 1, 0], [2, 1, 2, 1, 0, 0, 2, 1, 0, 0], [0], [6, 2, 1, 3, 1, 1, 1, 0, 2, 1, 0, 0]]",
+      "hidden": true
+    },
+    {
+      "name": "100 000 days, mostly falling",
+      "data": "import random\nrandom.seed(7390)\ntemps = [100 - i * 70 // 100000 for i in range(99990)] + [random.randint(30, 100) for _ in range(10)]",
+      "setup": "r = daily_temperatures(temps)",
+      "expr": "(sum(r), r[:10], r[-10:], r.count(0))",
+      "expected": "(4579837107, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [1, 3, 2, 1, 4, 2, 1, 1, 0, 0], 4288)",
+      "hidden": true,
+      "hint": "Looking ahead from every day is O(N^2) here. Keep a stack of days still waiting."
+    }
+  ]
+}

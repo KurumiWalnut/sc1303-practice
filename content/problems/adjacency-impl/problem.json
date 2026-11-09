@@ -1,0 +1,70 @@
+{
+  "id": "adjacency-impl",
+  "title": "Adjacency lists, matrices and degrees",
+  "kind": "base",
+  "difficulty": "Easy",
+  "source": "Week 12 lecture (Graphs); graph_template.py",
+  "timeLimitMs": 3000,
+  "tests": [
+    {
+      "name": "Adjacency list",
+      "data": "edges = [[0, 1], [0, 2], [1, 2], [2, 3]]",
+      "expr": "[build_adjacency(4, edges), build_adjacency(4, edges, directed=True)]",
+      "expected": "[[[1, 2], [0, 2], [0, 1, 3], [2]], [[1, 2], [2], [3], []]]"
+    },
+    {
+      "name": "Matrix",
+      "expr": "[to_matrix(3, [[0, 1]]), to_matrix(3, [[0, 1], [2, 0]], directed=True)]",
+      "expected": "[[[0, 1, 0], [1, 0, 0], [0, 0, 0]], [[0, 1, 0], [0, 0, 0], [1, 0, 0]]]"
+    },
+    {
+      "name": "Degrees",
+      "data": "edges = [[0, 1], [0, 2], [1, 2], [2, 3]]",
+      "expr": "(degrees(4, edges), in_out_degrees(4, edges))",
+      "expected": "([2, 2, 3, 1], ([0, 1, 2, 1], [2, 1, 1, 0]))"
+    },
+    {
+      "name": "Vertices with no edges",
+      "expr": "(build_adjacency(5, [[1, 3]]), degrees(5, [[1, 3]]))",
+      "expected": "([[], [3], [], [1], []], [0, 1, 0, 1, 0])",
+      "hidden": true,
+      "hint": "Every vertex gets an entry, even with no edges."
+    },
+    {
+      "name": "Matrix rows are separate lists",
+      "expr": "to_matrix(4, [[1, 2]])",
+      "expected": "[[0, 0, 0, 0], [0, 0, 1, 0], [0, 1, 0, 0], [0, 0, 0, 0]]",
+      "hidden": true,
+      "hint": "[[0] * n] * n makes n references to ONE row. Build each row separately."
+    },
+    {
+      "name": "Neighbour order follows the edge list",
+      "expr": "build_adjacency(4, [[3, 0], [0, 1], [2, 0]])",
+      "expected": "[[3, 1, 2], [0], [0], [0]]",
+      "hidden": true
+    },
+    {
+      "name": "No edges at all",
+      "expr": "(build_adjacency(3, []), to_matrix(2, []), in_out_degrees(2, []))",
+      "expected": "([[], [], []], [[0, 0], [0, 0]], ([0, 0], [0, 0]))",
+      "hidden": true
+    },
+    {
+      "name": "5 000 vertices, 20 000 edges",
+      "data": "import random\nrandom.seed(1212)\nn = 5000\nedges = [random.sample(range(n), 2) for _ in range(20000)]",
+      "setup": "adj = build_adjacency(n, edges)",
+      "expr": "(sum(map(len, adj)), adj[0][:6], adj[1234][:6], max(degrees(n, edges)), sum(in_out_degrees(n, edges)[0][:100]))",
+      "expected": "(40000, [4892, 1587, 120, 3838, 4802], [3990, 1821, 1225, 4201, 4419, 2195], 19, 398)",
+      "hidden": true,
+      "hint": "Go through the edge list once. Scanning every edge for every vertex is O(V E)."
+    },
+    {
+      "name": "Matrix of a 300-vertex graph",
+      "data": "import random\nrandom.seed(1213)\nedges = [random.sample(range(300), 2) for _ in range(2000)]",
+      "setup": "m = to_matrix(300, edges)",
+      "expr": "(sum(map(sum, m)), m[5][:20], all(m[u][v] == m[v][u] for u in range(300) for v in range(300)))",
+      "expected": "(3908, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0], True)",
+      "hidden": true
+    }
+  ]
+}

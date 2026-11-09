@@ -1,0 +1,28 @@
+{
+  "id": "integer-sqrt",
+  "title": "Integer square root",
+  "kind": "leetcode",
+  "difficulty": "Easy",
+  "source": "Week 6 seminar, exercise 3",
+  "leetcode": { "number": 69, "slug": "sqrtx" },
+  "timeLimitMs": 3000,
+  "hints": 1,
+  "tests": [
+    { "name": "Seminar: √45", "expr": "int_sqrt(45)", "expected": "6" },
+    { "name": "Seminar: √99 999", "expr": "int_sqrt(99999)", "expected": "316" },
+    { "name": "Not a perfect square", "expr": "int_sqrt(8)", "expected": "2" },
+    { "name": "Zero", "expr": "int_sqrt(0)", "expected": "0", "hidden": true },
+    { "name": "One", "expr": "int_sqrt(1)", "expected": "1", "hidden": true },
+    { "name": "Around perfect squares", "expr": "[int_sqrt(x) for x in [24, 25, 26, 99, 100, 101]]", "expected": "[4, 5, 5, 9, 10, 10]", "hidden": true },
+    { "name": "Just below a big square", "expr": "int_sqrt(2147395599)", "expected": "46339", "hidden": true },
+    { "name": "Largest input", "expr": "int_sqrt(2147483647)", "expected": "46340", "hidden": true, "hint": "Watch for mid * mid overshooting: compare it with n, don't stop early." },
+    {
+      "name": "5 000 large inputs",
+      "data": "import math\nvalues = list(range(2_000_000_000, 2_000_000_000 + 5000))",
+      "expr": "[int_sqrt(v) for v in values]",
+      "expected": "[math.isqrt(v) for v in values]",
+      "hidden": true,
+      "hint": "Counting up one number at a time is too slow for big n. Binary search on the answer."
+    }
+  ]
+}

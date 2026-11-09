@@ -1,0 +1,81 @@
+{
+  "id": "trie-impl",
+  "title": "Trie: insert, search and prefixes",
+  "kind": "base",
+  "difficulty": "Easy",
+  "source": "Week 11 lecture (Trie); Week 11 seminar, exercise 8",
+  "timeLimitMs": 3000,
+  "tests": [
+    {
+      "name": "contains",
+      "setup": "t = Trie()\nfor w in [\"ace\", \"bad\", \"cat\"]:\n    t.insert(w)",
+      "expr": "[t.contains(w) for w in [\"cat\", \"ca\", \"cab\", \"bad\", \"ace\", \"aces\"]]",
+      "expected": "[True, False, False, True, True, False]"
+    },
+    {
+      "name": "starts_with",
+      "setup": "t = Trie()\nfor w in [\"ace\", \"bad\", \"cat\"]:\n    t.insert(w)",
+      "expr": "[t.starts_with(p) for p in [\"ca\", \"b\", \"cb\", \"ace\", \"acer\"]]",
+      "expected": "[True, True, False, True, False]"
+    },
+    {
+      "name": "The \"*\" marker",
+      "setup": "t = Trie()\nfor w in [\"ace\", \"bad\", \"cat\"]:\n    t.insert(w)",
+      "expr": "(\"*\" in t.search(\"cat\").children, \"*\" in t.search(\"ca\").children, sorted(t.root.children))",
+      "expected": "(True, False, ['a', 'b', 'c'])"
+    },
+    {
+      "name": "search returns the node itself",
+      "setup": "t = Trie()\nt.insert(\"cat\")",
+      "expr": "t.search(\"ca\") is t.root.children[\"c\"].children[\"a\"]",
+      "expected": "True",
+      "hidden": true,
+      "hint": "Return the TrieNode you stopped on, not True or the word."
+    },
+    {
+      "name": "search misses",
+      "setup": "t = Trie()\nt.insert(\"cat\")",
+      "expr": "(t.search(\"dog\"), t.search(\"cats\"))",
+      "expected": "(None, None)",
+      "hidden": true
+    },
+    {
+      "name": "Short word added after a longer one",
+      "setup": "t = Trie()\nt.insert(\"batter\")\nt.insert(\"bat\")",
+      "expr": "[t.contains(w) for w in [\"bat\", \"batt\", \"batter\", \"b\"]]",
+      "expected": "[True, False, True, False]",
+      "hidden": true,
+      "hint": "Adding \"bat\" after \"batter\" should only add a \"*\" under the existing t node."
+    },
+    {
+      "name": "Empty trie",
+      "setup": "t = Trie()",
+      "expr": "(t.contains(\"a\"), t.starts_with(\"a\"), t.root.children)",
+      "expected": "(False, False, {})",
+      "hidden": true
+    },
+    {
+      "name": "Shared paths aren't duplicated (exercise 8)",
+      "setup": "t = Trie()\nfor w in [\"get\", \"go\", \"got\", \"gotten\", \"hall\", \"ham\", \"hammer\", \"hill\", \"zebra\"]:\n    t.insert(w)",
+      "expr": "(sorted(t.root.children), sorted(t.search(\"go\").children), sorted(t.search(\"ham\").children), sorted(t.search(\"h\").children))",
+      "expected": "(['g', 'h', 'z'], ['*', 't'], ['*', 'm'], ['a', 'i'])",
+      "hidden": true
+    },
+    {
+      "name": "Inserting a word twice",
+      "setup": "t = Trie()\nt.insert(\"go\")\nt.insert(\"go\")\nt.insert(\"goal\")",
+      "expr": "(t.contains(\"go\"), sorted(t.search(\"go\").children))",
+      "expected": "(True, ['*', 'a'])",
+      "hidden": true
+    },
+    {
+      "name": "20 000 words, 20 000 queries",
+      "data": "import random\nrandom.seed(208)\nletters = 'abcdefghij'\nwords = [''.join(random.choices(letters, k=random.randint(3, 12))) for _ in range(20000)]\nqueries = [''.join(random.choices(letters, k=random.randint(2, 9))) for _ in range(10000)] + random.sample(words, 10000)",
+      "setup": "t = Trie()\nfor w in words:\n    t.insert(w)",
+      "expr": "(sum(map(t.contains, queries)), sum(map(t.starts_with, queries)))",
+      "expected": "(11289, 13742)",
+      "hidden": true,
+      "hint": "Each query should only walk down the trie, not loop over every word."
+    }
+  ]
+}

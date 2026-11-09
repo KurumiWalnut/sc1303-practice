@@ -1,0 +1,67 @@
+{
+  "id": "rotate-array",
+  "title": "Rotate Array",
+  "kind": "leetcode",
+  "difficulty": "Medium",
+  "source": "Array operations (Week 5)",
+  "leetcode": {
+    "number": 189,
+    "slug": "rotate-array"
+  },
+  "timeLimitMs": 3000,
+  "hints": 2,
+  "tests": [
+    {
+      "name": "Example 1",
+      "setup": "nums = [1, 2, 3, 4, 5, 6, 7]\nrotate(nums, 3)",
+      "expr": "nums",
+      "expected": "[5, 6, 7, 1, 2, 3, 4]"
+    },
+    {
+      "name": "Example 2",
+      "setup": "nums = [-1, -100, 3, 99]\nrotate(nums, 2)",
+      "expr": "nums",
+      "expected": "[3, 99, -1, -100]"
+    },
+    {
+      "name": "k bigger than the length",
+      "setup": "nums = [1, 2, 3]\nrotate(nums, 10)",
+      "expr": "nums",
+      "expected": "[3, 1, 2]",
+      "hidden": true,
+      "hint": "Rotating by len(nums) changes nothing, so use k % len(nums)."
+    },
+    {
+      "name": "k = 0 and one value",
+      "setup": "a = [1, 2]\nrotate(a, 0)\nb = [7]\nrotate(b, 5)",
+      "expr": "(a, b)",
+      "expected": "([1, 2], [7])",
+      "hidden": true
+    },
+    {
+      "name": "In place",
+      "setup": "nums = [1, 2, 3, 4]\nrotate(nums, 1)",
+      "expr": "nums",
+      "expected": "[4, 1, 2, 3]",
+      "hidden": true,
+      "hint": "Change the list you were given (nums[i] = ..., or nums[:] = ...), not a new one."
+    },
+    {
+      "name": "Random small",
+      "data": "import random\nrandom.seed(189)\ncases = [([random.randint(0, 9) for _ in range(random.randint(1, 9))], random.randint(0, 20)) for _ in range(40)]",
+      "setup": "results = []\nfor arr, k in cases:\n    a = arr[:]\n    rotate(a, k)\n    results.append(a)",
+      "expr": "[r for r in results]",
+      "expected": "[[4, 2, 9, 8, 1, 6, 0, 8], [9], [4, 0, 6, 4], [7, 8], [6], [3, 2, 6, 6], [8, 5, 8, 4, 5, 1, 1, 0, 7], [1, 9, 0, 5, 2, 8], [6, 8], [0, 5, 9, 8, 1, 0, 6, 4], [9, 6], [7, 5, 8, 9, 9, 4], [1, 5], [5, 4, 8, 6], [3, 7, 2, 1, 9], [1, 3, 4, 1, 3, 9, 2], [0, 6, 5], [3, 0, 9], [1, 7, 5, 2, 2], [8, 4, 8, 3], [4, 1], [3, 7, 0], [8, 1, 2, 5, 2, 0, 7, 7], [8, 6, 0, 8, 7], [2, 0, 9, 9, 6, 0, 6, 2, 5], [0, 5, 6, 7, 0, 9, 3, 7, 8], [3, 1], [5, 0, 3], [5, 1], [2, 9, 4], [5, 1, 0, 9, 1, 1], [8, 3, 8, 4, 4, 3, 7], [5, 6, 4], [2, 3, 0], [8, 8, 8, 7, 0], [7, 9], [1, 5, 7, 3, 7, 5, 3], [0, 3, 1, 0, 1, 6, 9], [6, 5], [6]]",
+      "hidden": true
+    },
+    {
+      "name": "100 000 values",
+      "data": "start = list(range(100000))",
+      "setup": "nums = start[:]\nrotate(nums, 999937311)",
+      "expr": "(nums[:5], nums[-5:], sum(i * v for i, v in enumerate(nums[::7])))",
+      "expected": "([62689, 62690, 62691, 62692, 62693], [62684, 62685, 62686, 62687, 62688], 4415995785440)",
+      "hidden": true,
+      "hint": "Rotating one step at a time is O(N k). Use three reversals."
+    }
+  ]
+}

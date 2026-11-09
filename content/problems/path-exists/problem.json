@@ -1,0 +1,33 @@
+{
+  "id": "path-exists",
+  "title": "Find if a path exists",
+  "kind": "leetcode",
+  "difficulty": "Easy",
+  "source": "Graph search (Week 12)",
+  "leetcode": { "number": 1971, "slug": "find-if-path-exists-in-graph" },
+  "timeLimitMs": 3000,
+  "hints": 1,
+  "tests": [
+    { "name": "Triangle", "expr": "valid_path(3, [[0, 1], [1, 2], [2, 0]], 0, 2)", "expected": "True" },
+    { "name": "Two separate groups", "expr": "valid_path(6, [[0, 1], [0, 2], [3, 5], [5, 4], [4, 3]], 0, 5)", "expected": "False" },
+    { "name": "Source is the destination", "expr": "valid_path(1, [], 0, 0)", "expected": "True" },
+    { "name": "No edges", "expr": "valid_path(2, [], 0, 1)", "expected": "False", "hidden": true },
+    { "name": "Edges work both ways", "expr": "valid_path(4, [[0, 1], [2, 3]], 3, 2)", "expected": "True", "hidden": true, "hint": "The graph is undirected: add each edge in both directions." },
+    { "name": "Path through several vertices", "expr": "valid_path(5, [[0, 4], [4, 3], [3, 2], [2, 1]], 1, 0)", "expected": "True", "hidden": true },
+    {
+      "name": "Chain of 20 000 vertices",
+      "data": "n = 20000\nedges = [[i, i + 1] for i in range(n - 1)]",
+      "expr": "valid_path(n, edges, 0, n - 1)",
+      "expected": "True",
+      "hidden": true,
+      "hint": "A path this long breaks recursive DFS (Python's recursion limit is about 1 000). Use BFS with a queue, or DFS with your own stack."
+    },
+    {
+      "name": "Two long chains",
+      "data": "n = 20000\nedges = [[i, i + 1] for i in range(9999)] + [[i, i + 1] for i in range(10000, 19999)]",
+      "expr": "valid_path(n, edges, 0, n - 1)",
+      "expected": "False",
+      "hidden": true
+    }
+  ]
+}

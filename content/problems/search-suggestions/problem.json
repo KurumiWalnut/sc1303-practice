@@ -1,0 +1,59 @@
+{
+  "id": "search-suggestions",
+  "title": "Search Suggestions System",
+  "kind": "leetcode",
+  "difficulty": "Medium",
+  "source": "Trie (Week 11): autocomplete",
+  "leetcode": {
+    "number": 1268,
+    "slug": "search-suggestions-system"
+  },
+  "timeLimitMs": 3000,
+  "hints": 1,
+  "tests": [
+    {
+      "name": "Example 1",
+      "expr": "suggested_products([\"mobile\", \"mouse\", \"moneypot\", \"monitor\", \"mousepad\"], \"mouse\")",
+      "expected": "[['mobile', 'moneypot', 'monitor'], ['mobile', 'moneypot', 'monitor'], ['mouse', 'mousepad'], ['mouse', 'mousepad'], ['mouse', 'mousepad']]"
+    },
+    {
+      "name": "Example 2",
+      "expr": "suggested_products([\"havana\"], \"tatiana\")",
+      "expected": "[[], [], [], [], [], [], []]"
+    },
+    {
+      "name": "Whole word typed",
+      "expr": "suggested_products([\"havana\"], \"havana\")",
+      "expected": "[['havana'], ['havana'], ['havana'], ['havana'], ['havana'], ['havana']]",
+      "hidden": true
+    },
+    {
+      "name": "Matches run out part way",
+      "expr": "suggested_products([\"bags\", \"baggage\", \"banner\", \"box\", \"cloths\"], \"bags\")",
+      "expected": "[['baggage', 'bags', 'banner'], ['baggage', 'bags', 'banner'], ['baggage', 'bags'], ['bags']]",
+      "hidden": true
+    },
+    {
+      "name": "More than 3 match",
+      "expr": "suggested_products([\"d\", \"c\", \"b\", \"a\", \"ab\", \"abc\"], \"ab\")",
+      "expected": "[['a', 'ab', 'abc'], ['ab', 'abc']]",
+      "hidden": true
+    },
+    {
+      "name": "200 random products",
+      "data": "import random\nrandom.seed(12680)\nproducts = list({''.join(random.choices('ab', k=random.randint(1, 6))) for _ in range(200)})\nword = ''.join(random.choices('ab', k=6))",
+      "expr": "suggested_products(products, word)",
+      "expected": "[['b', 'ba', 'baa'], ['bb', 'bba', 'bbaa'], ['bbb', 'bbba', 'bbbaaa'], ['bbba', 'bbbaaa', 'bbbabb'], ['bbbaaa'], ['bbbaaa']]",
+      "hidden": true
+    },
+    {
+      "name": "50 000 products, a 20 000-letter search",
+      "data": "import random\nrandom.seed(1268)\nword = ''.join(random.choices('abcdefgh', k=20000))\nproducts = {''.join(random.choices('abcdefgh', k=random.randint(1, 10))) for _ in range(50000)}\nproducts.update(word[:n] for n in (300, 2000, 8000, 15000, 20000))\nproducts.update(word[:700] + 'cab', word[:1200] + 'a' * 5, word[:9000] + 'h')\nproducts = list(products)",
+      "setup": "r = suggested_products(products, word)",
+      "expr": "(len(r), r[:4], sum(map(len, r)), [[p[:15] for p in x] for x in r[8:12]], [[len(p) for p in x] for x in r[-3:]])",
+      "expected": "(20000, [['a', 'aa', 'aaa'], ['aa', 'aaa', 'aaaaa'], ['aae', 'aaea', 'aaeaaabc'], ['aaef', 'aaefa', 'aaefaaf']], 43000, [['aaefegehdcdbcee', 'aaefegehdcdbcee', 'aaefegehdcdbcee'], ['aaefegehdcdbcee', 'aaefegehdcdbcee', 'aaefegehdcdbcee'], ['aaefegehdcdbcee', 'aaefegehdcdbcee', 'aaefegehdcdbcee'], ['aaefegehdcdbcee', 'aaefegehdcdbcee', 'aaefegehdcdbcee']], [[20000], [20000], [20000]])",
+      "hidden": true,
+      "hint": "Filtering every product for every prefix is too slow. Sort once, then binary search (or use a trie)."
+    }
+  ]
+}

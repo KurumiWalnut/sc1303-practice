@@ -1,0 +1,39 @@
+{
+  "id": "climbing-stairs",
+  "title": "Climbing Stairs",
+  "kind": "leetcode",
+  "difficulty": "Easy",
+  "source": "Week 9 seminar, coding exercise 3",
+  "leetcode": {
+    "number": 70,
+    "slug": "climbing-stairs"
+  },
+  "timeLimitMs": 3000,
+  "hints": 2,
+  "tests": [
+    {
+      "name": "Examples",
+      "expr": "[climb_stairs(1), climb_stairs(2), climb_stairs(3)]",
+      "expected": "[1, 2, 3]"
+    },
+    {
+      "name": "4 to 10",
+      "expr": "[climb_stairs(n) for n in range(4, 11)]",
+      "expected": "[5, 8, 13, 21, 34, 55, 89]",
+      "hidden": true
+    },
+    {
+      "name": "n = 45",
+      "expr": "climb_stairs(45)",
+      "expected": "1836311903",
+      "hidden": true,
+      "hint": "Plain recursion makes over a billion calls here. Remember earlier answers."
+    },
+    {
+      "name": "n = 90",
+      "expr": "climb_stairs(90)",
+      "expected": "4660046610375530309",
+      "hidden": true
+    }
+  ]
+}

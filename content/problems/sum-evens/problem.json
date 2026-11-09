@@ -1,0 +1,41 @@
+{
+  "id": "sum-evens",
+  "title": "Sum of even numbers in O(1)",
+  "kind": "leetcode",
+  "difficulty": "Easy",
+  "source": "Week 5 seminar, exercise 2",
+  "timeLimitMs": 3000,
+  "hints": 2,
+  "tests": [
+    {
+      "name": "Examples",
+      "expr": "[sum_evens(10), sum_evens(1), sum_evens(10_000_000)]",
+      "expected": "[30, 0, 25000005000000]"
+    },
+    {
+      "name": "Small n",
+      "expr": "[sum_evens(n) for n in range(0, 21)]",
+      "expected": "[0, 0, 2, 2, 6, 6, 12, 12, 20, 20, 30, 30, 42, 42, 56, 56, 72, 72, 90, 90, 110]",
+      "hidden": true
+    },
+    {
+      "name": "Odd n",
+      "expr": "[sum_evens(11), sum_evens(99)]",
+      "expected": "[30, 2450]",
+      "hidden": true
+    },
+    {
+      "name": "n = 10^18",
+      "expr": "sum_evens(10**18)",
+      "expected": "250000000000000000500000000000000000",
+      "hidden": true,
+      "hint": "A loop would take years. Use the formula, with // so it stays exact."
+    },
+    {
+      "name": "Many calls",
+      "expr": "sum(sum_evens(n) for n in range(10**12, 10**12 + 20000))",
+      "expected": "5000000100000000666666660000",
+      "hidden": true
+    }
+  ]
+}

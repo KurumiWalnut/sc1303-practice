@@ -1,0 +1,52 @@
+{
+  "id": "intersection-of-arrays",
+  "title": "Intersection of Two Arrays",
+  "kind": "leetcode",
+  "difficulty": "Easy",
+  "source": "Week 8 seminar, exercise 2",
+  "leetcode": {
+    "number": 349,
+    "slug": "intersection-of-two-arrays"
+  },
+  "timeLimitMs": 3000,
+  "hints": 1,
+  "tests": [
+    {
+      "name": "Example 1",
+      "expr": "sorted(intersection([1, 2, 2, 1], [2, 2]))",
+      "expected": "[2]"
+    },
+    {
+      "name": "Example 2",
+      "expr": "sorted(intersection([4, 9, 5], [9, 4, 9, 8, 4]))",
+      "expected": "[4, 9]"
+    },
+    {
+      "name": "Course example",
+      "expr": "sorted(intersection([1, 2, 3, 4, 5], [0, 2, 4, 6, 8]))",
+      "expected": "[2, 4]"
+    },
+    {
+      "name": "Nothing in common",
+      "expr": "intersection([1, 3], [2, 4])",
+      "expected": "[]",
+      "hidden": true
+    },
+    {
+      "name": "Each value once",
+      "expr": "sorted(intersection([7, 7, 7], [7, 7]))",
+      "expected": "[7]",
+      "hidden": true,
+      "hint": "Return each shared value only once."
+    },
+    {
+      "name": "100 000 each",
+      "data": "import random\nrandom.seed(349)\na = [random.randint(0, 10**6) for _ in range(100000)]\nb = [random.randint(0, 10**6) for _ in range(100000)]",
+      "setup": "r = intersection(a, b)",
+      "expr": "(len(r), sorted(r)[:10], sum(r))",
+      "expected": "(9020, [60, 191, 252, 257, 313, 404, 540, 571, 811, 1066], 4494304379)",
+      "hidden": true,
+      "hint": "Checking each value against a list is O(N M). Use a set."
+    }
+  ]
+}

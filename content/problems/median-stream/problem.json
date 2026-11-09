@@ -1,0 +1,60 @@
+{
+  "id": "median-stream",
+  "title": "Find Median from Data Stream",
+  "kind": "leetcode",
+  "difficulty": "Hard",
+  "source": "Heaps (Week 12): two heaps",
+  "leetcode": {
+    "number": 295,
+    "slug": "find-median-from-data-stream"
+  },
+  "provided": true,
+  "timeLimitMs": 3000,
+  "hints": 2,
+  "tests": [
+    {
+      "name": "Example",
+      "expr": "run_ops([(\"add\", 1), (\"add\", 2), (\"median\",), (\"add\", 3), (\"median\",)])",
+      "expected": "[1.5, 2.0]"
+    },
+    {
+      "name": "One number",
+      "expr": "run_ops([(\"add\", 5), (\"median\",)])",
+      "expected": "[5.0]"
+    },
+    {
+      "name": "Negative numbers",
+      "expr": "run_ops([(\"add\", -1), (\"median\",), (\"add\", -2), (\"median\",), (\"add\", -3), (\"median\",), (\"add\", -4), (\"median\",)])",
+      "expected": "[-1.0, -1.5, -2.0, -2.5]",
+      "hidden": true
+    },
+    {
+      "name": "Repeats",
+      "expr": "run_ops([(\"add\", 2), (\"add\", 2), (\"median\",), (\"add\", 2), (\"median\",), (\"add\", 1), (\"median\",)])",
+      "expected": "[2.0, 2.0, 2.0]",
+      "hidden": true
+    },
+    {
+      "name": "Decreasing then increasing",
+      "expr": "run_ops([(\"add\", v) for v in [10, 8, 6, 4]] + [(\"median\",)] + [(\"add\", v) for v in [20, 30]] + [(\"median\",)])",
+      "expected": "[7.0, 9.0]",
+      "hidden": true
+    },
+    {
+      "name": "300 random operations",
+      "data": "import random\nrandom.seed(295)\nops = [('add', random.randint(-20, 20))]\nfor _ in range(300):\n    ops.append(('add', random.randint(-20, 20)) if random.random() < 0.6 else ('median',))",
+      "expr": "run_ops(ops)",
+      "expected": "[-2.0, 7.5, -4.0, -5.0, -4.0, -6.0, -6.0, -6.0, -6.0, -6.0, -5.0, -5.0, -5.0, -3.0, -3.0, -3.0, -2.5, -2.5, -1.5, -1.5, -2.5, -1.5, -1.5, -1.5, -2.0, -2.5, -3.0, -3.0, -3.0, -3.0, -3.0, -3.0, -3.0, -3.0, -3.0, -3.0, -3.0, -3.0, -3.0, -3.0, -3.0, -3.0, -3.5, -3.5, -3.5, -3.0, -3.0, -3.0, -3.0, -3.0, -2.0, -1.5, -2.0, -2.0, -2.0, -2.5, -2.5, -2.5, -2.5, -3.0, -3.0, -2.5, -3.0, -3.0, -3.0, -3.0, -3.0, -3.0, -3.0, -3.0, -3.0, -3.0, -3.0, -3.0, -3.0, -3.0, -2.0, -2.0, -2.0, -2.0, -2.0, -2.0, -2.0, -2.0, -2.0, -2.0, -1.5, -2.0, -2.0, -1.5, -1.5, -1.5, -1.5, -1.5, -1.5, -1.5, -1.5, -2.0, -2.0, -2.0, -2.0, -2.0, -2.0, -2.0, -1.5, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0]",
+      "hidden": true
+    },
+    {
+      "name": "100 000 numbers",
+      "data": "import random\nrandom.seed(2950)\nops = []\nfor i in range(100000):\n    ops.append(('add', random.randint(-10**5, 10**5)))\n    if i % 2:\n        ops.append(('median',))",
+      "setup": "r = run_ops(ops)",
+      "expr": "(len(r), r[:5], r[-5:], sum(r))",
+      "expected": "(50000, [-6882.5, -10635.5, 359.0, 359.0, 359.0], [197.5, 201.0, 201.0, 202.0, 201.0], 13230692.5)",
+      "hidden": true,
+      "hint": "Sorting on every find_median is too slow. Keep two heaps."
+    }
+  ]
+}

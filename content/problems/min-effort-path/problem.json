@@ -1,0 +1,63 @@
+{
+  "id": "min-effort-path",
+  "title": "Path With Minimum Effort",
+  "kind": "leetcode",
+  "difficulty": "Medium",
+  "source": "Dijkstra (Week 12): a variation",
+  "leetcode": {
+    "number": 1631,
+    "slug": "path-with-minimum-effort"
+  },
+  "timeLimitMs": 3000,
+  "hints": 2,
+  "tests": [
+    {
+      "name": "Example 1",
+      "expr": "minimum_effort_path([[1, 2, 2], [3, 8, 2], [5, 3, 5]])",
+      "expected": "2"
+    },
+    {
+      "name": "Example 2",
+      "expr": "minimum_effort_path([[1, 2, 3], [3, 8, 4], [5, 3, 5]])",
+      "expected": "1"
+    },
+    {
+      "name": "Example 3",
+      "expr": "minimum_effort_path([[1, 2, 1, 1, 1], [1, 2, 1, 2, 1], [1, 2, 1, 2, 1], [1, 2, 1, 2, 1], [1, 1, 1, 2, 1]])",
+      "expected": "0"
+    },
+    {
+      "name": "One cell",
+      "expr": "minimum_effort_path([[42]])",
+      "expected": "0",
+      "hidden": true
+    },
+    {
+      "name": "One row",
+      "expr": "minimum_effort_path([[1, 10, 6, 7, 9, 10, 4, 9]])",
+      "expected": "9",
+      "hidden": true
+    },
+    {
+      "name": "Detour is easier",
+      "expr": "minimum_effort_path([[1, 100, 1], [1, 100, 1], [1, 1, 1]])",
+      "expected": "0",
+      "hidden": true,
+      "hint": "The effort is the biggest single step on the route, not the total."
+    },
+    {
+      "name": "Random small",
+      "data": "import random\nrandom.seed(1631)\ngrids = []\nfor _ in range(30):\n    r, c = random.randint(1, 5), random.randint(1, 5)\n    grids.append([[random.randint(1, 30) for _ in range(c)] for _ in range(r)])",
+      "expr": "[minimum_effort_path(g) for g in grids]",
+      "expected": "[20, 15, 16, 12, 12, 12, 21, 7, 12, 13, 13, 13, 10, 10, 5, 18, 23, 16, 5, 3, 7, 9, 22, 13, 22, 18, 13, 17, 23, 6]",
+      "hidden": true
+    },
+    {
+      "name": "100 × 100",
+      "data": "import random\nrandom.seed(16310)\nheights = [[random.randint(1, 10**6) for _ in range(100)] for _ in range(100)]",
+      "expr": "minimum_effort_path(heights)",
+      "expected": "391000",
+      "hidden": true
+    }
+  ]
+}

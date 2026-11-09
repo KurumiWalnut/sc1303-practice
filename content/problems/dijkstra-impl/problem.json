@@ -1,0 +1,75 @@
+{
+  "id": "dijkstra-impl",
+  "title": "Dijkstra with price and stopover tables",
+  "kind": "base",
+  "difficulty": "Medium",
+  "source": "dijkstra_template.py; Week 12 lecture (Dijkstra)",
+  "provided": true,
+  "timeLimitMs": 3000,
+  "tests": [
+    {
+      "name": "Lecture example",
+      "setup": "c = build_cities(LECTURE_ROUTES)",
+      "expr": "dijkstra_shortest_path(c[\"Atlanta\"], c[\"El Paso\"])",
+      "expected": "(280, ['Atlanta', 'Denver', 'Chicago', 'El Paso'])"
+    },
+    {
+      "name": "Another destination",
+      "setup": "c = build_cities(LECTURE_ROUTES)",
+      "expr": "dijkstra_shortest_path(c[\"Atlanta\"], c[\"Chicago\"])",
+      "expected": "(200, ['Atlanta', 'Denver', 'Chicago'])"
+    },
+    {
+      "name": "Start is the destination",
+      "setup": "c = build_cities(LECTURE_ROUTES)",
+      "expr": "dijkstra_shortest_path(c[\"Boston\"], c[\"Boston\"])",
+      "expected": "(0, ['Boston'])",
+      "hidden": true
+    },
+    {
+      "name": "From Boston",
+      "setup": "c = build_cities(LECTURE_ROUTES)",
+      "expr": "dijkstra_shortest_path(c[\"Boston\"], c[\"El Paso\"])",
+      "expected": "(200, ['Boston', 'Chicago', 'El Paso'])",
+      "hidden": true
+    },
+    {
+      "name": "From El Paso",
+      "setup": "c = build_cities(LECTURE_ROUTES)",
+      "expr": "[dijkstra_shortest_path(c[\"El Paso\"], c[x]) for x in [\"Boston\", \"Denver\", \"Chicago\"]]",
+      "expected": "[(100, ['El Paso', 'Boston']), (280, ['El Paso', 'Boston', 'Denver']), (220, ['El Paso', 'Boston', 'Chicago'])]",
+      "hidden": true
+    },
+    {
+      "name": "More stops can be cheaper",
+      "setup": "c = build_cities({\"A\": {\"D\": 100, \"B\": 10}, \"B\": {\"C\": 10}, \"C\": {\"D\": 10}})",
+      "expr": "dijkstra_shortest_path(c[\"A\"], c[\"D\"])",
+      "expected": "(30, ['A', 'B', 'C', 'D'])",
+      "hidden": true,
+      "hint": "A direct route isn't always the cheapest. Keep checking until every city is visited."
+    },
+    {
+      "name": "A cheaper price found later",
+      "setup": "c = build_cities({\"S\": {\"A\": 5, \"B\": 1}, \"B\": {\"A\": 2}, \"A\": {\"T\": 1}})",
+      "expr": "dijkstra_shortest_path(c[\"S\"], c[\"T\"])",
+      "expected": "(4, ['S', 'B', 'A', 'T'])",
+      "hidden": true,
+      "hint": "Update a city's price and stopover whenever you find a cheaper way in."
+    },
+    {
+      "name": "Next city is the cheapest overall, not the nearest neighbour",
+      "setup": "c = build_cities({\"S\": {\"A\": 1, \"B\": 2}, \"A\": {\"C\": 100}, \"B\": {\"C\": 1}, \"C\": {\"T\": 1}})",
+      "expr": "dijkstra_shortest_path(c[\"S\"], c[\"T\"])",
+      "expected": "(4, ['S', 'B', 'C', 'T'])",
+      "hidden": true
+    },
+    {
+      "name": "400 cities",
+      "data": "import random\nrandom.seed(743)\nnames = [f'C{i}' for i in range(400)]\nroutes = {n: {} for n in names}\nfor i in range(399):\n    routes[names[i]][names[i + 1]] = random.randint(50, 100)\nfor _ in range(3000):\n    a, b = random.sample(names, 2)\n    routes[a][b] = random.randint(1, 1000)",
+      "setup": "c = build_cities(routes)\nresults = [dijkstra_shortest_path(c['C0'], c[x]) for x in ['C399', 'C200', 'C17']]",
+      "expr": "[(p, path[0], path[-1], path_price(c, path) == p) for p, path in results]",
+      "expected": "[(468, 'C0', 'C399', True), (429, 'C0', 'C200', True), (599, 'C0', 'C17', True)]",
+      "hidden": true
+    }
+  ]
+}

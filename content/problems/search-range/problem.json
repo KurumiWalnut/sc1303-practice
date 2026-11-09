@@ -1,0 +1,58 @@
+{
+  "id": "search-range",
+  "title": "Find First and Last Position",
+  "kind": "leetcode",
+  "difficulty": "Medium",
+  "source": "Binary search (Week 6)",
+  "leetcode": {
+    "number": 34,
+    "slug": "find-first-and-last-position-of-element-in-sorted-array"
+  },
+  "timeLimitMs": 3000,
+  "hints": 1,
+  "tests": [
+    {
+      "name": "Example 1",
+      "expr": "search_range([5, 7, 7, 8, 8, 10], 8)",
+      "expected": "[3, 4]"
+    },
+    {
+      "name": "Example 2",
+      "expr": "search_range([5, 7, 7, 8, 8, 10], 6)",
+      "expected": "[-1, -1]"
+    },
+    {
+      "name": "Example 3",
+      "expr": "search_range([], 0)",
+      "expected": "[-1, -1]"
+    },
+    {
+      "name": "All the same",
+      "expr": "search_range([2, 2, 2, 2], 2)",
+      "expected": "[0, 3]",
+      "hidden": true
+    },
+    {
+      "name": "At the ends",
+      "expr": "[search_range([1, 2, 3], 1), search_range([1, 2, 3], 3), search_range([1], 1)]",
+      "expected": "[[0, 0], [2, 2], [0, 0]]",
+      "hidden": true
+    },
+    {
+      "name": "Random small",
+      "data": "import random\nrandom.seed(34)\ncases = [(sorted(random.randint(0, 6) for _ in range(random.randint(0, 10))), random.randint(-1, 7)) for _ in range(50)]",
+      "expr": "[search_range(a, t) for a, t in cases]",
+      "expected": "[[0, 1], [-1, -1], [-1, -1], [-1, -1], [2, 2], [-1, -1], [-1, -1], [0, 0], [1, 1], [-1, -1], [0, 0], [-1, -1], [-1, -1], [3, 3], [-1, -1], [-1, -1], [3, 3], [0, 1], [0, 1], [1, 2], [-1, -1], [-1, -1], [-1, -1], [5, 5], [0, 0], [1, 1], [-1, -1], [4, 6], [-1, -1], [-1, -1], [0, 2], [-1, -1], [-1, -1], [-1, -1], [-1, -1], [5, 7], [3, 4], [-1, -1], [-1, -1], [-1, -1], [-1, -1], [4, 5], [1, 1], [6, 7], [-1, -1], [8, 8], [2, 2], [0, 0], [-1, -1], [-1, -1]]",
+      "hidden": true
+    },
+    {
+      "name": "500 000 values, 20 000 questions",
+      "data": "import random\nrandom.seed(340)\nnums = sorted(random.randint(0, 200000) for _ in range(500000))\nqueries = [random.randint(-5, 200005) for _ in range(20000)]",
+      "setup": "res = [search_range(nums, q) for q in queries]",
+      "expr": "(sum(r[0] for r in res), sum(r[1] for r in res), res[:3])",
+      "expected": "(4599669038, 4599700520, [[410070, 410072], [251889, 251892], [356329, 356330]])",
+      "hidden": true,
+      "hint": "Scanning for each question is O(N). Two binary searches are O(log N)."
+    }
+  ]
+}

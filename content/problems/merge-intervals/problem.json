@@ -1,0 +1,59 @@
+{
+  "id": "merge-intervals",
+  "title": "Merge Intervals",
+  "kind": "leetcode",
+  "difficulty": "Medium",
+  "source": "Week 7 seminar, exercise 6",
+  "leetcode": {
+    "number": 56,
+    "slug": "merge-intervals"
+  },
+  "timeLimitMs": 3000,
+  "hints": 1,
+  "tests": [
+    {
+      "name": "Course example",
+      "expr": "merge_intervals([[2, 6], [15, 18], [8, 10], [1, 3]])",
+      "expected": "[[1, 6], [8, 10], [15, 18]]"
+    },
+    {
+      "name": "Touching intervals",
+      "expr": "merge_intervals([[1, 4], [4, 5]])",
+      "expected": "[[1, 5]]"
+    },
+    {
+      "name": "One inside another",
+      "expr": "merge_intervals([[1, 10], [2, 3], [4, 5]])",
+      "expected": "[[1, 10]]",
+      "hidden": true,
+      "hint": "Use max(end, next end): a short interval inside a long one doesn't shrink it."
+    },
+    {
+      "name": "Unsorted input",
+      "expr": "merge_intervals([[5, 6], [1, 2], [3, 4]])",
+      "expected": "[[1, 2], [3, 4], [5, 6]]",
+      "hidden": true
+    },
+    {
+      "name": "One interval",
+      "expr": "merge_intervals([[0, 0]])",
+      "expected": "[[0, 0]]",
+      "hidden": true
+    },
+    {
+      "name": "Random small",
+      "data": "import random\nrandom.seed(56)\ncases = []\nfor _ in range(40):\n    iv = []\n    for _ in range(random.randint(1, 8)):\n        a = random.randint(0, 20)\n        iv.append([a, a + random.randint(0, 5)])\n    cases.append(iv)",
+      "expr": "[merge_intervals(iv) for iv in cases]",
+      "expected": "[[[15, 20]], [[2, 4], [7, 7], [11, 15], [17, 22]], [[0, 7], [18, 22]], [[4, 7]], [[5, 5], [14, 15], [17, 18], [19, 20]], [[2, 3], [4, 9], [16, 22]], [[1, 5]], [[0, 4], [11, 17], [19, 22]], [[1, 20]], [[0, 13]], [[1, 5], [9, 13]], [[1, 6], [7, 12], [13, 14], [15, 20]], [[16, 23]], [[1, 1]], [[1, 8], [16, 17], [18, 23]], [[3, 10], [12, 17]], [[2, 3], [9, 9], [19, 24]], [[1, 5], [12, 13], [14, 16], [17, 23]], [[3, 5], [9, 10], [11, 17]], [[13, 13]], [[0, 2], [3, 14]], [[0, 4], [5, 8], [11, 11], [18, 19]], [[5, 7], [13, 14], [15, 17], [19, 19]], [[0, 3], [14, 21]], [[3, 9], [15, 18]], [[0, 1], [2, 7], [10, 16], [19, 22]], [[1, 1], [15, 19]], [[8, 14]], [[5, 7], [8, 14], [17, 18]], [[4, 6], [9, 13], [15, 20]], [[7, 9], [13, 14]], [[3, 3]], [[0, 4], [7, 9], [11, 12], [13, 18]], [[0, 11], [16, 18], [20, 24]], [[7, 11], [13, 13], [18, 20]], [[0, 0], [4, 8], [20, 20]], [[9, 10]], [[5, 10], [18, 21]], [[1, 2], [8, 13], [15, 24]], [[4, 4], [9, 9], [14, 19]]]",
+      "hidden": true
+    },
+    {
+      "name": "100 000 intervals",
+      "data": "import random\nrandom.seed(560)\nintervals = []\nfor _ in range(100000):\n    a = random.randint(0, 10**7)\n    intervals.append([a, a + random.randint(0, 60)])",
+      "setup": "r = merge_intervals(intervals)",
+      "expr": "(len(r), r[:4], r[-2:], sum(b - a for a, b in r))",
+      "expected": "(73530, [[39, 53], [145, 183], [191, 224], [343, 410]], [[9999667, 9999673], [9999922, 9999929]], 2587596)",
+      "hidden": true
+    }
+  ]
+}

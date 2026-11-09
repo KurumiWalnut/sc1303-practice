@@ -1,0 +1,73 @@
+{
+  "id": "sort-colors",
+  "title": "Sort Colors",
+  "kind": "leetcode",
+  "difficulty": "Medium",
+  "source": "Partitioning (Week 10)",
+  "leetcode": {
+    "number": 75,
+    "slug": "sort-colors"
+  },
+  "timeLimitMs": 3000,
+  "hints": 2,
+  "tests": [
+    {
+      "name": "Example 1",
+      "setup": "nums = [2, 0, 2, 1, 1, 0]\nsort_colors(nums)",
+      "expr": "nums",
+      "expected": "[0, 0, 1, 1, 2, 2]"
+    },
+    {
+      "name": "Example 2",
+      "setup": "nums = [2, 0, 1]\nsort_colors(nums)",
+      "expr": "nums",
+      "expected": "[0, 1, 2]"
+    },
+    {
+      "name": "In place",
+      "setup": "nums = [1, 0]\nresult = sort_colors(nums)",
+      "expr": "(result, nums)",
+      "expected": "(None, [0, 1])",
+      "hidden": true,
+      "hint": "Change the list you were given. Building a new list doesn't change nums."
+    },
+    {
+      "name": "One color only",
+      "setup": "nums = [2, 2, 2]\nsort_colors(nums)",
+      "expr": "nums",
+      "expected": "[2, 2, 2]",
+      "hidden": true
+    },
+    {
+      "name": "2 swapped with a 0",
+      "setup": "nums = [2, 1, 0, 2, 0]\nsort_colors(nums)",
+      "expr": "nums",
+      "expected": "[0, 0, 1, 2, 2]",
+      "hidden": true,
+      "hint": "After swapping a 2 to the end, check the value that came back before moving mid."
+    },
+    {
+      "name": "Already sorted",
+      "setup": "nums = [0, 0, 1, 2, 2]\nsort_colors(nums)",
+      "expr": "nums",
+      "expected": "[0, 0, 1, 2, 2]",
+      "hidden": true
+    },
+    {
+      "name": "300 random",
+      "data": "import random\nrandom.seed(75)\nstart = [random.randint(0, 2) for _ in range(300)]",
+      "setup": "nums = start[:]\nsort_colors(nums)",
+      "expr": "nums",
+      "expected": "[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]",
+      "hidden": true
+    },
+    {
+      "name": "200 000 random",
+      "data": "import random\nrandom.seed(750)\nstart = [random.randint(0, 2) for _ in range(200000)]",
+      "setup": "nums = start[:]\nsort_colors(nums)",
+      "expr": "(nums.count(0), nums.count(1), nums == sorted(start))",
+      "expected": "(66653, 66772, True)",
+      "hidden": true
+    }
+  ]
+}

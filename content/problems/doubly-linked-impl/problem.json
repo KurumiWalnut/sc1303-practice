@@ -1,0 +1,67 @@
+{
+  "id": "doubly-linked-impl",
+  "title": "Doubly linked list queue",
+  "kind": "base",
+  "difficulty": "Medium",
+  "source": "Week 10 seminar, exercise 3; Week 11 lecture",
+  "provided": true,
+  "timeLimitMs": 3000,
+  "tests": [
+    {
+      "name": "Seminar: 1 <-> 2 <-> 3 <-> 4",
+      "setup": "d = DoublyLinkedList()\nfor v in [1, 2, 3, 4]:\n    d.append(v)",
+      "expr": "(d.to_list(), d.to_list_reversed())",
+      "expected": "([1, 2, 3, 4], [4, 3, 2, 1])"
+    },
+    {
+      "name": "Pop from both ends",
+      "setup": "d = DoublyLinkedList()\nfor v in [1, 2, 3, 4]:\n    d.append(v)",
+      "expr": "(d.pop_front(), d.pop_back(), d.to_list(), len(d))",
+      "expected": "(1, 4, [2, 3], 2)"
+    },
+    {
+      "name": "prepend",
+      "setup": "d = DoublyLinkedList()\nd.append(2)\nd.prepend(1)\nd.append(3)\nd.prepend(0)",
+      "expr": "(d.to_list(), d.to_list_reversed())",
+      "expected": "([0, 1, 2, 3], [3, 2, 1, 0])"
+    },
+    {
+      "name": "Empty list",
+      "setup": "d = DoublyLinkedList()",
+      "expr": "(d.pop_front(), d.pop_back(), d.to_list(), d.to_list_reversed(), len(d))",
+      "expected": "(None, None, [], [], 0)",
+      "hidden": true
+    },
+    {
+      "name": "Emptying the list resets head and tail",
+      "setup": "d = DoublyLinkedList()\nd.append(1)\nd.append(2)\nd.pop_front()\nd.pop_front()",
+      "expr": "(d.head, d.tail, d.to_list())",
+      "expected": "(None, None, [])",
+      "hidden": true,
+      "hint": "When the last node is removed, both head and tail must become None."
+    },
+    {
+      "name": "Reuse after emptying",
+      "setup": "d = DoublyLinkedList()\nd.append(1)\nd.pop_back()\nd.append(2)\nd.prepend(1)\nd.append(3)",
+      "expr": "(d.to_list(), d.to_list_reversed())",
+      "expected": "([1, 2, 3], [3, 2, 1])",
+      "hidden": true
+    },
+    {
+      "name": "prev links after pops",
+      "setup": "d = DoublyLinkedList()\nfor v in range(6):\n    d.append(v)\nd.pop_front()\nd.pop_back()",
+      "expr": "(d.to_list(), d.to_list_reversed(), d.head.prev, d.tail.next)",
+      "expected": "([1, 2, 3, 4], [4, 3, 2, 1], None, None)",
+      "hidden": true,
+      "hint": "After pop_front, the new head's prev must be None. After pop_back, the new tail's next must be None."
+    },
+    {
+      "name": "Queue of 200 000",
+      "setup": "d = DoublyLinkedList()\nfor v in range(200000):\n    d.append(v)\nout = [d.pop_front() for _ in range(199990)]",
+      "expr": "(len(d), out[:3], out[-1])",
+      "expected": "(10, [0, 1, 2], 199989)",
+      "hidden": true,
+      "hint": "Every method except to_list must be O(1). Don't walk the list to find the tail."
+    }
+  ]
+}

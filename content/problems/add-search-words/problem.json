@@ -1,0 +1,61 @@
+{
+  "id": "add-search-words",
+  "title": "Add and Search Words",
+  "kind": "leetcode",
+  "difficulty": "Medium",
+  "source": "Trie (Week 11)",
+  "leetcode": {
+    "number": 211,
+    "slug": "design-add-and-search-words-data-structure"
+  },
+  "provided": true,
+  "timeLimitMs": 3000,
+  "hints": 2,
+  "tests": [
+    {
+      "name": "Example",
+      "expr": "run_ops([(\"add\", \"bad\"), (\"add\", \"dad\"), (\"add\", \"mad\"), (\"search\", \"pad\"), (\"search\", \"bad\"), (\"search\", \".ad\"), (\"search\", \"b..\"), (\"search\", \"b.\")])",
+      "expected": "[False, True, True, True, False]"
+    },
+    {
+      "name": "Words added later",
+      "expr": "run_ops([(\"search\", \"a\"), (\"add\", \"a\"), (\"search\", \"a\"), (\"search\", \".\"), (\"search\", \"..\")])",
+      "expected": "[False, True, True, False]"
+    },
+    {
+      "name": "Length must match",
+      "expr": "run_ops([(\"add\", \"apple\"), (\"search\", \"app\"), (\"search\", \"appl.\"), (\"search\", \"apple.\"), (\"search\", \"....e\")])",
+      "expected": "[False, True, False, True]",
+      "hidden": true,
+      "hint": "A match needs the \"*\" marker right after the last character."
+    },
+    {
+      "name": "Dots at the start and the end",
+      "expr": "run_ops([(\"add\", \"at\"), (\"add\", \"and\"), (\"add\", \"an\"), (\"add\", \"add\"), (\"search\", \"a\"), (\"search\", \".at\"), (\"add\", \"bat\"), (\"search\", \".at\"), (\"search\", \"an.\"), (\"search\", \"a.d.\"), (\"search\", \"b.\"), (\"search\", \"a.d\"), (\"search\", \".\")])",
+      "expected": "[False, False, True, True, False, False, True, False]",
+      "hidden": true
+    },
+    {
+      "name": "Prefix isn't a word",
+      "expr": "run_ops([(\"add\", \"card\"), (\"search\", \"car\"), (\"search\", \"c.r\"), (\"search\", \"c..d\")])",
+      "expected": "[False, False, True]",
+      "hidden": true
+    },
+    {
+      "name": "300 random operations",
+      "data": "import random\nrandom.seed(2110)\nops = []\nfor _ in range(300):\n    w = ''.join(random.choice('ab.' if random.random() < 0.5 else 'ab') for _ in range(random.randint(1, 4)))\n    if random.random() < 0.4 and '.' not in w:\n        ops.append(('add', w))\n    else:\n        ops.append(('search', w))",
+      "expr": "run_ops(ops)",
+      "expected": "[False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, True, False, False, False, False, True, False, True, False, True, True, True, True, True, True, True, False, False, True, True, True, True, True, True, True, True, True, True, False, True, False, True, True, False, True, False, True, True, True, True, True, False, True, True, False, True, True, True, True, True, True, True, True, False, True, False, True, False, False, True, True, True, True, True, True, True, True, True, True, True, True, False, True, True, True, True, True, False, True, True, True, True, True, True, True, True, False, True, True, True, True, True, True, True, True, False, False, True, True, True, True, True, True, True, True, True, True, True, False, True, False, True, True, True, True, True, True, True, True, True, True, False, True, True, True, True, False, True, False, True, True, True, True, True, True, False, True, True, True, True, False, True, True, False, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, False, True, True, True, True, True, True, True, False, True, True, True, True, True, False, False, True, True]",
+      "hidden": true
+    },
+    {
+      "name": "15 000 words, 15 000 searches",
+      "data": "import random\nrandom.seed(211)\nletters = 'abcdefghij'\nwords = [''.join(random.choices(letters, k=random.randint(4, 10))) for _ in range(15000)]\nops = [('add', w) for w in words]\nfor _ in range(15000):\n    w = list(random.choice(words) if random.random() < 0.5 else ''.join(random.choices(letters, k=random.randint(4, 10))))\n    for _ in range(random.choice([0, 1, 1, 2])):\n        w[random.randrange(len(w))] = '.'\n    ops.append(('search', ''.join(w)))",
+      "setup": "res = run_ops(ops)",
+      "expr": "(sum(res), res[:40])",
+      "expected": "(8756, [False, True, True, True, True, True, False, True, True, False, True, True, False, False, True, False, True, False, False, False, True, True, False, True, True, False, False, False, False, False, True, True, True, False, True, False, True, True, True, True])",
+      "hidden": true,
+      "hint": "Scanning the whole word list for each search is too slow. Walk a trie and branch only at the dots."
+    }
+  ]
+}

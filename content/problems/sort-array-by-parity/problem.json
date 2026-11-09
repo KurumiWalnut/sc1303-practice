@@ -1,0 +1,51 @@
+{
+  "id": "sort-array-by-parity",
+  "title": "Sort Array By Parity",
+  "kind": "leetcode",
+  "difficulty": "Easy",
+  "source": "Partitioning (Week 10)",
+  "leetcode": {
+    "number": 905,
+    "slug": "sort-array-by-parity"
+  },
+  "provided": true,
+  "timeLimitMs": 3000,
+  "hints": 1,
+  "tests": [
+    {
+      "name": "Example 1",
+      "expr": "check_parity(sort_array_by_parity([3, 1, 2, 4]), [3, 1, 2, 4])",
+      "expected": "'ok'"
+    },
+    {
+      "name": "Example 2",
+      "expr": "check_parity(sort_array_by_parity([0]), [0])",
+      "expected": "'ok'"
+    },
+    {
+      "name": "All odd",
+      "expr": "check_parity(sort_array_by_parity([5, 3, 1]), [5, 3, 1])",
+      "expected": "'ok'",
+      "hidden": true
+    },
+    {
+      "name": "All even",
+      "expr": "check_parity(sort_array_by_parity([8, 6, 4]), [8, 6, 4])",
+      "expected": "'ok'",
+      "hidden": true
+    },
+    {
+      "name": "Odd first, then even",
+      "expr": "check_parity(sort_array_by_parity([1, 3, 5, 2, 4, 6]), [1, 3, 5, 2, 4, 6])",
+      "expected": "'ok'",
+      "hidden": true
+    },
+    {
+      "name": "100 000 numbers",
+      "data": "import random\nrandom.seed(905)\nnums = [random.randint(0, 5000) for _ in range(100000)]",
+      "expr": "check_parity(sort_array_by_parity(list(nums)), nums)",
+      "expected": "'ok'",
+      "hidden": true
+    }
+  ]
+}

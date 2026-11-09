@@ -1,0 +1,42 @@
+{
+  "id": "number-of-islands",
+  "title": "Number of islands",
+  "kind": "leetcode",
+  "difficulty": "Medium",
+  "source": "Graph search on a grid (Week 12)",
+  "leetcode": { "number": 200, "slug": "number-of-islands" },
+  "timeLimitMs": 3000,
+  "hints": 2,
+  "tests": [
+    {
+      "name": "One big island",
+      "expr": "num_islands([\n    [\"1\", \"1\", \"1\", \"1\", \"0\"],\n    [\"1\", \"1\", \"0\", \"1\", \"0\"],\n    [\"1\", \"1\", \"0\", \"0\", \"0\"],\n    [\"0\", \"0\", \"0\", \"0\", \"0\"],\n])",
+      "expected": "1"
+    },
+    {
+      "name": "Three islands",
+      "expr": "num_islands([\n    [\"1\", \"1\", \"0\", \"0\", \"0\"],\n    [\"1\", \"1\", \"0\", \"0\", \"0\"],\n    [\"0\", \"0\", \"1\", \"0\", \"0\"],\n    [\"0\", \"0\", \"0\", \"1\", \"1\"],\n])",
+      "expected": "3"
+    },
+    { "name": "All water", "expr": "num_islands([[\"0\", \"0\"], [\"0\", \"0\"]])", "expected": "0" },
+    { "name": "One cell of land", "expr": "num_islands([[\"1\"]])", "expected": "1", "hidden": true },
+    { "name": "Diagonals don't connect", "expr": "num_islands([[\"1\", \"0\"], [\"0\", \"1\"]])", "expected": "2", "hidden": true, "hint": "Only up, down, left and right count as connected." },
+    { "name": "One row", "expr": "num_islands([[\"1\", \"0\", \"1\", \"1\", \"0\", \"1\"]])", "expected": "3", "hidden": true },
+    { "name": "One column", "expr": "num_islands([[\"1\"], [\"1\"], [\"0\"], [\"1\"]])", "expected": "2", "hidden": true, "hint": "Check the grid isn't assumed to be square." },
+    { "name": "Ring around a lake", "expr": "num_islands([[\"1\", \"1\", \"1\"], [\"1\", \"0\", \"1\"], [\"1\", \"1\", \"1\"]])", "expected": "1", "hidden": true },
+    {
+      "name": "Checkerboard",
+      "expr": "num_islands([[\"1\" if (r + c) % 2 == 0 else \"0\" for c in range(5)] for r in range(5)])",
+      "expected": "13",
+      "hidden": true
+    },
+    {
+      "name": "Random 120 × 120 grid",
+      "data": "import random\nrandom.seed(2024)\ngrid = [[\"1\" if random.random() < 0.45 else \"0\" for _ in range(120)] for _ in range(120)]",
+      "expr": "num_islands(grid)",
+      "expected": "1335",
+      "hidden": true,
+      "hint": "Mark land as visited (or sink it to \"0\") as soon as you reach it, so no cell is explored twice."
+    }
+  ]
+}

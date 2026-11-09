@@ -1,0 +1,57 @@
+{
+  "id": "add-two-numbers",
+  "title": "Add two numbers stored in lists",
+  "kind": "leetcode",
+  "difficulty": "Medium",
+  "source": "Linked lists",
+  "leetcode": {
+    "number": 2,
+    "slug": "add-two-numbers"
+  },
+  "provided": true,
+  "timeLimitMs": 3000,
+  "hints": 1,
+  "tests": [
+    {
+      "name": "342 + 465",
+      "expr": "to_pylist(add_two_numbers(build_list([2, 4, 3]), build_list([5, 6, 4])))",
+      "expected": "[7, 0, 8]"
+    },
+    {
+      "name": "0 + 0",
+      "expr": "to_pylist(add_two_numbers(build_list([0]), build_list([0])))",
+      "expected": "[0]"
+    },
+    {
+      "name": "Carries all the way",
+      "expr": "to_pylist(add_two_numbers(build_list([9] * 7), build_list([9] * 4)))",
+      "expected": "[8, 9, 9, 9, 0, 0, 0, 1]"
+    },
+    {
+      "name": "Different lengths",
+      "expr": "to_pylist(add_two_numbers(build_list([1, 8]), build_list([0])))",
+      "expected": "[1, 8]",
+      "hidden": true
+    },
+    {
+      "name": "Carry makes a new digit",
+      "expr": "to_pylist(add_two_numbers(build_list([5]), build_list([5])))",
+      "expected": "[0, 1]",
+      "hidden": true,
+      "hint": "If there's still a carry after both lists end, add one more node."
+    },
+    {
+      "name": "One long, one short",
+      "expr": "to_pylist(add_two_numbers(build_list([9, 9, 9, 9]), build_list([1])))",
+      "expected": "[0, 0, 0, 0, 1]",
+      "hidden": true
+    },
+    {
+      "name": "Thousands of digits",
+      "data": "import random\nrandom.seed(2)\na = [random.randint(0, 9) for _ in range(3000)] + [7]\nb = [random.randint(0, 9) for _ in range(2000)] + [4]\ntotal = int(\"\".join(map(str, reversed(a)))) + int(\"\".join(map(str, reversed(b))))\nwant = [int(c) for c in reversed(str(total))]",
+      "expr": "to_pylist(add_two_numbers(build_list(a), build_list(b))) == want",
+      "expected": "True",
+      "hidden": true
+    }
+  ]
+}

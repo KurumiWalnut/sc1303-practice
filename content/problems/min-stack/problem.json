@@ -1,0 +1,55 @@
+{
+  "id": "min-stack",
+  "title": "Min Stack",
+  "kind": "leetcode",
+  "difficulty": "Medium",
+  "source": "Stacks (Week 8)",
+  "leetcode": {
+    "number": 155,
+    "slug": "min-stack"
+  },
+  "provided": true,
+  "timeLimitMs": 3000,
+  "hints": 2,
+  "tests": [
+    {
+      "name": "Example",
+      "expr": "run_ops([(\"push\", -2), (\"push\", 0), (\"push\", -3), (\"min\",), (\"pop\",), (\"top\",), (\"min\",)])",
+      "expected": "[-3, 0, -2]"
+    },
+    {
+      "name": "One value",
+      "expr": "run_ops([(\"push\", 5), (\"top\",), (\"min\",)])",
+      "expected": "[5, 5]"
+    },
+    {
+      "name": "Repeated minimum",
+      "expr": "run_ops([(\"push\", 1), (\"push\", 1), (\"push\", 2), (\"pop\",), (\"pop\",), (\"min\",)])",
+      "expected": "[1]",
+      "hidden": true,
+      "hint": "When the minimum is pushed twice, popping one copy shouldn't lose it."
+    },
+    {
+      "name": "Minimum comes back after pops",
+      "expr": "run_ops([(\"push\", 5), (\"push\", 3), (\"push\", 7), (\"push\", 1), (\"min\",), (\"pop\",), (\"min\",), (\"pop\",), (\"min\",), (\"pop\",), (\"min\",)])",
+      "expected": "[1, 3, 3, 5]",
+      "hidden": true
+    },
+    {
+      "name": "300 random operations",
+      "data": "import random\nrandom.seed(155)\nops, size = [], 0\nfor _ in range(300):\n    r = random.random()\n    if size == 0 or r < 0.45:\n        ops.append(('push', random.randint(-50, 50)))\n        size += 1\n    elif r < 0.7:\n        ops.append(('pop',))\n        size -= 1\n    else:\n        ops.append(random.choice([('top',), ('min',)]))",
+      "expr": "run_ops(ops)",
+      "expected": "[19, 19, 24, 31, -28, -28, 17, -32, 40, -48, -48, 8, -48, -48, -48, 12, -48, -22, 5, 5, -48, 5, -48, -48, 7, -48, 41, -13, 25, -49, -49, -49, 21, 10, -29, -49, -49, -49, 1, -49, -10, -32, -32, 37, 37, -49, -49, -49, -19, -49, -49, -49, -49, -49, -49, -49, -20, -49, -49, -3, -45, -49, -5, -49, -47, -49, 33, -49, -49, -49, -20, -20, 37, 37, -49, -50, 10, -49, -49, 37, 37, -49, -49, 1, 22, -49, -49]",
+      "hidden": true
+    },
+    {
+      "name": "100 000 operations",
+      "data": "import random\nrandom.seed(1550)\nops = [('push', random.randint(-10**9, 10**9)) for _ in range(40000)]\nfor _ in range(30000):\n    ops.append(('min',))\n    ops.append(random.choice([('push', random.randint(-10**9, 10**9)), ('pop',)]))",
+      "setup": "res = run_ops(ops)",
+      "expr": "(len(res), sum(res), res[-10:])",
+      "expected": "(30000, -29998853010000, [-999961767, -999961767, -999961767, -999961767, -999961767, -999961767, -999961767, -999961767, -999961767, -999961767])",
+      "hidden": true,
+      "hint": "Calling min() on the whole stack is O(N). Store the minimum so far with each value."
+    }
+  ]
+}

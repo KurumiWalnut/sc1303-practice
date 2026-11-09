@@ -1,0 +1,44 @@
+{
+  "id": "star-center",
+  "title": "Find Center of Star Graph",
+  "kind": "leetcode",
+  "difficulty": "Easy",
+  "source": "Graph representations (Week 12)",
+  "leetcode": {
+    "number": 1791,
+    "slug": "find-center-of-star-graph"
+  },
+  "timeLimitMs": 3000,
+  "hints": 1,
+  "tests": [
+    {
+      "name": "Example 1",
+      "expr": "find_center([[1, 2], [2, 3], [4, 2]])",
+      "expected": "2"
+    },
+    {
+      "name": "Example 2",
+      "expr": "find_center([[1, 2], [5, 1], [1, 3], [1, 4]])",
+      "expected": "1"
+    },
+    {
+      "name": "Three vertices",
+      "expr": "[find_center([[1, 2], [2, 3]]), find_center([[2, 1], [3, 1]])]",
+      "expected": "[2, 1]",
+      "hidden": true
+    },
+    {
+      "name": "Centre listed second",
+      "expr": "find_center([[7, 3], [2, 3], [3, 5], [1, 3], [6, 3], [3, 4]])",
+      "expected": "3",
+      "hidden": true
+    },
+    {
+      "name": "100 000 vertices",
+      "data": "import random\nrandom.seed(1791)\nn = 100000\nc = random.randint(1, n)\nedges = [[c, v] if random.random() < 0.5 else [v, c] for v in range(1, n + 1) if v != c]\nrandom.shuffle(edges)",
+      "expr": "find_center(edges)",
+      "expected": "46682",
+      "hidden": true
+    }
+  ]
+}

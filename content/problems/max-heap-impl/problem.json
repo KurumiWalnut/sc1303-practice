@@ -1,0 +1,69 @@
+{
+  "id": "max-heap-impl",
+  "title": "Max-heap: insert and delete",
+  "kind": "base",
+  "difficulty": "Medium",
+  "source": "Week 12 seminar, Heap_template.py",
+  "timeLimitMs": 3000,
+  "tests": [
+    {
+      "name": "Template inserts",
+      "setup": "h = MaxHeap()\nfor v in [30, 20, 15, 50, 10, 8, 16, 60]:\n    h.insert(v)",
+      "expr": "h.heap",
+      "expected": "[60, 50, 16, 30, 10, 8, 15, 20]"
+    },
+    {
+      "name": "Delete returns the max",
+      "setup": "h = MaxHeap()\nfor v in [30, 20, 15, 50, 10, 8, 16, 60]:\n    h.insert(v)",
+      "expr": "(h.delete(), h.heap)",
+      "expected": "(60, [50, 30, 16, 20, 10, 8, 15])"
+    },
+    {
+      "name": "Delete everything",
+      "setup": "h = MaxHeap()\nfor v in [9, 4, 7, 1, 8, 2, 6]:\n    h.insert(v)",
+      "expr": "[h.delete() for _ in range(7)]",
+      "expected": "[9, 8, 7, 6, 4, 2, 1]"
+    },
+    { "name": "Delete from an empty heap", "expr": "MaxHeap().delete()", "expected": "None", "hidden": true, "hint": "Return None when there's nothing to delete." },
+    {
+      "name": "One element",
+      "setup": "h = MaxHeap()\nh.insert(5)",
+      "expr": "(h.delete(), h.heap, h.delete())",
+      "expected": "(5, [], None)",
+      "hidden": true,
+      "hint": "With one element, removing the last node empties the heap. Don't move it back to the root."
+    },
+    {
+      "name": "Ascending inserts",
+      "setup": "h = MaxHeap()\nfor v in range(1, 11):\n    h.insert(v)",
+      "expr": "h.heap",
+      "expected": "[10, 9, 6, 7, 8, 2, 5, 1, 4, 3]",
+      "hidden": true,
+      "hint": "Each new value should keep swapping with its parent until the parent is bigger."
+    },
+    {
+      "name": "Duplicates",
+      "setup": "h = MaxHeap()\nfor v in [5, 5, 3, 5]:\n    h.insert(v)",
+      "expr": "[h.delete() for _ in range(4)]",
+      "expected": "[5, 5, 5, 3]",
+      "hidden": true
+    },
+    {
+      "name": "Mixed inserts and deletes",
+      "setup": "h = MaxHeap()\nout = []\nfor v in [10, 20]:\n    h.insert(v)\nout.append(h.delete())\nfor v in [5, 30, 25]:\n    h.insert(v)\nout += [h.delete() for _ in range(5)]",
+      "expr": "out",
+      "expected": "[20, 30, 25, 10, 5, None]",
+      "hidden": true,
+      "hint": "When trickling down, swap with the bigger of the two children."
+    },
+    {
+      "name": "20 000 random values",
+      "data": "import random\nrandom.seed(11)\nvalues = [random.randint(-10**6, 10**6) for _ in range(20000)]",
+      "setup": "h = MaxHeap()\nfor v in values:\n    h.insert(v)",
+      "expr": "[h.delete() for _ in range(len(values))]",
+      "expected": "sorted(values, reverse=True)",
+      "hidden": true,
+      "timeLimitMs": 5000
+    }
+  ]
+}

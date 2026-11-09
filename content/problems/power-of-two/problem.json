@@ -1,0 +1,45 @@
+{
+  "id": "power-of-two",
+  "title": "Power of Two",
+  "kind": "leetcode",
+  "difficulty": "Easy",
+  "source": "Recursion (Week 9)",
+  "leetcode": {
+    "number": 231,
+    "slug": "power-of-two"
+  },
+  "timeLimitMs": 3000,
+  "hints": 1,
+  "tests": [
+    {
+      "name": "Examples",
+      "expr": "[is_power_of_two(1), is_power_of_two(16), is_power_of_two(3)]",
+      "expected": "[True, True, False]"
+    },
+    {
+      "name": "Zero and negatives",
+      "expr": "[is_power_of_two(0), is_power_of_two(-2), is_power_of_two(-16), is_power_of_two(-2**31)]",
+      "expected": "[False, False, False, False]",
+      "hidden": true,
+      "hint": "0 and negative numbers aren't powers of two."
+    },
+    {
+      "name": "Big powers",
+      "expr": "[is_power_of_two(2**30), is_power_of_two(2**30 + 1), is_power_of_two(2**31 - 1)]",
+      "expected": "[True, False, False]",
+      "hidden": true
+    },
+    {
+      "name": "Even but not a power",
+      "expr": "[is_power_of_two(6), is_power_of_two(12), is_power_of_two(96)]",
+      "expected": "[False, False, False]",
+      "hidden": true
+    },
+    {
+      "name": "1 to 100",
+      "expr": "[n for n in range(1, 101) if is_power_of_two(n)]",
+      "expected": "[1, 2, 4, 8, 16, 32, 64]",
+      "hidden": true
+    }
+  ]
+}

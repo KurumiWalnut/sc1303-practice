@@ -1,0 +1,51 @@
+{
+  "id": "level-order",
+  "title": "Level order traversal",
+  "kind": "leetcode",
+  "difficulty": "Medium",
+  "source": "Breadth-first traversal with a queue",
+  "leetcode": {
+    "number": 102,
+    "slug": "binary-tree-level-order-traversal"
+  },
+  "provided": true,
+  "timeLimitMs": 3000,
+  "hints": 1,
+  "tests": [
+    {
+      "name": "Example",
+      "expr": "level_order(build_tree([3, 9, 20, None, None, 15, 7]))",
+      "expected": "[[3], [9, 20], [15, 7]]"
+    },
+    {
+      "name": "One node",
+      "expr": "level_order(build_tree([1]))",
+      "expected": "[[1]]"
+    },
+    {
+      "name": "Empty",
+      "expr": "level_order(None)",
+      "expected": "[]"
+    },
+    {
+      "name": "Gaps in the middle",
+      "expr": "level_order(build_tree([1, 2, 3, 4, None, None, 5]))",
+      "expected": "[[1], [2, 3], [4, 5]]",
+      "hidden": true
+    },
+    {
+      "name": "Lecture tree",
+      "expr": "level_order(build_tree(['F', 'B', 'G', 'A', 'D', None, 'I', None, None, 'C', 'E', 'H']))",
+      "expected": "[['F'], ['B', 'G'], ['A', 'D', 'I'], ['C', 'E', 'H']]",
+      "hidden": true
+    },
+    {
+      "name": "5 000 values",
+      "data": "import random\nrandom.seed(102)\nroot = build_bst(random.sample(range(10**6), 5000))",
+      "setup": "r = level_order(root)",
+      "expr": "(len(r), [len(level) for level in r][:6], r[0])",
+      "expected": "(30, [1, 2, 4, 8, 16, 32], [155368])",
+      "hidden": true
+    }
+  ]
+}

@@ -1,0 +1,81 @@
+{
+  "id": "balance-factor-impl",
+  "title": "Heights, balance factors and imbalance cases",
+  "kind": "base",
+  "difficulty": "Easy",
+  "source": "Week 12 lecture (AVL Tree); AVL_tree_template.py",
+  "provided": true,
+  "timeLimitMs": 3000,
+  "tests": [
+    {
+      "name": "Heights",
+      "expr": "[height(None), height(Node(5)), height(build_tree([30, 20, 40, 10]))]",
+      "expected": "[0, 1, 3]"
+    },
+    {
+      "name": "Balance factors",
+      "setup": "root = build_tree([30, 20, 40, 10])",
+      "expr": "[balance_factor(root), balance_factor(root.left), balance_factor(root.right)]",
+      "expected": "[-1, -1, 0]"
+    },
+    {
+      "name": "Is it balanced?",
+      "expr": "[is_balanced(build_tree([30, 20, 40, 10])), is_balanced(build_tree([30, 20, None, 10]))]",
+      "expected": "[True, False]"
+    },
+    {
+      "name": "The four cases",
+      "expr": "[imbalance_case(build_tree(v)) for v in ([30, 20, None, 10], [10, None, 20, None, 30], [30, 10, None, None, 20], [10, None, 30, 20], [20, 10, 30])]",
+      "expected": "['LL', 'RR', 'LR', 'RL', None]"
+    },
+    {
+      "name": "Stored heights are ignored",
+      "setup": "root = Node(1, None, Node(2, None, Node(3)))",
+      "expr": "[height(root), balance_factor(root), imbalance_case(root)]",
+      "expected": "[3, 2, 'RR']",
+      "hidden": true,
+      "hint": "The height field isn't kept up to date here. Work heights out from the children."
+    },
+    {
+      "name": "Leaf and empty tree",
+      "expr": "[balance_factor(Node(1)), is_balanced(None), imbalance_case(Node(1))]",
+      "expected": "[0, True, None]",
+      "hidden": true
+    },
+    {
+      "name": "Unbalanced below the root",
+      "setup": "root = build_tree([50, 30, 70, 20, None, 60, 80, 10, None, None, None, None, 90])",
+      "expr": "[balance_factor(root), is_balanced(root)]",
+      "expected": "[0, False]",
+      "hidden": true,
+      "hint": "The root's balance factor is 0, but node 30 has a balance factor of -2. Check every node."
+    },
+    {
+      "name": "Heavy child with balance factor 0",
+      "expr": "[imbalance_case(build_tree([50, 30, None, 20, 40])), imbalance_case(build_tree([10, None, 30, 20, 40]))]",
+      "expected": "['LL', 'RR']",
+      "hidden": true,
+      "hint": "When the heavy child's balance factor is 0, it's a single rotation (LL or RR). This happens after deletions."
+    },
+    {
+      "name": "Balance factor of 3",
+      "expr": "imbalance_case(build_tree([1, None, 2, None, 3, None, 4]))",
+      "expected": "'RR'",
+      "hidden": true
+    },
+    {
+      "name": "Large balanced tree (16 383 nodes)",
+      "data": "root = balanced_tree(0, 16383)",
+      "expr": "[height(root), is_balanced(root), balance_factor(root)]",
+      "expected": "[14, True, 0]",
+      "hidden": true
+    },
+    {
+      "name": "Large tree, one bad spot deep down",
+      "data": "root = balanced_tree(0, 4095)\nnode = root\nwhile node.left:\n    node = node.left\nnode.left = Node(-1, Node(-2))",
+      "expr": "[height(root), is_balanced(root)]",
+      "expected": "[14, False]",
+      "hidden": true
+    }
+  ]
+}

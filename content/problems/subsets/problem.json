@@ -1,0 +1,46 @@
+{
+  "id": "subsets",
+  "title": "Subsets",
+  "kind": "leetcode",
+  "difficulty": "Medium",
+  "source": "Recursion (Week 9): choose or skip",
+  "leetcode": {
+    "number": 78,
+    "slug": "subsets"
+  },
+  "timeLimitMs": 3000,
+  "hints": 1,
+  "tests": [
+    {
+      "name": "Example 1",
+      "expr": "sorted(sorted(s) for s in subsets([1, 2, 3]))",
+      "expected": "[[], [1], [1, 2], [1, 2, 3], [1, 3], [2], [2, 3], [3]]"
+    },
+    {
+      "name": "Example 2",
+      "expr": "sorted(sorted(s) for s in subsets([0]))",
+      "expected": "[[], [0]]"
+    },
+    {
+      "name": "Copies, not the same list",
+      "expr": "sorted(sorted(s) for s in subsets([5, 6]))",
+      "expected": "[[], [5], [5, 6], [6]]",
+      "hidden": true,
+      "hint": "Append a copy (chosen[:]) when you record a subset. Otherwise every entry is the same list."
+    },
+    {
+      "name": "Negative numbers",
+      "expr": "sorted(sorted(s) for s in subsets([-1, 4, -7, 2]))",
+      "expected": "[[], [-7], [-7, -1], [-7, -1, 2], [-7, -1, 2, 4], [-7, -1, 4], [-7, 2], [-7, 2, 4], [-7, 4], [-1], [-1, 2], [-1, 2, 4], [-1, 4], [2], [2, 4], [4]]",
+      "hidden": true
+    },
+    {
+      "name": "15 numbers",
+      "data": "nums = list(range(1, 16))",
+      "setup": "r = subsets(nums)",
+      "expr": "(len(r), len({tuple(sorted(s)) for s in r}), sum(map(sum, r)), sum(map(len, r)))",
+      "expected": "(32768, 32768, 1966080, 245760)",
+      "hidden": true
+    }
+  ]
+}

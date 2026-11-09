@@ -1,0 +1,57 @@
+{
+  "id": "contains-duplicate",
+  "title": "Contains Duplicate",
+  "kind": "leetcode",
+  "difficulty": "Easy",
+  "source": "Week 7 seminar, exercise 5",
+  "leetcode": {
+    "number": 217,
+    "slug": "contains-duplicate"
+  },
+  "timeLimitMs": 3000,
+  "hints": 1,
+  "tests": [
+    {
+      "name": "Example 1",
+      "expr": "contains_duplicate([1, 2, 3, 1])",
+      "expected": "True"
+    },
+    {
+      "name": "Example 2",
+      "expr": "contains_duplicate([1, 2, 3, 4])",
+      "expected": "False"
+    },
+    {
+      "name": "Example 3",
+      "expr": "contains_duplicate([1, 1, 1, 3, 3, 4, 3, 2, 4, 2])",
+      "expected": "True"
+    },
+    {
+      "name": "Empty and one value",
+      "expr": "[contains_duplicate([]), contains_duplicate([5])]",
+      "expected": "[False, False]",
+      "hidden": true
+    },
+    {
+      "name": "Ratings 0 to 10",
+      "expr": "[contains_duplicate(list(range(11))), contains_duplicate(list(range(11)) + [10])]",
+      "expected": "[False, True]",
+      "hidden": true
+    },
+    {
+      "name": "100 000 distinct values",
+      "data": "import random\nrandom.seed(217)\nnums = random.sample(range(-10**9, 10**9), 100000)",
+      "expr": "contains_duplicate(nums)",
+      "expected": "False",
+      "hidden": true,
+      "hint": "Comparing every pair is O(N^2). Use a set, or sort first."
+    },
+    {
+      "name": "Duplicate at the very end",
+      "data": "import random\nrandom.seed(2170)\nnums = random.sample(range(-10**9, 10**9), 99999)\nnums.append(nums[0])",
+      "expr": "contains_duplicate(nums)",
+      "expected": "True",
+      "hidden": true
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "marksPerQuestion": 25,
+  "exams": [
+    {
+      "id": "mock-1",
+      "title": "Mock exam 1",
+      "status": "ready",
+      "durationMin": 90,
+      "covers": [
+        "Stacks",
+        "Binary search trees",
+        "Hash tables",
+        "Dynamic programming"
+      ],
+      "problems": [
+        "mock1-valid-brackets",
+        "mock1-bst-range-sum",
+        "mock1-group-anagrams",
+        "mock1-house-robber"
+      ]
+    },
+    {
+      "id": "mock-2",
+      "title": "Mock exam 2",
+      "status": "ready",
+      "durationMin": 90,
+      "covers": [
+        "Heaps",
+        "Linked lists",
+        "Quicksort",
+        "Graphs"
+      ],
+      "problems": [
+        "mock2-min-heap",
+        "mock2-palindrome-list",
+        "mock2-quicksort-trace",
+        "mock2-provinces"
+      ]
+    }
+  ]
+}

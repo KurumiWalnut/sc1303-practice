@@ -1,0 +1,63 @@
+{
+  "id": "longest-increasing-subsequence",
+  "title": "Longest Increasing Subsequence",
+  "kind": "leetcode",
+  "difficulty": "Medium",
+  "source": "Dynamic programming (Week 10)",
+  "leetcode": {
+    "number": 300,
+    "slug": "longest-increasing-subsequence"
+  },
+  "timeLimitMs": 3000,
+  "hints": 2,
+  "tests": [
+    {
+      "name": "Example 1",
+      "expr": "length_of_lis([10, 9, 2, 5, 3, 7, 101, 18])",
+      "expected": "4"
+    },
+    {
+      "name": "Example 2",
+      "expr": "length_of_lis([0, 1, 0, 3, 2, 3])",
+      "expected": "4"
+    },
+    {
+      "name": "Example 3",
+      "expr": "length_of_lis([7, 7, 7, 7])",
+      "expected": "1"
+    },
+    {
+      "name": "The answer isn't at the end",
+      "expr": "length_of_lis([1, 2, 3, 4, 0])",
+      "expected": "4",
+      "hidden": true,
+      "hint": "Return max(dp), not dp[-1]."
+    },
+    {
+      "name": "Decreasing",
+      "expr": "length_of_lis([5, 4, 3, 2, 1])",
+      "expected": "1",
+      "hidden": true
+    },
+    {
+      "name": "One value",
+      "expr": "length_of_lis([42])",
+      "expected": "1",
+      "hidden": true
+    },
+    {
+      "name": "Random short",
+      "data": "import random\nrandom.seed(300)\narrays = [[random.randint(0, 15) for _ in range(random.randint(1, 20))] for _ in range(50)]",
+      "expr": "[length_of_lis(a) for a in arrays]",
+      "expected": "[5, 5, 4, 4, 6, 3, 4, 6, 4, 3, 3, 4, 1, 5, 3, 4, 6, 5, 6, 1, 6, 2, 6, 2, 3, 5, 4, 6, 3, 5, 4, 5, 2, 6, 4, 6, 4, 6, 8, 5, 2, 3, 2, 6, 8, 3, 5, 4, 2, 4]",
+      "hidden": true
+    },
+    {
+      "name": "2 500 random",
+      "data": "import random\nrandom.seed(3000)\nnums = [random.randint(-10**4, 10**4) for _ in range(2500)]",
+      "expr": "length_of_lis(nums)",
+      "expected": "93",
+      "hidden": true
+    }
+  ]
+}

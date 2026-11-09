@@ -1,0 +1,527 @@
+{
+  "course": "SC1303 Programming with Data Structures and Algorithms",
+  "parts": [
+    {
+      "id": "part-2",
+      "title": "Part II · Foundations",
+      "weeks": "Weeks 5–8",
+      "topics": [
+        {
+          "id": "arrays",
+          "title": "Arrays & Big O",
+          "week": "5–6",
+          "leaves": [
+            {
+              "id": "array-operations",
+              "title": "Array operations",
+              "status": "ready",
+              "summary": "Read, search, insert and delete, and how many steps each takes.",
+              "notes": "notes/array-operations.md",
+              "base": "array-ops-impl",
+              "practice": [
+                "remove-element",
+                "reverse-string",
+                "rotate-array",
+                "product-except-self"
+              ]
+            },
+            {
+              "id": "big-o",
+              "title": "Big O notation",
+              "status": "ready",
+              "summary": "Comparing algorithms by how their step count grows.",
+              "notes": "notes/big-o.md",
+              "base": null,
+              "practice": [
+                "sum-evens",
+                "two-sum-sorted",
+                "max-subarray"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "searching",
+          "title": "Searching",
+          "week": "6",
+          "leaves": [
+            {
+              "id": "ordered-arrays",
+              "title": "Ordered arrays",
+              "status": "ready",
+              "summary": "Keeping values sorted: slower inserts, faster searches.",
+              "notes": "notes/ordered-arrays.md",
+              "base": "ordered-insert-impl",
+              "practice": [
+                "merge-sorted-array",
+                "squares-sorted",
+                "three-sum"
+              ]
+            },
+            {
+              "id": "binary-search",
+              "title": "Binary search",
+              "status": "ready",
+              "summary": "Halve the search range every step: O(log N).",
+              "notes": "notes/binary-search.md",
+              "base": "binary-search-impl",
+              "practice": [
+                "search-insert-position",
+                "integer-sqrt",
+                "search-range",
+                "search-rotated",
+                "koko-bananas"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "sorting",
+          "title": "Simple sorts",
+          "week": "7",
+          "leaves": [
+            {
+              "id": "bubble-sort",
+              "title": "Bubble sort",
+              "status": "ready",
+              "summary": "Swap neighbours until a pass makes no swaps.",
+              "notes": "notes/bubble-sort.md",
+              "base": "bubble-sort-impl",
+              "practice": [
+                "move-zeroes",
+                "height-checker",
+                "count-inversions"
+              ]
+            },
+            {
+              "id": "selection-sort",
+              "title": "Selection sort",
+              "status": "ready",
+              "summary": "Find the smallest remaining value and swap it to the front.",
+              "notes": "notes/selection-sort.md",
+              "base": "selection-sort-impl",
+              "practice": [
+                "third-max",
+                "kth-smallest-selection",
+                "min-swaps-permutation"
+              ]
+            },
+            {
+              "id": "insertion-sort",
+              "title": "Insertion sort",
+              "status": "ready",
+              "summary": "Shift bigger values right and drop each value into the gap.",
+              "notes": "notes/insertion-sort.md",
+              "base": "insertion-sort-impl",
+              "practice": [
+                "relative-sort-array",
+                "insertion-sort-list",
+                "running-median"
+              ]
+            },
+            {
+              "id": "sorting-as-a-tool",
+              "title": "Sorting as a tool",
+              "status": "ready",
+              "summary": "Sort first, then solve: duplicates, intervals, custom orders.",
+              "notes": "notes/sorting-as-a-tool.md",
+              "base": null,
+              "practice": [
+                "contains-duplicate",
+                "valid-anagram",
+                "merge-intervals",
+                "largest-number",
+                "min-groups-intervals"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "hashing",
+          "title": "Hash tables",
+          "week": "8",
+          "leaves": [
+            {
+              "id": "hashing-basics",
+              "title": "Hashing & collisions",
+              "status": "ready",
+              "summary": "How a dict finds a key in one step, and what breaks that.",
+              "notes": "notes/hashing-basics.md",
+              "base": "hash-table-impl",
+              "practice": [
+                "jewels-and-stones",
+                "happy-number",
+                "longest-consecutive"
+              ]
+            },
+            {
+              "id": "hash-patterns",
+              "title": "Hash map patterns",
+              "status": "ready",
+              "summary": "Replace nested loops with a lookup table.",
+              "notes": "notes/hash-patterns.md",
+              "base": null,
+              "practice": [
+                "majority-element",
+                "intersection-of-arrays",
+                "two-sum",
+                "top-k-frequent",
+                "subarray-sum-k"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "stacks-queues",
+          "title": "Stacks & queues",
+          "week": "8",
+          "leaves": [
+            {
+              "id": "stacks",
+              "title": "Stacks",
+              "status": "ready",
+              "summary": "Last in, first out.",
+              "notes": "notes/stacks.md",
+              "base": "stack-impl",
+              "practice": [
+                "remove-adjacent-duplicates",
+                "min-stack",
+                "eval-rpn",
+                "daily-temperatures"
+              ]
+            },
+            {
+              "id": "queues",
+              "title": "Queues",
+              "status": "ready",
+              "summary": "First in, first out.",
+              "notes": "notes/queues.md",
+              "base": "queue-impl",
+              "practice": [
+                "first-unique-char",
+                "queue-from-stacks",
+                "reveal-cards",
+                "sliding-window-max"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "part-3",
+      "title": "Part III · Recursion & node-based structures",
+      "weeks": "Weeks 9–12",
+      "topics": [
+        {
+          "id": "recursion-dp",
+          "title": "Recursion & DP",
+          "week": "9–10",
+          "leaves": [
+            {
+              "id": "recursion-basics",
+              "title": "Recursion & the call stack",
+              "status": "ready",
+              "summary": "Base cases, the call stack and stack overflow.",
+              "notes": "notes/recursion-basics.md",
+              "base": "recursion-impl",
+              "practice": [
+                "power-of-two",
+                "pow-x-n",
+                "subsets",
+                "generate-parentheses"
+              ]
+            },
+            {
+              "id": "memoization",
+              "title": "Memoization",
+              "status": "ready",
+              "summary": "Remember answers to overlapping subproblems.",
+              "notes": "notes/memoization.md",
+              "base": "memo-fib-impl",
+              "practice": [
+                "tribonacci",
+                "unique-paths",
+                "decode-ways",
+                "word-break"
+              ]
+            },
+            {
+              "id": "dp-problems",
+              "title": "DP problems",
+              "status": "ready",
+              "summary": "Define the state, write the recurrence, fill a table.",
+              "notes": "notes/dp-problems.md",
+              "base": null,
+              "practice": [
+                "climbing-stairs",
+                "min-cost-stairs",
+                "max-product-three",
+                "coin-change",
+                "longest-increasing-subsequence",
+                "longest-common-subsequence"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "quicksort",
+          "title": "Quicksort",
+          "week": "10",
+          "leaves": [
+            {
+              "id": "partitioning",
+              "title": "Partitioning",
+              "status": "ready",
+              "summary": "Lomuto and Hoare: put the pivot in its final place.",
+              "notes": "notes/partitioning.md",
+              "base": ["lomuto-impl", "hoare-impl"],
+              "practice": [
+                "sort-array-by-parity",
+                "sort-colors",
+                "pivot-array"
+              ]
+            },
+            {
+              "id": "quicksort-quickselect",
+              "title": "Quicksort & quickselect",
+              "status": "ready",
+              "summary": "Partition, then recurse.",
+              "notes": "notes/quicksort-quickselect.md",
+              "base": "quicksort-impl",
+              "practice": [
+                "median-quickselect",
+                "k-closest-points",
+                "sort-an-array"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "linked-lists",
+          "title": "Linked lists",
+          "week": "11",
+          "leaves": [
+            {
+              "id": "singly-linked",
+              "title": "Singly linked lists",
+              "status": "ready",
+              "summary": "Nodes joined by next links.",
+              "notes": "notes/singly-linked.md",
+              "base": "linked-list-impl",
+              "practice": [
+                "reverse-linked-list",
+                "middle-of-linked-list",
+                "merge-two-sorted-lists",
+                "remove-nth-from-end",
+                "add-two-numbers"
+              ]
+            },
+            {
+              "id": "doubly-linked",
+              "title": "Doubly linked lists",
+              "status": "ready",
+              "summary": "Links both ways: an O(1) queue.",
+              "notes": "notes/doubly-linked.md",
+              "base": "doubly-linked-impl",
+              "practice": [
+                "browser-history",
+                "lru-cache"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "bst",
+          "title": "Binary search trees",
+          "week": "11",
+          "leaves": [
+            {
+              "id": "bst-search-insert",
+              "title": "Search & insert",
+              "status": "ready",
+              "summary": "Smaller values left, bigger values right.",
+              "notes": "notes/bst-search-insert.md",
+              "base": "bst-impl",
+              "practice": [
+                "search-in-bst",
+                "min-diff-bst",
+                "lca-bst",
+                "kth-smallest-bst"
+              ]
+            },
+            {
+              "id": "bst-delete",
+              "title": "Deletion",
+              "status": "ready",
+              "summary": "Zero, one or two children, and the successor node.",
+              "notes": "notes/bst-delete.md",
+              "base": "bst-delete-impl",
+              "practice": [
+                "delete-leaves",
+                "trim-bst"
+              ]
+            },
+            {
+              "id": "bst-traversal",
+              "title": "Traversals",
+              "status": "ready",
+              "summary": "In-order, pre-order, post-order.",
+              "notes": "notes/bst-traversal.md",
+              "base": "traversal-impl",
+              "practice": [
+                "max-depth",
+                "invert-tree",
+                "level-order",
+                "bst-from-preorder"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "tries",
+          "title": "Tries",
+          "week": "11",
+          "leaves": [
+            {
+              "id": "trie-basics",
+              "title": "Insert & search",
+              "status": "ready",
+              "summary": "A tree of characters for fast prefix lookups.",
+              "notes": "notes/trie-basics.md",
+              "base": "trie-impl",
+              "practice": [
+                "longest-common-prefix",
+                "replace-words",
+                "add-search-words"
+              ]
+            },
+            {
+              "id": "autocomplete",
+              "title": "Autocomplete",
+              "status": "ready",
+              "summary": "Collect every word below a prefix.",
+              "notes": "notes/autocomplete.md",
+              "base": "autocomplete-impl",
+              "practice": [
+                "prefix-count",
+                "map-sum",
+                "search-suggestions"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "avl",
+          "title": "AVL trees",
+          "week": "12",
+          "leaves": [
+            {
+              "id": "balance-factor",
+              "title": "Balance factor",
+              "status": "ready",
+              "summary": "Spotting when a tree is out of balance.",
+              "notes": "notes/balance-factor.md",
+              "base": "balance-factor-impl",
+              "practice": [
+                "balanced-binary-tree",
+                "sorted-array-to-bst",
+                "balance-bst"
+              ]
+            },
+            {
+              "id": "rotations",
+              "title": "Rotations",
+              "status": "ready",
+              "summary": "Left, right, left-right and right-left rotations.",
+              "notes": "notes/rotations.md",
+              "base": "avl-rotations-impl",
+              "practice": [
+                "is-valid-avl",
+                "avl-preorder",
+                "avl-delete"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "heaps",
+          "title": "Heaps & priority queues",
+          "week": "12",
+          "leaves": [
+            {
+              "id": "max-heap",
+              "title": "Max-heap",
+              "status": "ready",
+              "summary": "Trickle up on insert, trickle down on delete: O(log N).",
+              "notes": "notes/max-heap.md",
+              "base": "max-heap-impl",
+              "practice": [
+                "last-stone-weight",
+                "kth-largest",
+                "merge-k-sorted",
+                "median-stream"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "graphs",
+          "title": "Graphs",
+          "week": "12",
+          "leaves": [
+            {
+              "id": "graph-representations",
+              "title": "Representations",
+              "status": "ready",
+              "summary": "Adjacency lists, matrices and Vertex objects.",
+              "notes": "notes/graph-representations.md",
+              "base": "adjacency-impl",
+              "practice": [
+                "star-center",
+                "town-judge",
+                "network-rank"
+              ]
+            },
+            {
+              "id": "dfs-bfs",
+              "title": "DFS & BFS",
+              "status": "ready",
+              "summary": "Go deep with recursion, or go wide with a queue: O(V + E).",
+              "notes": "notes/dfs-bfs.md",
+              "base": "graph-traversal-impl",
+              "practice": [
+                "path-exists",
+                "keys-and-rooms",
+                "number-of-islands",
+                "rotting-oranges",
+                "course-schedule"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "dijkstra",
+          "title": "Dijkstra's algorithm",
+          "week": "12",
+          "leaves": [
+            {
+              "id": "shortest-paths",
+              "title": "Shortest paths",
+              "status": "ready",
+              "summary": "Cheapest route in a weighted graph.",
+              "notes": "notes/shortest-paths.md",
+              "base": "dijkstra-impl",
+              "practice": [
+                "network-delay",
+                "max-probability",
+                "min-effort-path",
+                "cheapest-flights-k-stops"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

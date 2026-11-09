@@ -1,0 +1,91 @@
+{
+  "id": "linked-list-impl",
+  "title": "Linked list basics",
+  "kind": "base",
+  "difficulty": "Easy",
+  "source": "Week 10 seminar, linkedList1_template.py",
+  "provided": true,
+  "timeLimitMs": 3000,
+  "tests": [
+    {
+      "name": "to_list",
+      "expr": "to_list(build_list(['once', 'upon', 'a', 'time']))",
+      "expected": "['once', 'upon', 'a', 'time']"
+    },
+    {
+      "name": "append at the tail",
+      "expr": "to_pylist(append(build_list(['once', 'upon', 'a', 'time']), 'in'))",
+      "expected": "['once', 'upon', 'a', 'time', 'in']"
+    },
+    {
+      "name": "prepend at the front",
+      "expr": "to_pylist(prepend(build_list([2, 3]), 1))",
+      "expected": "[1, 2, 3]"
+    },
+    {
+      "name": "delete from the middle",
+      "expr": "to_pylist(delete_value(build_list([1, 2, 3, 4]), 3))",
+      "expected": "[1, 2, 4]"
+    },
+    {
+      "name": "reversed_values",
+      "expr": "reversed_values(build_list([1, 2, 3]))",
+      "expected": "[3, 2, 1]"
+    },
+    {
+      "name": "Empty list",
+      "expr": "(to_list(None), reversed_values(None), delete_value(None, 1))",
+      "expected": "([], [], None)",
+      "hidden": true
+    },
+    {
+      "name": "Append to an empty list",
+      "expr": "to_pylist(append(None, 'x'))",
+      "expected": "['x']",
+      "hidden": true,
+      "hint": "When head is None, the new node is the whole list."
+    },
+    {
+      "name": "append changes the list in place",
+      "setup": "head = build_list([1, 2])\nresult = append(head, 3)",
+      "expr": "(result is head, to_pylist(head))",
+      "expected": "(True, [1, 2, 3])",
+      "hidden": true,
+      "hint": "append should link a new node onto the existing tail and return the same head."
+    },
+    {
+      "name": "Delete the head",
+      "expr": "to_pylist(delete_value(build_list([5, 6, 7]), 5))",
+      "expected": "[6, 7]",
+      "hidden": true,
+      "hint": "Deleting the head means returning head.next."
+    },
+    {
+      "name": "Delete the tail",
+      "expr": "to_pylist(delete_value(build_list([5, 6, 7]), 7))",
+      "expected": "[5, 6]",
+      "hidden": true
+    },
+    {
+      "name": "Delete a missing value",
+      "expr": "to_pylist(delete_value(build_list([5, 6, 7]), 9))",
+      "expected": "[5, 6, 7]",
+      "hidden": true
+    },
+    {
+      "name": "Delete only the first match",
+      "expr": "to_pylist(delete_value(build_list([1, 2, 1, 2]), 2))",
+      "expected": "[1, 1, 2]",
+      "hidden": true
+    },
+    {
+      "name": "50 000 nodes",
+      "data": "head = build_list(list(range(50000)))",
+      "setup": "values = to_list(head)\nback = reversed_values(head)",
+      "expr": "(len(values), values[0], values[-1], back[:3])",
+      "expected": "(50000, 0, 49999, [49999, 49998, 49997])",
+      "hidden": true,
+      "hint": "Use a while loop. Recursion stops at about 1 000 nodes."
+    }
+  ]
+}

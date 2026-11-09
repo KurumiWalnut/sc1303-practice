@@ -1,0 +1,64 @@
+{
+  "id": "lru-cache",
+  "title": "LRU cache",
+  "kind": "leetcode",
+  "difficulty": "Medium",
+  "source": "Doubly linked list + hash table",
+  "leetcode": {
+    "number": 146,
+    "slug": "lru-cache"
+  },
+  "timeLimitMs": 3000,
+  "hints": 1,
+  "tests": [
+    {
+      "name": "Example",
+      "setup": "c = LRUCache(2)\nout = []\nc.put(1, 1); c.put(2, 2)\nout.append(c.get(1))\nc.put(3, 3)\nout.append(c.get(2))\nc.put(4, 4)\nout += [c.get(1), c.get(3), c.get(4)]",
+      "expr": "out",
+      "expected": "[1, -1, -1, 3, 4]"
+    },
+    {
+      "name": "Capacity 1",
+      "setup": "c = LRUCache(1)\nc.put(1, 10)\nout = [c.get(1)]\nc.put(2, 20)\nout += [c.get(1), c.get(2)]",
+      "expr": "out",
+      "expected": "[10, -1, 20]"
+    },
+    {
+      "name": "Updating a key counts as using it",
+      "setup": "c = LRUCache(2)\nc.put(1, 1); c.put(2, 2); c.put(1, 100); c.put(3, 3)\nout = [c.get(1), c.get(2), c.get(3)]",
+      "expr": "out",
+      "expected": "[100, -1, 3]",
+      "hidden": true,
+      "hint": "put on an existing key updates its value AND makes it the most recently used."
+    },
+    {
+      "name": "get counts as using a key",
+      "setup": "c = LRUCache(3)\nfor k in (1, 2, 3):\n    c.put(k, k * 10)\nc.get(1)\nc.put(4, 40)\nout = [c.get(1), c.get(2), c.get(3), c.get(4)]",
+      "expr": "out",
+      "expected": "[10, -1, 30, 40]",
+      "hidden": true
+    },
+    {
+      "name": "Missing keys",
+      "setup": "c = LRUCache(2)\nc.put(1, 1)",
+      "expr": "[c.get(5), c.get(0)]",
+      "expected": "[-1, -1]",
+      "hidden": true
+    },
+    {
+      "name": "Random operations",
+      "setup": "import random\nrandom.seed(146)\nc = LRUCache(5)\nout = []\nfor _ in range(300):\n    k = random.randint(1, 12)\n    if random.random() < 0.5:\n        c.put(k, random.randint(1, 99))\n    else:\n        out.append(c.get(k))",
+      "expr": "out",
+      "expected": "[-1, -1, 43, -1, -1, 69, 19, -1, 57, -1, 17, -1, -1, 40, -1, 69, -1, 69, 40, -1, -1, -1, 43, 11, 11, -1, -1, -1, 71, -1, -1, 5, 8, 70, 66, -1, 89, -1, -1, -1, -1, 89, 62, 89, 89, 70, -1, 25, -1, 42, -1, 47, -1, -1, -1, -1, 47, -1, 29, -1, 79, 79, -1, 31, -1, 31, -1, -1, 50, 50, -1, -1, -1, 77, -1, -1, -1, 77, -1, -1, -1, -1, 80, -1, -1, 45, -1, -1, 39, 72, -1, -1, 54, 74, -1, 72, -1, -1, -1, -1, -1, -1, -1, 20, -1, 91, 32, 63, 91, 91, 6, 20, 6, 6, 15, 63, -1, -1, -1, 3, -1, 18, 18, 55, -1, 38, -1, -1, 78, -1, -1, -1, -1, -1, -1, -1, 50, 86, 80, -1, -1, 80, -1]",
+      "hidden": true
+    },
+    {
+      "name": "200 000 calls, capacity 20 000",
+      "setup": "import random\nrandom.seed(7)\nc = LRUCache(20000)\nout = []\nfor i in range(200000):\n    k = random.randint(1, 40000)\n    if i % 2:\n        c.put(k, i)\n    else:\n        out.append(c.get(k))",
+      "expr": "(len(out), sum(out), out.count(-1))",
+      "expected": "(100000, 3810821496, 56132)",
+      "hidden": true,
+      "hint": "Moving a key to the front must be O(1). list.remove is O(N). Use a linked list of nodes plus a dict."
+    }
+  ]
+}

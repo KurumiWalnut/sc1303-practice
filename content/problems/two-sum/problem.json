@@ -1,0 +1,51 @@
+{
+  "id": "two-sum",
+  "title": "Two Sum",
+  "kind": "leetcode",
+  "difficulty": "Easy",
+  "source": "Week 8 seminar, exercise 3",
+  "leetcode": {
+    "number": 1,
+    "slug": "two-sum"
+  },
+  "timeLimitMs": 3000,
+  "hints": 2,
+  "tests": [
+    {
+      "name": "Example 1",
+      "expr": "sorted(two_sum([2, 7, 11, 15], 9))",
+      "expected": "[0, 1]"
+    },
+    {
+      "name": "Example 2",
+      "expr": "sorted(two_sum([3, 2, 4], 6))",
+      "expected": "[1, 2]"
+    },
+    {
+      "name": "Example 3",
+      "expr": "sorted(two_sum([3, 3], 6))",
+      "expected": "[0, 1]"
+    },
+    {
+      "name": "Don't use an element twice",
+      "expr": "sorted(two_sum([5, 1, 9], 10))",
+      "expected": "[1, 2]",
+      "hidden": true,
+      "hint": "5 + 5 = 10, but there's only one 5."
+    },
+    {
+      "name": "Negative numbers",
+      "expr": "sorted(two_sum([-3, 4, 3, 90], 0))",
+      "expected": "[0, 2]",
+      "hidden": true
+    },
+    {
+      "name": "100 000 numbers, the pair at the end",
+      "data": "import random\nrandom.seed(1)\nnums = [random.randint(0, 10**9) for _ in range(99998)] + [1500000007, 1499999993]\ntarget = 3 * 10**9",
+      "expr": "sorted(two_sum(nums, target))",
+      "expected": "[99998, 99999]",
+      "hidden": true,
+      "hint": "Trying every pair is about 5 billion checks. Use a dict."
+    }
+  ]
+}

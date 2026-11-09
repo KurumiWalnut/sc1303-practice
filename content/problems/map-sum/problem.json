@@ -1,0 +1,55 @@
+{
+  "id": "map-sum",
+  "title": "Map Sum Pairs",
+  "kind": "leetcode",
+  "difficulty": "Medium",
+  "source": "Trie (Week 11)",
+  "leetcode": {
+    "number": 677,
+    "slug": "map-sum-pairs"
+  },
+  "provided": true,
+  "timeLimitMs": 3000,
+  "hints": 2,
+  "tests": [
+    {
+      "name": "Example",
+      "expr": "run_ops([(\"insert\", \"apple\", 3), (\"sum\", \"ap\"), (\"insert\", \"app\", 2), (\"sum\", \"ap\"), (\"insert\", \"apple\", 1), (\"sum\", \"ap\")])",
+      "expected": "[3, 5, 3]"
+    },
+    {
+      "name": "No keys match",
+      "expr": "run_ops([(\"insert\", \"cat\", 5), (\"sum\", \"d\"), (\"sum\", \"cats\"), (\"sum\", \"cat\")])",
+      "expected": "[0, 0, 5]"
+    },
+    {
+      "name": "Replacing a value",
+      "expr": "run_ops([(\"insert\", \"a\", 3), (\"insert\", \"a\", 3), (\"sum\", \"a\"), (\"insert\", \"a\", 10), (\"sum\", \"a\"), (\"insert\", \"ab\", 1), (\"insert\", \"a\", 1), (\"sum\", \"a\"), (\"sum\", \"ab\")])",
+      "expected": "[3, 10, 2, 1]",
+      "hidden": true,
+      "hint": "Inserting an existing key replaces its value. It doesn't add to it."
+    },
+    {
+      "name": "Empty prefix sums everything",
+      "expr": "run_ops([(\"insert\", \"x\", 4), (\"insert\", \"yz\", 6), (\"sum\", \"\")])",
+      "expected": "[10]",
+      "hidden": true
+    },
+    {
+      "name": "300 random operations",
+      "data": "import random\nrandom.seed(6770)\nops = []\nfor _ in range(300):\n    k = ''.join(random.choices('ab', k=random.randint(1, 4)))\n    ops.append(('insert', k, random.randint(1, 9)) if random.random() < 0.5 else ('sum', k[:random.randint(0, len(k))]))",
+      "expr": "run_ops(ops)",
+      "expected": "[2, 6, 2, 6, 7, 0, 7, 18, 25, 16, 0, 9, 21, 9, 30, 14, 0, 5, 0, 34, 34, 38, 38, 21, 59, 7, 62, 63, 71, 71, 14, 59, 31, 31, 31, 31, 14, 64, 64, 64, 73, 73, 0, 36, 73, 81, 49, 8, 16, 43, 48, 31, 16, 107, 5, 63, 37, 63, 37, 63, 15, 49, 9, 118, 70, 6, 66, 125, 125, 59, 59, 17, 133, 78, 21, 13, 141, 138, 60, 20, 33, 72, 60, 20, 5, 62, 75, 37, 61, 56, 135, 10, 56, 68, 124, 131, 10, 67, 33, 134, 134, 71, 58, 133, 63, 139, 4, 139, 36, 10, 154, 153, 86, 86, 31, 154, 82, 43, 87, 12, 147, 60, 87, 144, 144, 4, 146, 27, 34, 15, 76, 27, 34, 26, 4, 52, 8, 138, 15, 147, 149, 58, 91, 141, 141, 16, 15, 24, 139, 43, 25, 141, 56]",
+      "hidden": true
+    },
+    {
+      "name": "40 000 inserts, 20 000 sums",
+      "data": "import random\nrandom.seed(677)\nletters = 'abcde'\nkeys = [''.join(random.choices(letters, k=random.randint(3, 10))) for _ in range(30000)]\nops = [('insert', random.choice(keys), random.randint(1, 1000)) for _ in range(20000)]\nfor _ in range(20000):\n    ops.append(('insert', random.choice(keys), random.randint(1, 1000)))\n    ops.append(('sum', ''.join(random.choices(letters, k=random.randint(1, 4)))))",
+      "setup": "res = run_ops(ops)",
+      "expr": "(sum(res), res[:30])",
+      "expected": "(8680897611, [6676, 10093, 195230, 1134321, 5054, 1099098, 45245, 46984, 46804, 39296, 1109427, 12513, 1109427, 1123593, 1103964, 1104784, 217689, 220268, 51345, 1098739, 11311, 36341, 1109165, 1098739, 1106200, 232127, 1106200, 221062, 1109165, 1136886])",
+      "hidden": true,
+      "hint": "Looping over every key in sum() is too slow. Keep a total on each trie node."
+    }
+  ]
+}

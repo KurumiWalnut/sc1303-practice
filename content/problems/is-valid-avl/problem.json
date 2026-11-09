@@ -1,0 +1,81 @@
+{
+  "id": "is-valid-avl",
+  "title": "Is it a valid AVL tree?",
+  "kind": "leetcode",
+  "difficulty": "Easy",
+  "source": "AVL trees (Week 12)",
+  "provided": true,
+  "timeLimitMs": 3000,
+  "hints": 1,
+  "tests": [
+    {
+      "name": "Example 1",
+      "expr": "is_valid_avl(build_tree([20, 10, 30]))",
+      "expected": "True"
+    },
+    {
+      "name": "Example 2",
+      "expr": "is_valid_avl(build_tree([30, 20, None, 10]))",
+      "expected": "False"
+    },
+    {
+      "name": "Example 3",
+      "expr": "is_valid_avl(build_tree([20, 10, 30, 5, 25]))",
+      "expected": "False"
+    },
+    {
+      "name": "Empty and one node",
+      "expr": "[is_valid_avl(None), is_valid_avl(build_tree([1]))]",
+      "expected": "[True, True]",
+      "hidden": true
+    },
+    {
+      "name": "Duplicate value",
+      "expr": "[is_valid_avl(build_tree([10, 5, 10])), is_valid_avl(build_tree([10, 10]))]",
+      "expected": "[False, False]",
+      "hidden": true,
+      "hint": "The template doesn't allow duplicates, so a repeated value makes the tree invalid."
+    },
+    {
+      "name": "Bad value deep in the right subtree",
+      "expr": "is_valid_avl(build_tree([50, 30, 70, 20, 40, 45, 80]))",
+      "expected": "False",
+      "hidden": true,
+      "hint": "45 is in 50's right subtree, so it has to be bigger than 50. Pass the allowed range down."
+    },
+    {
+      "name": "Balanced at the root only",
+      "expr": "is_valid_avl(build_tree([50, 30, 70, 20, None, 60, 80, 10, None, None, None, None, 90]))",
+      "expected": "False",
+      "hidden": true
+    },
+    {
+      "name": "Every balance factor is +1",
+      "expr": "is_valid_avl(build_tree([3, 2, 5, 1, None, 4, 6, None, None, None, None, None, 7]))",
+      "expected": "True",
+      "hidden": true
+    },
+    {
+      "name": "Large valid tree",
+      "data": "root = balanced_tree(0, 20000)",
+      "expr": "is_valid_avl(root)",
+      "expected": "True",
+      "hidden": true
+    },
+    {
+      "name": "Large tree, one value out of place",
+      "data": "root = balanced_tree(0, 20000)\nnode = root.left\nwhile node.right.right:\n    node = node.right\nnode.right.value = root.value + 1",
+      "expr": "is_valid_avl(root)",
+      "expected": "False",
+      "hidden": true,
+      "hint": "A node deep in the left subtree is bigger than the root."
+    },
+    {
+      "name": "Large tree, unbalanced deep down",
+      "data": "root = balanced_tree(0, 16383)\nnode = root\nwhile node.left:\n    node = node.left\nnode.left = Node(-1, Node(-2))",
+      "expr": "is_valid_avl(root)",
+      "expected": "False",
+      "hidden": true
+    }
+  ]
+}

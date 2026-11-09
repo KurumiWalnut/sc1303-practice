@@ -1,0 +1,1 @@
+After `k` passes of selection sort, the first `k` positions hold the `k` smallest values in order. So stop after `k` passes. That's about `k × N` comparisons, much less than a full selection sort's `N²/2` when `k` is small.
