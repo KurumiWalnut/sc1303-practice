@@ -27,6 +27,10 @@ def partition(array, low, high):
     return b
 ```
 
+> [!PROF-NOTE] Week 9 seminar notebook
+>
+> The slide solution compares with `<`, as above, but the seminar notebook uses `if array[j] <= pivot`. Both partition correctly; they only differ in where values **equal** to the pivot end up. On `[5, 2, 5, 1, 5]`, `<` gives `[2, 1, 5, 5, 5]` (returns 2) and `<=` leaves the array as it is (returns 4). The Lomuto problem accepts either. In the quiz, use whichever the question asks for.
+
 ## Worked example (lecture, Lomuto)
 
 ```text
@@ -40,15 +44,15 @@ def partition(array, low, high):
 
 2 is now in its final place. Next you'd partition `[1, 0]` and `[8, 7, 9, 6]`.
 
-## Hoare partition (the lecture version)
+## Hoare partition (lecture and Week 9 seminar code)
 
-The lecture covers Hoare as fully as Lomuto. It makes **fewer swaps**, so it's usually faster, but it's **harder to code**. The Week 9 coding exercise was Lomuto, but you should be able to trace and write both.
+The lecture covers Hoare as fully as Lomuto. It makes **fewer swaps**, so it's usually faster, but it's **harder to code**. The Week 9 coding exercise was Lomuto, but you should be able to trace and write both. The code below is the professor's `hoare_partition` from the Week 9 seminar notebook.
 
 1. Pivot = the **last** element, `array[high]`, as in Lomuto.
 2. Two pointers: `a` starts at `low`, and `b` starts at `high - 1`, just left of the pivot.
-3. Move `a` right until it's on a value **≥ pivot**.
-4. Move `b` left until it's on a value **≤ pivot**, or it reaches `a`.
-5. If the pointers have met or crossed (`a >= b`), stop. Otherwise swap `array[a]` with `array[b]`, move `a` on by one, and go back to step 3.
+3. Move `a` right while it's on a value **≤ pivot**, so it stops on a value **bigger** than the pivot.
+4. Move `b` left while it's on a value **≥ pivot**, so it stops on a value **smaller** than the pivot.
+5. Both pointers also stop once they pass each other. If `a < b`, swap `array[a]` with `array[b]` and go back to step 3. Otherwise the pointers have met or crossed: stop.
 6. Swap the pivot into `array[a]` and return `a`.
 
 ```python
@@ -56,17 +60,19 @@ def partition(array, low, high):
     pivot = array[high]
     a, b = low, high - 1
     while True:
-        while array[a] < pivot:              # the pivot itself stops a, at high at the latest
+        while a <= b and array[a] <= pivot:  # a stops on a value bigger than the pivot
             a += 1
-        while b > a and array[b] > pivot:
+        while a <= b and array[b] >= pivot:  # b stops on a value smaller than the pivot
             b -= 1
-        if a >= b:                           # the pointers have met
+        if a < b:
+            array[a], array[b] = array[b], array[a]
+        else:                                # the pointers have met or crossed
             break
-        array[a], array[b] = array[b], array[a]
-        a += 1
     array[a], array[high] = array[high], array[a]   # drop the pivot into place
     return a
 ```
+
+After a swap, `a` is on a value smaller than the pivot, so the next pass of the loop moves it on by itself.
 
 It returns the pivot's final index, just like Lomuto, so `quick_sort` doesn't change.
 
@@ -76,18 +82,18 @@ It returns the pivot's final index, just like Lomuto, so `quick_sort` doesn't ch
 [8, 7, 6, 1, 0, 9, 2]     pivot = 2, a = 0, b = 5
  a stops at once on 8 (index 0)
  b moves past 9, stops on 0 (index 4)
- swap them, a moves on         → [0, 7, 6, 1, 8, 9, 2], a = 1
- a stops on 7 (index 1)
+ swap them                     → [0, 7, 6, 1, 8, 9, 2]
+ a moves past 0, stops on 7 (index 1)
  b moves past 8, stops on 1 (index 3)
- swap them, a moves on         → [0, 1, 6, 7, 8, 9, 2], a = 2
- a stops on 6 (index 2)
- b moves past 7 and reaches a  → the pointers have met
+ swap them                     → [0, 1, 6, 7, 8, 9, 2]
+ a moves past 1, stops on 6 (index 2)
+ b moves past 7 and 6, and passes a (b = 1)  → stop
  swap pivot into index 2       → [0, 1, 2, 7, 8, 9, 6]   return 2
 ```
 
 The pivot ends up at index 2 with both schemes, but the other values are in a different order. Lomuto gave `[1, 0, 2, 8, 7, 9, 6]`. That's how a trace question can tell which scheme you used.
 
-Quicksort then partitions `[7, 8, 9, 6]` (`low = 3`): `a` stops on 7 at once, `b` moves past 9 and 8 to meet it, and 6 swaps with 7. The array goes `[0, 1, 2, 6, 8, 9, 7]` → `[0, 1, 2, 6, 7, 9, 8]` → `[0, 1, 2, 6, 7, 8, 9]`.
+Quicksort then partitions `[7, 8, 9, 6]` (`low = 3`): `a` stops on 7 at once, `b` moves past 9, 8 and 7 until it passes `a`, and 6 swaps with 7. The array goes `[0, 1, 2, 6, 8, 9, 7]` → `[0, 1, 2, 6, 7, 9, 8]` → `[0, 1, 2, 6, 7, 8, 9]`.
 
 ## Lomuto vs Hoare
 
@@ -95,7 +101,7 @@ Quicksort then partitions `[7, 8, 9, 6]` (`low = 3`): `a` stops on 7 at once, `b
 |---|---|---|
 | Pointers | `a` scans, `b` marks the boundary; both move right | `a` from the left, `b` from the right, towards each other |
 | Swaps when | `array[a] < pivot` | both pointers have stopped and haven't met |
-| Values equal to the pivot | end up on its right | can end up on either side |
+| Values equal to the pivot | end up on its right | stay where they are (neither pointer stops on them), so either side |
 | Swaps made | more | fewer, so usually faster |
 | Code | simpler | trickier (when to stop each pointer) |
 
@@ -118,11 +124,10 @@ Lomuto:
 - Starting `b` at 0 instead of `low` when partitioning a subarray.
 - Looping `a` up to `high` inclusive, which compares the pivot with itself.
 - Forgetting the final swap, or returning `high` instead of `b`.
-- Using `<=` when the question says `<`. With repeated values, that puts them on a different side.
 
 Hoare:
 
 - Starting `b` at `high`, on the pivot itself, instead of `high - 1`.
-- Moving `a` on while `array[a] <= pivot`. Then nothing stops it at the pivot, and it runs past `high`.
-- Not moving `a` on after a swap. If both values equal the pivot, they swap with each other forever.
+- Leaving out `a <= b` in the inner loops. When every value is ≤ the pivot, `a` then runs off the end of the array.
+- Stopping both pointers on values **equal** to the pivot without moving on after the swap. Two equal values then swap with each other forever.
 - Returning `b` instead of `a`. The pivot goes where `a` stopped.

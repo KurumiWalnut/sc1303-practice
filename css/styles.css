@@ -369,6 +369,18 @@ a.pick:hover { border-color: var(--border-strong); color: var(--text); }
 .prose th { color: var(--muted); font-size: 12.5px; font-weight: 650; text-transform: uppercase; letter-spacing: 0.04em; }
 .prose blockquote { margin: 18px 0; padding: 10px 14px; border-left: 3px solid var(--accent); background: var(--accent-soft); border-radius: 0 8px 8px 0; }
 .prose blockquote p { margin: 0; color: var(--text); }
+.prose .callout { margin: 18px 0; padding: 12px 14px; border: 1px solid; border-radius: 10px; }
+.prose .callout-bug { background: var(--bad-soft); border-color: color-mix(in srgb, var(--bad) 35%, transparent); }
+.prose .callout-note { background: var(--warn-soft); border-color: color-mix(in srgb, var(--warn) 35%, transparent); }
+.prose .callout > * { margin: 8px 0 0; }
+.prose .callout p, .prose .callout li { color: var(--text); }
+.prose .callout .callout-title { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 7px; margin: 0; font-weight: 650; font-size: 14px; }
+.prose .callout-bug .callout-title { color: var(--bad); }
+.prose .callout-note .callout-title { color: var(--warn); }
+.prose .callout-title .icon { flex: none; }
+.prose .callout-source { font-weight: 500; color: var(--muted); }
+.prose .callout-source::before { content: "·"; margin-right: 7px; }
+.prose .callout pre { background: var(--surface); }
 
 /* Syntax colours (CodeMirror tokens, used by the editor and code blocks) */
 .cm-s-default .cm-keyword { color: var(--syn-keyword); }

@@ -108,6 +108,18 @@ For each `x`, check whether `target - x` is already in the dict **before** addin
 
 Then set `"hints"` in `problem.json` to the number of hints (here `2`). Mock exams never show hints.
 
+### Bugs and differences in the professor's code
+
+When the professor's slides or notebooks have a bug, or do something differently from a problem here, flag it with a highlighted box in the notes or in `statement.md`. Write a quote whose first line is a marker, followed by where the code comes from:
+
+```markdown
+> [!PROF-BUG] Week 12 seminar solution, dijkstra.py
+>
+> What goes wrong, a small example, and the fix.
+```
+
+`[!PROF-BUG]` draws a red "Bug in the professor's code" box. `[!PROF-NOTE]` draws an amber "Differs from the professor's version" box.
+
 ### Tests
 
 Each test in `problem.json` runs in a fresh Python namespace, in this order: provided code → student code → `data` → `setup` → `expr`.

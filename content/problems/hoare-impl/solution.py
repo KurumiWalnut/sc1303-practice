@@ -1,14 +1,14 @@
 def partition(array, low, high):
-    pivot = array[high]
+    pivot = array[high]                      # the pivot is the last element
     a, b = low, high - 1
     while True:
-        while array[a] < pivot:              # stops on a value >= pivot (the pivot itself stops it)
+        while a <= b and array[a] <= pivot:  # a stops on a value bigger than the pivot
             a += 1
-        while b > a and array[b] > pivot:    # stops on a value <= pivot, or on reaching a
+        while a <= b and array[b] >= pivot:  # b stops on a value smaller than the pivot
             b -= 1
-        if a >= b:                           # the pointers have met
+        if a < b:                            # both stopped: swap the two values
+            array[a], array[b] = array[b], array[a]
+        else:                                # the pointers have met or crossed
             break
-        array[a], array[b] = array[b], array[a]
-        a += 1
     array[a], array[high] = array[high], array[a]   # pivot into its final place
     return a

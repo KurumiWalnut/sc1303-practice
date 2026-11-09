@@ -2,10 +2,12 @@ Write `partition(array, low, high)` using **Hoare's** scheme from the lecture. W
 
 1. The pivot is the **last** element, `array[high]`.
 2. Pointer `a` starts at `low`, and pointer `b` starts at `high - 1`.
-3. Move `a` right until `array[a] >= pivot`.
-4. Move `b` left until `array[b] <= pivot`, or until `b` reaches `a`.
-5. If `a >= b`, the pointers have met: stop. Otherwise swap `array[a]` and `array[b]`, add 1 to `a` (not `b`), and go back to step 3.
+3. Move `a` right while `a <= b` and `array[a] <= pivot`. It stops on a value **bigger** than the pivot.
+4. Move `b` left while `a <= b` and `array[b] >= pivot`. It stops on a value **smaller** than the pivot.
+5. If `a < b`, swap `array[a]` and `array[b]` and go back to step 3. Otherwise the pointers have met or crossed: stop.
 6. Swap the pivot into `array[a]` and return `a`.
+
+This is the professor's `hoare_partition` from the Week 9 seminar code. Values **equal** to the pivot don't stop either pointer.
 
 `quick_sort(array, low, high)` is already loaded (see **Provided code**) and uses your `partition`.
 

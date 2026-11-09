@@ -4,6 +4,10 @@ Write `binary_search(array, target)`.
 
 Your search must take **O(log N)** steps: look at the middle element, then throw away the half that can't contain `target`. Don't use `in`, `.index()` or the `bisect` module.
 
+> [!PROF-NOTE] Week 6 seminar notebook
+>
+> The seminar's `binary_search` also counts its steps and returns `(index, steps)`, or `("Not found", steps)`. Here, return just the index, or `-1`. In the quiz, return whatever the question asks for.
+
 ### Examples
 
 ```text

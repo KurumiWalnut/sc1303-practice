@@ -7,6 +7,10 @@ Write these functions. Each traversal returns a **list of values** (an empty tre
 - `postorder(node)`: left subtree, right subtree, node
 - `is_valid_bst(node)`: `True` if the tree is a valid BST: every value in a node's left subtree is **strictly smaller**, and every value in its right subtree **strictly bigger**. An empty tree is valid.
 
+> [!PROF-BUG] Week 10 seminar slides, isValidBST solution 2
+>
+> The in-order version uses `node.left`, `node.right` and `node.val`, but the course's `TreeNode` has `left_child`, `right_child` and `value`, so as written it crashes with an `AttributeError`. The slide also leaves out the `def isValidBST(root):` line around the code. Create `prev` inside that function, so every call starts again from `-inf`. Solution 1, with the bounds, is fine.
+
 ### Examples
 
 ```text

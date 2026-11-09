@@ -2,6 +2,10 @@ Write `int_sqrt(n)` that returns the **integer part** of the square root of `n`:
 
 Don't use `math.sqrt`, `math.isqrt`, `** 0.5` or `pow`.
 
+> [!PROF-NOTE] Week 6 seminar notebook
+>
+> The seminar's `integer_sqrt(x)` also counts its steps and returns `(answer, steps)`. Here, return just the answer. In the quiz, return whatever the question asks for.
+
 ### Examples
 
 ```text

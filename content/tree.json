@@ -74,7 +74,8 @@
                 "integer-sqrt",
                 "search-range",
                 "search-rotated",
-                "koko-bananas"
+                "koko-bananas",
+                "black-pixels-rectangle"
               ]
             }
           ]

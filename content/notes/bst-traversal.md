@@ -77,6 +77,10 @@ def is_valid_bst(node, low=None, high=None):
 
 Another way: an in-order traversal of a valid BST is **strictly increasing**.
 
+> [!PROF-BUG] Week 10 seminar slides, isValidBST solution 2
+>
+> The in-order version uses `node.left`, `node.right` and `node.val`, but the course's `TreeNode` has `left_child`, `right_child` and `value`, so as written it crashes with an `AttributeError`. The slide also leaves out the `def isValidBST(root):` line around the code. Create `prev` inside that function, so every call starts again from `-inf`. Solution 1, with the bounds, is fine.
+
 ## Recursive tree patterns
 
 Many tree questions follow the same shape: solve the problem for the left and right subtrees, then combine the answers.

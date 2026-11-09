@@ -5,6 +5,10 @@ Write `partition(array, low, high)` using the **Lomuto** scheme from the lecture
 3. For each `a` from `low` to `high - 1`: if `array[a] < pivot` (strictly smaller), swap `array[a]` and `array[b]`, then add 1 to `b`.
 4. Swap the pivot into `array[b]` and return `b`.
 
+> [!PROF-NOTE] Week 9 seminar notebook
+>
+> The slide solution uses `<`, but the seminar notebook uses `<=`. Both are correct; they only differ in where values equal to the pivot end up. The tests accept either.
+
 `quick_sort(array, low, high)` is already loaded (see **Provided code**) and uses your `partition`.
 
 ### Example (from the lecture)

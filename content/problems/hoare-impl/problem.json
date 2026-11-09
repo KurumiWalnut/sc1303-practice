@@ -3,7 +3,7 @@
   "title": "Hoare partition",
   "kind": "base",
   "difficulty": "Medium",
-  "source": "Week 10 lecture (Quicksort)",
+  "source": "Week 10 lecture (Quicksort), Week 9 seminar code",
   "provided": true,
   "timeLimitMs": 3000,
   "tests": [
@@ -39,7 +39,7 @@
       "expr": "(p, arr)",
       "expected": "(3, [3, 1, 2, 9])",
       "hidden": true,
-      "hint": "a should stop on the pivot itself, at index high."
+      "hint": "When every value is <= the pivot, a runs until it passes b and stops at high, so the pivot stays where it is."
     },
     {
       "name": "Pivot is the smallest",
@@ -47,24 +47,24 @@
       "expr": "(p, arr)",
       "expected": "(0, [1, 6, 7, 5])",
       "hidden": true,
-      "hint": "b stops when it reaches a, and the pivot then goes where a is."
+      "hint": "b keeps moving while a <= b, so it stops once it passes a. The pivot then goes where a is."
     },
     {
       "name": "All values equal",
       "setup": "arr = [4, 4, 4, 4, 4]\np = partition(arr, 0, len(arr) - 1)",
       "expr": "(p, arr)",
-      "expected": "(3, [4, 4, 4, 4, 4])",
+      "expected": "(4, [4, 4, 4, 4, 4])",
       "hidden": true,
-      "hint": "Move a on by one after every swap, or two equal values swap with each other forever.",
+      "hint": "Values equal to the pivot don't stop a, so a runs to the end. Check a <= b in the loop, or a runs off the array.",
       "timeLimitMs": 2000
     },
     {
       "name": "Values equal to the pivot",
-      "setup": "arr = [3, 1, 3, 2, 3]\np = partition(arr, 0, len(arr) - 1)",
+      "setup": "arr = [5, 3, 1, 3, 4, 3]\np = partition(arr, 0, len(arr) - 1)",
       "expr": "(p, arr)",
-      "expected": "(3, [2, 1, 3, 3, 3])",
+      "expected": "(2, [1, 3, 3, 3, 4, 5])",
       "hidden": true,
-      "hint": "a stops on values >= pivot and b stops on values <= pivot, so values equal to the pivot get swapped too."
+      "hint": "a moves on while array[a] <= pivot and b moves on while array[b] >= pivot, so values equal to the pivot don't stop either pointer."
     },
     {
       "name": "One element",
@@ -94,12 +94,12 @@
     },
     {
       "name": "500 small random arrays with repeats",
-      "data": "import random\nrandom.seed(1303)\n\ndef _hoare(array, low, high):\n    pivot = array[high]\n    a, b = low, high - 1\n    while True:\n        while array[a] < pivot:              # stops on a value >= pivot (the pivot itself stops it)\n            a += 1\n        while b > a and array[b] > pivot:    # stops on a value <= pivot, or on reaching a\n            b -= 1\n        if a >= b:                           # the pointers have met\n            break\n        array[a], array[b] = array[b], array[a]\n        a += 1\n    array[a], array[high] = array[high], array[a]   # pivot into its final place\n    return a\n\ncases = []\nfor _ in range(500):\n    n = random.randint(1, 10)\n    arr = [random.randint(-3, 3) for _ in range(n)]\n    low = random.randint(0, n - 1)\n    cases.append((arr, low, random.randint(low, n - 1)))\nwant = []\nfor arr, low, high in cases:\n    x = arr[:]\n    want.append((_hoare(x, low, high), x))",
+      "data": "import random\nrandom.seed(1303)\n\ndef _hoare(array, low, high):\n    pivot = array[high]                      # the pivot is the last element\n    a, b = low, high - 1\n    while True:\n        while a <= b and array[a] <= pivot:  # a stops on a value bigger than the pivot\n            a += 1\n        while a <= b and array[b] >= pivot:  # b stops on a value smaller than the pivot\n            b -= 1\n        if a < b:                            # both stopped: swap the two values\n            array[a], array[b] = array[b], array[a]\n        else:                                # the pointers have met or crossed\n            break\n    array[a], array[high] = array[high], array[a]   # pivot into its final place\n    return a\n\ncases = []\nfor _ in range(500):\n    n = random.randint(1, 10)\n    arr = [random.randint(-3, 3) for _ in range(n)]\n    low = random.randint(0, n - 1)\n    cases.append((arr, low, random.randint(low, n - 1)))\nwant = []\nfor arr, low, high in cases:\n    x = arr[:]\n    want.append((_hoare(x, low, high), x))",
       "setup": "got = []\nfor arr, low, high in cases:\n    x = arr[:]\n    got.append((partition(x, low, high), x))",
       "expr": "next(({'array': cases[i][0], 'low': cases[i][1], 'high': cases[i][2], 'you returned': got[i], 'expected': want[i]} for i in range(len(cases)) if got[i] != want[i]), None)",
       "expected": "None",
       "hidden": true,
-      "hint": "This shows the first array your partition gets wrong. Check how each pointer treats values equal to the pivot, and that only a moves on after a swap."
+      "hint": "This shows the first array your partition gets wrong. Check that a moves on while array[a] <= pivot, b moves on while array[b] >= pivot, and both loops stop once a passes b."
     },
     {
       "name": "Sorts 20 000 values",

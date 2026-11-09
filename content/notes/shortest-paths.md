@@ -31,13 +31,23 @@ Then:
 
 ```python
 for adjacent, price in current_city.routes.items():
-    if adjacent not in visited_cities and adjacent not in unvisited_cities:
+    if adjacent.name not in visited_cities and adjacent not in unvisited_cities:
         unvisited_cities.append(adjacent)
     price_through_current = cheapest_prices_table[current_city.name] + price
     if adjacent.name not in cheapest_prices_table or price_through_current < cheapest_prices_table[adjacent.name]:
         cheapest_prices_table[adjacent.name] = price_through_current
         cheapest_previous_stopover_city_table[adjacent.name] = current_city.name
 ```
+
+> [!PROF-BUG] Week 12 seminar solution, dijkstra.py
+>
+> It checks `if not cheapest_prices_table.get(adjacent_city.name) or ...` to mean "no price yet". But the starting city's price is `0`, and `not 0` is `True`. So when a route leads **back to the start**, the start gets a new price and a stopover, and rebuilding the path then goes round in a circle forever. With the lecture's cities, starting from Boston never finishes, because `El Paso → Boston` leads back. The Atlanta example only works because no route goes back to Atlanta.
+>
+> Check whether the key is in the table instead:
+>
+> ```python
+> if adjacent_city.name not in cheapest_prices_table or ...:
+> ```
 
 ## Rebuilding the path
 
@@ -89,5 +99,7 @@ def dijkstra(adj, start):                   # adj[u] = [(v, weight), ...]
 
 - Picking the next city as the **closest neighbour** instead of the cheapest **unvisited city overall**.
 - Updating a city that's already visited.
+- Writing `if not cheapest_prices_table.get(name)` to mean "no price yet". The start's price is 0, which counts as false too (see the box above).
+- Looking up `visited_cities` by `City` object when it's keyed by name, so no city ever counts as visited.
 - Forgetting the stopover table, so you can't rebuild the path.
 - With a heap: not skipping the out-of-date entries, which wastes time (not wrong, but slow).

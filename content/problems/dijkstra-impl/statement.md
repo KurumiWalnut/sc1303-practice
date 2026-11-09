@@ -10,6 +10,16 @@ Keep the two tables from the lecture, keyed by city name: `cheapest_prices_table
 
 Finally, walk back from the destination through the stopover table to build the path. You can assume the destination can be reached.
 
+> [!PROF-BUG] Week 12 seminar solution, dijkstra.py
+>
+> It checks `if not cheapest_prices_table.get(adjacent_city.name) or ...` to mean "no price yet". But the starting city's price is `0`, and `not 0` is `True`. So when a route leads **back to the start**, the start gets a new price and a stopover, and rebuilding the path then goes round in a circle forever. With the lecture's cities, starting from Boston never finishes, because `El Paso → Boston` leads back. The Atlanta example only works because no route goes back to Atlanta.
+>
+> Check whether the key is in the table instead:
+>
+> ```python
+> if adjacent_city.name not in cheapest_prices_table or ...:
+> ```
+
 ### Example (from the lecture)
 
 ```text

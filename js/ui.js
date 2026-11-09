@@ -3,9 +3,34 @@
 export const esc = (value) =>
   String(value ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
 
+// Highlighted boxes, written in Markdown as a quote whose first line is the marker:
+//   > [!PROF-BUG] Week 9 slides, memoised fibo
+//   >
+//   > What's wrong and how to fix it.
+const CALLOUTS = {
+  "PROF-BUG": { cls: "callout-bug", label: "Bug in the professor's code", icon: "alert" },
+  "PROF-NOTE": { cls: "callout-note", label: "Differs from the professor's version", icon: "flag" },
+};
+
 export function markdown(text) {
-  if (window.marked) return window.marked.parse(text, { gfm: true });
-  return `<pre>${esc(text)}</pre>`;
+  if (!window.marked) return `<pre>${esc(text)}</pre>`;
+  const tpl = document.createElement("template");
+  tpl.innerHTML = window.marked.parse(text, { gfm: true });
+  for (const quote of tpl.content.querySelectorAll("blockquote")) {
+    const first = quote.firstElementChild;
+    const match = first?.tagName === "P" && first.innerHTML.match(/^\[!([A-Z-]+)\][ \t]*([^\n]*)\n?/);
+    const kind = match && CALLOUTS[match[1]];
+    if (!kind) continue;
+    first.innerHTML = first.innerHTML.slice(match[0].length);
+    if (!first.innerHTML.trim()) first.remove();
+    const box = document.createElement("aside");
+    box.className = `callout ${kind.cls}`;
+    const source = match[2].trim() ? `<span class="callout-source">${match[2].trim()}</span>` : "";
+    box.innerHTML = `<p class="callout-title">${icon(kind.icon, 15)}<span>${kind.label}</span>${source}</p>`;
+    box.append(...quote.childNodes);
+    quote.replaceWith(box);
+  }
+  return tpl.innerHTML;
 }
 
 /** Syntax-highlight Python code blocks inside `root` (no-op if CodeMirror didn't load). */
@@ -39,6 +64,7 @@ const PATHS = {
   lock: '<rect x="5" y="11" width="14" height="9" rx="2" /><path d="M8 11V8a4 4 0 0 1 8 0v3" />',
   expand: '<path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5" />',
   collapse: '<path d="M9 4v5H4M20 9h-5V4M15 20v-5h5M4 15h5v5" />',
+  alert: '<path d="M12 4.5L21 19.5H3z" /><path d="M12 10v4M12 16.8v.2" />',
 };
 
 export function icon(name, size = 16) {
