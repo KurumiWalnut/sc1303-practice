@@ -282,7 +282,13 @@ main:focus { outline: none; }
 .topic-icon img { display: block; }
 .topic-icon.is-bare { padding: 0; border-radius: 0; background: none; }
 @media (prefers-color-scheme: dark) {
-  .topic-icon:not(.is-bare) { background: color-mix(in srgb, var(--tile, var(--surface-3)) 22%, #22221f); }
+  /* A deep tile in the topic's own hue, and a white die-cut edge so the icons' dark outlines still show. */
+  .topic-icon:not(.is-bare) {
+    background: color-mix(in srgb, var(--tile, var(--surface-3)) 22%, #22221f);
+    background: oklch(from var(--tile, #888) 0.34 0.06 h);
+  }
+  .topic-icon img { filter: drop-shadow(1px 0 0 #fff) drop-shadow(-1px 0 0 #fff) drop-shadow(0 1px 0 #fff) drop-shadow(0 -1px 0 #fff); }
+  .topic-icon.is-bare img { filter: drop-shadow(0.75px 0 0 #fff) drop-shadow(-0.75px 0 0 #fff) drop-shadow(0 0.75px 0 #fff) drop-shadow(0 -0.75px 0 #fff); }
 }
 .leaf-card .eyebrow { display: flex; align-items: center; gap: 6px; }
 
@@ -411,6 +417,7 @@ a.pick:hover { border-color: var(--border-strong); color: var(--text); }
 .ws-editor .CodeMirror, .plain-editor { position: absolute; inset: 0; height: auto; }
 .CodeMirror { font-family: var(--mono); font-size: 13.5px; line-height: 1.6; background: var(--surface); color: var(--text); }
 .CodeMirror-gutters { background: var(--surface); border-right: 1px solid var(--border); }
+.CodeMirror-scrollbar-filler, .CodeMirror-gutter-filler { background: var(--surface); }
 .CodeMirror-linenumber { color: var(--muted); }
 .CodeMirror-cursor { border-left-color: var(--text); }
 .CodeMirror-selected, .CodeMirror-focused .CodeMirror-selected { background: var(--accent-soft); }
