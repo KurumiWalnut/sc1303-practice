@@ -15,15 +15,6 @@ python3 -m http.server 8000
 
 Open http://localhost:8000. Opening `index.html` directly from your files won't work, because the browser blocks loading the content files that way.
 
-## Put it online (free)
-
-**GitHub Pages**
-
-1. Create a GitHub repository and push the contents of `platform/` to it.
-2. In the repository, go to **Settings → Pages**, choose **Deploy from a branch**, then pick `main` and `/ (root)`.
-3. Share the `https://<username>.github.io/<repo>/` link.
-
-**Netlify:** drag the `platform` folder onto https://app.netlify.com/drop.
 
 ## How it's organised
 
@@ -89,16 +80,6 @@ Each test in `problem.json` runs in a fresh Python namespace, in this order: pro
 - `hidden` tests only run on **Submit**. Their input isn't shown.
 - A problem can set `checker` (Python code defining `check(actual, expected)`) when more than one answer is right, e.g. groups in any order.
 - Add at least one large hidden test so slow solutions time out, and check that they really do.
-
-### Before publishing
-
-```bash
-python3 tools/verify.py
-```
-
-This checks that every reference solution passes all its tests, that every starter fails at least one, and that `tree.json` and `exams.json` only point at problems that exist.
-
-## Things to know
 
 - **The test cases are public.** The judge runs in the browser, so anyone can read the tests (and solutions) in the site's files. That's fine for a study tool, but don't use it for anything graded.
 - **First run downloads about 10 MB** (Python for the browser). After that it's cached.
