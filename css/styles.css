@@ -172,7 +172,7 @@ main:focus { outline: none; }
 }
 .brand { display: flex; align-items: center; gap: 9px; color: var(--text); text-decoration: none; font-weight: 700; }
 .brand:hover { color: var(--text); }
-.brand-mark { display: grid; place-items: center; width: 26px; height: 26px; border-radius: 7px; background: var(--accent); color: #fff; font-size: 14px; }
+.brand-mark { display: block; width: 26px; height: 26px; border-radius: 7px; }
 .brand-sub { color: var(--muted); font-weight: 500; }
 .nav { display: flex; gap: 4px; }
 .nav a { padding: 6px 12px; border-radius: 8px; color: var(--text-2); text-decoration: none; font-weight: 560; font-size: 14.5px; white-space: nowrap; }
@@ -277,7 +277,17 @@ main:focus { outline: none; }
 .tree-legend { display: flex; flex-wrap: wrap; gap: 12px; margin: 22px 8px 0; font-size: 12px; color: var(--muted); }
 .tree-legend > span { display: inline-flex; align-items: center; gap: 5px; }
 
+/* Topic icons (content/icons/), on a tile tinted per topic in tree.json */
+.topic-icon { flex: none; display: inline-grid; place-items: center; padding: 4px; border-radius: 11px; background: var(--tile, var(--surface-2)); }
+.topic-icon img { display: block; }
+.topic-icon.is-bare { padding: 0; border-radius: 0; background: none; }
+@media (prefers-color-scheme: dark) {
+  .topic-icon:not(.is-bare) { background: color-mix(in srgb, var(--tile, var(--surface-3)) 22%, #22221f); }
+}
+.leaf-card .eyebrow { display: flex; align-items: center; gap: 6px; }
+
 /* Topic overview */
+.topic-card-name { display: flex; align-items: center; gap: 10px; min-width: 0; }
 .topic-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
 .topic-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 16px 10px; }
 .topic-card-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 8px; }

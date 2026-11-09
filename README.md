@@ -68,11 +68,13 @@ Everything a student sees comes from the `content/` folder:
 
 ```text
 index.html, css/, js/        the site itself
+logo.svg, apple-touch-icon.png   the sakura logo (header and browser tab; phone home screen)
 judge/harness.py             runs one test case (used by the browser and by tools/verify.py)
 content/
   tree.json                  parts → topics → subtopics ("leaves")
   exams.json                 mock exams
   notes/<leaf>.md            notes for each subtopic
+  icons/<topic>.svg          a picture for each topic (64×64 SVG)
   problems/<id>/
     problem.json             title, difficulty, tests
     statement.md             the question (what to do, not how to do it)
@@ -83,7 +85,9 @@ content/
 tools/verify.py              checks every problem
 ```
 
-### Subtopics
+### Topics and subtopics
+
+Each topic in `tree.json` can set `icon` (a path inside `content/`, e.g. `"icons/heaps.svg"`) and `tint` (the colour of the tile behind it, e.g. `"#e2eeff"`). The icons are original drawings made for this site.
 
 A subtopic in `tree.json` is either:
 

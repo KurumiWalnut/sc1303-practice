@@ -172,12 +172,23 @@ function renderHome() {
   bindFooter();
 }
 
+/**
+ * A topic's picture from content/icons/. On a tinted tile by default; `bare` drops the tile
+ * for small spots like the sidebar. Decorative, because the topic name is always next to it.
+ */
+function topicIcon(topic, size, { bare = false } = {}) {
+  if (!topic.icon) return "";
+  const img = `<img src="content/${esc(topic.icon)}" width="${size}" height="${size}" alt="" decoding="async">`;
+  const tint = topic.tint && !bare ? ` style="--tile: ${esc(topic.tint)}"` : "";
+  return `<span class="topic-icon${bare ? " is-bare" : ""}"${tint}>${img}</span>`;
+}
+
 function leafCard(id) {
   const { leaf, topic } = idx.leaves.get(id);
   const { solved, total } = leafSolvedCount(leaf);
   return `
     <a class="leaf-card" href="#/learn/${esc(id)}">
-      <span class="eyebrow">${esc(topic.title)} · Week ${esc(topic.week)}</span>
+      <span class="eyebrow">${topicIcon(topic, 18, { bare: true })}${esc(topic.title)} · Week ${esc(topic.week)}</span>
       <span class="leaf-card-title">${stateIcon(leafState(leaf))} ${esc(leaf.title)}</span>
       <span class="leaf-card-summary">${esc(leaf.summary)}</span>
       <span class="leaf-card-foot">${total} problems · ${solved} solved</span>
@@ -240,6 +251,7 @@ function topicHTML(topic, isOpen, currentId) {
     <div class="tree-topic ${isOpen ? "is-open" : ""}" data-topic="${esc(topic.id)}">
       <button class="tree-topic-btn" type="button" aria-expanded="${isOpen}">
         ${icon("chevron", 14)}
+        ${topicIcon(topic, 22, { bare: true })}
         <span class="tree-topic-title">${esc(topic.title)}</span>
         <span class="tree-week">W${esc(topic.week)}</span>
       </button>
@@ -350,7 +362,7 @@ function renderLearnOverview(main) {
               .map(
                 (topic) => `
               <div class="topic-card">
-                <div class="topic-card-head"><h3>${esc(topic.title)}</h3><span class="chip">Week ${esc(topic.week)}</span></div>
+                <div class="topic-card-head"><div class="topic-card-name">${topicIcon(topic, 36)}<h3>${esc(topic.title)}</h3></div><span class="chip">Week ${esc(topic.week)}</span></div>
                 <ul>
                   ${topic.leaves
                     .map((leaf) => {
@@ -392,6 +404,7 @@ async function renderLeaf(token, main, entry, tab, pid) {
     <header class="leaf-head">
       <div class="crumbs"><a href="#/learn">${esc(part.title)}</a> <span aria-hidden="true">›</span> <span>${esc(topic.title)}</span></div>
       <div class="leaf-title-row">
+        ${topicIcon(topic, 34)}
         <h1>${esc(leaf.title)}</h1>
         <span class="chip">Week ${esc(topic.week)}</span>
         ${ready ? `<span class="chip chip-ok" id="solvedChip">${solved} / ${total} solved</span>` : `<span class="chip chip-planned">Coming soon</span>`}

@@ -52,6 +52,8 @@ def referenced_problem_ids():
     ids = []
     for part in tree["parts"]:
         for topic in part["topics"]:
+            if topic.get("icon") and not (CONTENT / topic["icon"]).exists():
+                raise FileNotFoundError(f"{topic['id']}: missing {topic['icon']}")
             for leaf in topic["leaves"]:
                 if leaf["status"] != "ready":
                     continue

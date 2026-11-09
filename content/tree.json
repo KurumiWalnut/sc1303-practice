@@ -10,6 +10,8 @@
           "id": "arrays",
           "title": "Arrays & Big O",
           "week": "5–6",
+          "icon": "icons/arrays.svg",
+          "tint": "#ffe5e1",
           "leaves": [
             {
               "id": "array-operations",
@@ -44,6 +46,8 @@
           "id": "searching",
           "title": "Searching",
           "week": "6",
+          "icon": "icons/searching.svg",
+          "tint": "#e4ebff",
           "leaves": [
             {
               "id": "ordered-arrays",
@@ -79,6 +83,8 @@
           "id": "sorting",
           "title": "Simple sorts",
           "week": "7",
+          "icon": "icons/sorting.svg",
+          "tint": "#fff1d3",
           "leaves": [
             {
               "id": "bubble-sort",
@@ -140,6 +146,8 @@
           "id": "hashing",
           "title": "Hash tables",
           "week": "8",
+          "icon": "icons/hashing.svg",
+          "tint": "#f7e8da",
           "leaves": [
             {
               "id": "hashing-basics",
@@ -175,6 +183,8 @@
           "id": "stacks-queues",
           "title": "Stacks & queues",
           "week": "8",
+          "icon": "icons/stacks-queues.svg",
+          "tint": "#fff0dc",
           "leaves": [
             {
               "id": "stacks",
@@ -217,6 +227,8 @@
           "id": "recursion-dp",
           "title": "Recursion & DP",
           "week": "9–10",
+          "icon": "icons/recursion-dp.svg",
+          "tint": "#ffe8e1",
           "leaves": [
             {
               "id": "recursion-basics",
@@ -268,6 +280,8 @@
           "id": "quicksort",
           "title": "Quicksort",
           "week": "10",
+          "icon": "icons/quicksort.svg",
+          "tint": "#ecefff",
           "leaves": [
             {
               "id": "partitioning",
@@ -301,6 +315,8 @@
           "id": "linked-lists",
           "title": "Linked lists",
           "week": "11",
+          "icon": "icons/linked-lists.svg",
+          "tint": "#ffe8ef",
           "leaves": [
             {
               "id": "singly-linked",
@@ -335,6 +351,8 @@
           "id": "bst",
           "title": "Binary search trees",
           "week": "11",
+          "icon": "icons/bst.svg",
+          "tint": "#ffeaf0",
           "leaves": [
             {
               "id": "bst-search-insert",
@@ -382,6 +400,8 @@
           "id": "tries",
           "title": "Tries",
           "week": "11",
+          "icon": "icons/tries.svg",
+          "tint": "#e5f5e2",
           "leaves": [
             {
               "id": "trie-basics",
@@ -415,6 +435,8 @@
           "id": "avl",
           "title": "AVL trees",
           "week": "12",
+          "icon": "icons/avl.svg",
+          "tint": "#ffe4e2",
           "leaves": [
             {
               "id": "balance-factor",
@@ -448,6 +470,8 @@
           "id": "heaps",
           "title": "Heaps & priority queues",
           "week": "12",
+          "icon": "icons/heaps.svg",
+          "tint": "#e2eeff",
           "leaves": [
             {
               "id": "max-heap",
@@ -469,6 +493,8 @@
           "id": "graphs",
           "title": "Graphs",
           "week": "12",
+          "icon": "icons/graphs.svg",
+          "tint": "#e2f4e8",
           "leaves": [
             {
               "id": "graph-representations",
@@ -504,6 +530,8 @@
           "id": "dijkstra",
           "title": "Dijkstra's algorithm",
           "week": "12",
+          "icon": "icons/dijkstra.svg",
+          "tint": "#e3f1ff",
           "leaves": [
             {
               "id": "shortest-paths",
