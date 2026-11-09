@@ -282,13 +282,8 @@ main:focus { outline: none; }
 .topic-icon img { display: block; }
 .topic-icon.is-bare { padding: 0; border-radius: 0; background: none; }
 @media (prefers-color-scheme: dark) {
-  /* A deep tile in the topic's own hue, and a white die-cut edge so the icons' dark outlines still show. */
-  .topic-icon:not(.is-bare) {
-    background: color-mix(in srgb, var(--tile, var(--surface-3)) 22%, #22221f);
-    background: oklch(from var(--tile, #888) 0.34 0.06 h);
-  }
-  .topic-icon img { filter: drop-shadow(1px 0 0 #fff) drop-shadow(-1px 0 0 #fff) drop-shadow(0 1px 0 #fff) drop-shadow(0 -1px 0 #fff); }
-  .topic-icon.is-bare img { filter: drop-shadow(0.75px 0 0 #fff) drop-shadow(-0.75px 0 0 #fff) drop-shadow(0 0.75px 0 #fff) drop-shadow(0 -0.75px 0 #fff); }
+  /* Keep the light-mode pastel tile, like a picture, dimmed a little so it doesn't glare. */
+  .topic-icon:not(.is-bare) { filter: brightness(0.88); }
 }
 .leaf-card .eyebrow { display: flex; align-items: center; gap: 6px; }
 
