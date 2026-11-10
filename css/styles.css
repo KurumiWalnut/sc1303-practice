@@ -558,7 +558,40 @@ body.has-fullscreen { overflow: hidden; }
 .review pre { margin: 0; max-height: 420px; }
 
 /* ---------- Narrow screens ---------- */
+/* Exam prep: a cheatsheet and the seminar exercises */
+.prep-wrap { max-width: 1040px; margin: 0 auto; padding: 0 20px; }
+.prep-head { background: var(--surface); border-bottom: 1px solid var(--border); }
+.prep-head .prep-wrap { padding-top: 26px; }
+.prep-head h1 { margin: 6px 0 0; font-size: 28px; }
+.prep-body { padding-top: 24px; padding-bottom: 72px; }
+.jump { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 22px; }
+.jump .chip { cursor: pointer; font: inherit; font-size: 13px; }
+.cheatsheet { max-width: 860px; }
+.cheatsheet h2 { scroll-margin-top: calc(var(--topbar) + 16px); padding-top: 18px; border-top: 1px solid var(--border); }
+.cheatsheet h2:first-child { padding-top: 0; border-top: 0; }
+.ex-intro { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 6px 20px; }
+.ex-intro .lead { margin-bottom: 18px; }
+.ex-week { margin-bottom: 14px; }
+.ex-week h2 { font-size: 18px; margin: 0 0 4px; }
+.ex-week > .muted { margin: 0 0 4px; font-size: 14px; }
+.ex-list { list-style: none; margin: 0; padding: 0; }
+.ex-row { display: grid; grid-template-columns: 170px minmax(0, 1fr); gap: 6px 18px; padding: 14px 0; border-top: 1px solid var(--border); }
+.ex-week h2 + .ex-list > .ex-row:first-child { border-top: 0; }
+.ex-label { font-size: 13.5px; font-weight: 650; color: var(--muted); padding-top: 1px; overflow-wrap: anywhere; }
+.ex-task { margin: 0; color: var(--text); }
+.ex-problems { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.ex-note { margin: 8px 0 0; font-size: 14px; color: var(--muted); }
+.ex-template { margin-left: 4px; vertical-align: 1px; }
+.ex-row code, .ex-template { font-family: var(--mono); font-size: 0.86em; }
+.ex-task code, .ex-note code { padding: 1px 5px; border-radius: 5px; background: var(--code-bg); border: 1px solid var(--border); color: var(--text); }
+.ex-footnote { font-size: 14px; max-width: 70ch; }
+
 @media (max-width: 900px) {
+  .prep-wrap { padding-left: 16px; padding-right: 16px; }
+  .prep-head .prep-wrap { padding-top: 18px; }
+  .prep-head h1 { font-size: 24px; }
+  .ex-row { grid-template-columns: minmax(0, 1fr); }
+  .cheatsheet table { display: block; overflow-x: auto; }
   .menu-btn { display: none; }
   body[data-route="learn"] .menu-btn { display: inline-grid; }
   .topbar { gap: 10px; padding: 0 10px; }
@@ -609,4 +642,6 @@ body.has-fullscreen { overflow: hidden; }
 
 @media (max-width: 420px) {
   .brand > span:last-child { display: none; }
+  .nav { gap: 0; }
+  .nav a { padding: 6px 7px; }
 }

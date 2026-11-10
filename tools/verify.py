@@ -3,7 +3,7 @@
 For every problem:
   - the reference solution (solution.py) must pass every test
   - the starter code (starter.py) must fail at least one test
-It also checks that tree.json and exams.json only point at problems that exist.
+It also checks that tree.json, exams.json and prep/exercises.json only point at problems that exist.
 
 Usage:
     python3 tools/verify.py            # check everything
@@ -64,6 +64,11 @@ def referenced_problem_ids():
                 ids += [p for p in leaf["practice"] if isinstance(p, str)]
     for exam in exams["exams"]:
         ids += exam["problems"]
+    prep_file = CONTENT / "prep" / "exercises.json"
+    if prep_file.exists():
+        prep = json.loads(prep_file.read_text())
+        for item in prep["templates"] + [it for week in prep["weeks"] for it in week["items"]]:
+            ids += item.get("problems", [])
     return ids
 
 

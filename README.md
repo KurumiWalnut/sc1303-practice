@@ -13,6 +13,7 @@ Practise SC1303 data structures and algorithms (weeks 5–12) the way you'll be 
 - **110 LeetCode-style problems** (44 Easy, 62 Medium, 4 Hard), from easy to hard within each subtopic. Most have hints you can open one at a time.
 - **A Python judge in your browser.** Run the sample tests as often as you like, or submit to run the hidden tests too. No sign-up needed.
 - **2 timed mock exams** in the final quiz format: 4 questions in 90 minutes, 25 marks each.
+- **Exam prep:** a cheatsheet (which structure to pick, Big O, Python tools, the course templates, HackerEarth input and output) and every seminar coding exercise, linked to the problems that practise it.
 
 ## Topics
 
@@ -73,6 +74,8 @@ judge/harness.py             runs one test case (used by the browser and by tool
 content/
   tree.json                  parts → topics → subtopics ("leaves")
   exams.json                 mock exams
+  prep/cheatsheet.md         the Exam prep cheatsheet
+  prep/exercises.json        every seminar coding exercise, linked to the problems that practise it
   notes/<leaf>.md            notes for each subtopic
   icons/<topic>.svg          a picture for each topic (64×64 SVG)
   problems/<id>/

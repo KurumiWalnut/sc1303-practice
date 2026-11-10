@@ -17,6 +17,7 @@ function fetchFile(path, as = "text") {
 export const loadTree = () => fetchFile("tree.json", "json");
 export const loadExams = () => fetchFile("exams.json", "json");
 export const loadNotes = (path) => fetchFile(path);
+export const loadPrep = () => fetchFile("prep/exercises.json", "json");
 
 export async function loadProblem(id) {
   const dir = `problems/${id}/`;

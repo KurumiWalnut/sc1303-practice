@@ -1,4 +1,4 @@
-import { loadTree, loadExams, loadNotes, loadProblem, loadProblemMeta, indexTree, leafProblemIds, baseList } from "./content.js";
+import { loadTree, loadExams, loadNotes, loadPrep, loadProblem, loadProblemMeta, indexTree, leafProblemIds, baseList } from "./content.js";
 import { store, problemState, recordSubmission, getAttempt, saveAttempt, clearAttempt, resetEverything } from "./storage.js";
 import { mountWorkspace } from "./workspace.js";
 import { onJudgeState, warmUp } from "./judge.js";
@@ -82,6 +82,7 @@ function route() {
 
   if (!section) return run(renderHome());
   if (section === "learn") return run(renderLearn(token, rest[0], rest[1], rest[2]));
+  if (section === "prep") return run(renderPrep(token, rest[0]));
   if (section === "exams") {
     if (!rest[0]) return run(renderExamList());
     return run(renderExam(token, rest[0], rest[1] === "q" ? Number(rest[2]) : null));
@@ -142,6 +143,7 @@ function renderHome() {
         <p class="lead">Short notes, the base implementations from the course templates, and LeetCode-style problems, all checked by a Python judge that runs in your browser. Then sit a timed mock in the final quiz format: 4 questions in 90 minutes.</p>
         <div class="hero-actions">
           <a class="btn btn-primary btn-lg" href="#/learn/${esc(firstReady)}">Start learning</a>
+          <a class="btn btn-lg" href="#/prep">Exam prep</a>
           <a class="btn btn-lg" href="#/exams">Try a mock exam</a>
         </div>
       </section>
@@ -570,6 +572,141 @@ function mountProblem(host, problem, leaf) {
     },
   });
   onCleanup(cleanup);
+}
+
+// ---- exam prep -------------------------------------------------------------------------
+
+/** Where a problem lives in the Learn section, as a link. */
+function problemHref(pid) {
+  for (const { leaf } of idx.leaves.values()) {
+    if (baseList(leaf).includes(pid)) return `#/learn/${esc(leaf.id)}/implement/${esc(pid)}`;
+    if ((leaf.practice || []).includes(pid)) return `#/learn/${esc(leaf.id)}/practice/${esc(pid)}`;
+  }
+  return null;
+}
+
+/** Plain text with `code` spans, as used in content/prep/exercises.json. */
+const inlineCode = (text) => esc(text).replace(/`([^`]+)`/g, "<code>$1</code>");
+
+async function renderPrep(token, tab) {
+  const current = tab === "exercises" ? "exercises" : "cheatsheet";
+  setTitle(current === "exercises" ? "Seminar exercises" : "Cheatsheet");
+  const prep = await loadPrep();
+  if (!isCurrent(token)) return;
+  const rows = prep.weeks.flatMap((w) => w.items);
+
+  const tabLink = (name, label, ic, count) => `
+    <a class="tab ${name === current ? "is-active" : ""}" href="#/prep${name === "cheatsheet" ? "" : `/${name}`}" ${name === current ? 'aria-current="page"' : ""}>
+      ${icon(ic, 15)} ${label}${count != null ? `<span class="count">${count}</span>` : ""}
+    </a>`;
+
+  app.innerHTML = `
+    <div class="prep">
+      <header class="prep-head">
+        <div class="prep-wrap">
+          <p class="eyebrow">${esc(prep.quiz)}</p>
+          <h1>Exam prep</h1>
+          <nav class="tabs" aria-label="Sections">
+            ${tabLink("cheatsheet", "Cheatsheet", "book")}
+            ${tabLink("exercises", "Seminar exercises", "puzzle", rows.length)}
+          </nav>
+        </div>
+      </header>
+      <div class="prep-wrap prep-body" id="prepBody"><p class="muted">Loading…</p></div>
+    </div>`;
+
+  const body = app.querySelector("#prepBody");
+  if (current === "exercises") return renderPrepExercises(token, body, prep);
+  return renderCheatsheet(token, body);
+}
+
+async function renderCheatsheet(token, body) {
+  const text = await loadNotes("prep/cheatsheet.md");
+  if (!isCurrent(token)) return;
+  body.innerHTML = `<nav class="jump" aria-label="Jump to"></nav><article class="prose notes cheatsheet">${markdown(text)}</article>`;
+  highlightCode(body);
+
+  // A row of buttons that scroll to each section (links would clash with the # routes).
+  const jump = body.querySelector(".jump");
+  body.querySelectorAll(".cheatsheet h2").forEach((h2) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "chip chip-link";
+    button.textContent = h2.textContent;
+    button.addEventListener("click", () => h2.scrollIntoView({ behavior: "smooth", block: "start" }));
+    jump.append(button);
+  });
+}
+
+async function renderPrepExercises(token, body, prep) {
+  const ids = [...new Set([...prep.templates, ...prep.weeks.flatMap((w) => w.items)].flatMap((it) => it.problems || []))];
+  const metas = await Promise.all(ids.map(loadProblemMeta));
+  if (!isCurrent(token)) return;
+  const metaById = Object.fromEntries(metas.map((m) => [m.id, m]));
+  const solved = ids.filter((id) => problemState(id) === "solved").length;
+
+  const picks = (problems = []) =>
+    problems
+      .map((pid) => {
+        const m = metaById[pid];
+        return `
+          <a class="pick" href="${problemHref(pid)}">
+            <span class="pick-state">${stateIcon(problemState(pid))}</span>
+            <span>${esc(m.title)}</span>
+            ${difficultyChip(m.difficulty)}
+          </a>`;
+      })
+      .join("");
+
+  const templates = prep.templates
+    .map(
+      (t) => `
+        <li class="ex-row">
+          <span class="ex-label"><code>${esc(t.file)}</code></span>
+          <div class="ex-main">
+            <p class="ex-task">${inlineCode(t.what)}</p>
+            <div class="ex-problems">${picks(t.problems)}</div>
+          </div>
+        </li>`,
+    )
+    .join("");
+
+  const weeks = prep.weeks
+    .map(
+      (w) => `
+        <section class="card ex-week">
+          <h2>Week ${esc(w.week)} <span class="muted">· ${esc(w.title)}</span></h2>
+          <ul class="ex-list">
+            ${w.items
+              .map(
+                (it) => `
+                  <li class="ex-row">
+                    <span class="ex-label">${esc(it.label)}</span>
+                    <div class="ex-main">
+                      <p class="ex-task">${inlineCode(it.task)}${it.template ? ` <span class="chip ex-template">${icon("code", 12)} ${esc(it.template)}</span>` : ""}</p>
+                      ${it.problems?.length ? `<div class="ex-problems">${picks(it.problems)}</div>` : ""}
+                      ${it.note ? `<p class="ex-note">${inlineCode(it.note)}</p>` : ""}
+                    </div>
+                  </li>`,
+              )
+              .join("")}
+          </ul>
+        </section>`,
+    )
+    .join("");
+
+  body.innerHTML = `
+    <div class="ex-intro">
+      <p class="lead">Every coding exercise from the Week 5–12 seminars, with the problems here that practise it. The quiz covers the same weeks, so these are the closest guide to what it may ask.</p>
+      <span class="chip chip-ok">${solved} / ${ids.length} solved</span>
+    </div>
+    <section class="card ex-week ex-templates">
+      <h2>Course templates</h2>
+      <p class="muted">The seminars' coding exercises build on these files from the course site.</p>
+      <ul class="ex-list">${templates}</ul>
+    </section>
+    ${weeks}
+    <p class="muted ex-footnote">Discussion questions, like comparing structures or drawing a trie or an AVL insertion by hand, aren't listed, because the quiz is all coding. The cheatsheet has the facts behind them.</p>`;
 }
 
 // ---- mock exams ------------------------------------------------------------------------
