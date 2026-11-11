@@ -1,5 +1,5 @@
 import { loadTree, loadExams, loadNotes, loadPrep, loadProblem, loadProblemMeta, indexTree, leafProblemIds, baseList } from "./content.js";
-import { store, problemState, recordSubmission, getAttempt, saveAttempt, clearAttempt, resetEverything } from "./storage.js";
+import { store, problemState, recordSubmission, getAttempt, saveAttempt, clearAttempt, resetEverything, savedCode } from "./storage.js";
 import { mountWorkspace } from "./workspace.js";
 import { onJudgeState, warmUp } from "./judge.js";
 import { esc, markdown, highlightCode, icon, stateIcon, difficultyChip, leetcodeLink, formatClock } from "./ui.js";
@@ -201,7 +201,10 @@ function siteFooter() {
   return `
     <footer class="site-footer">
       <p>Unofficial study tool by SC1303 students; not affiliated with the course team. Problem statements are written for this site, and LeetCode links point to the original problems.</p>
-      <p>Your progress and code are saved in this browser only. <button class="link-btn" type="button" data-act="reset-all">Reset my progress</button></p>
+      <p>Your progress and code are saved in this browser only.
+        <button class="link-btn" type="button" data-act="export-code">Download my code</button> ·
+        <button class="link-btn" type="button" data-act="reset-all">Reset my progress</button>
+        <span class="export-note" id="exportNote" role="status"></span></p>
     </footer>`;
 }
 
@@ -211,6 +214,59 @@ function bindFooter() {
     resetEverything();
     route();
   });
+  app.querySelector('[data-act="export-code"]')?.addEventListener("click", async () => {
+    const note = app.querySelector("#exportNote");
+    const drafts = savedCode();
+    if (!drafts.length) {
+      note.textContent = "Nothing to download yet: your code is saved once you type in a problem.";
+      return;
+    }
+    const today = new Date();
+    const date = [today.getFullYear(), today.getMonth() + 1, today.getDate()].map((n) => String(n).padStart(2, "0")).join("-");
+    downloadText(`sc1303-my-code-${date}.py`, await exportCodeText(drafts, date));
+    note.textContent = `Downloaded ${drafts.length} ${drafts.length === 1 ? "answer" : "answers"}.`;
+  });
+}
+
+/** One Python file with every saved answer, in course order, mock exam answers last. */
+async function exportCodeText(drafts, date) {
+  // "Two Sum (two-sum)", or just the id for a problem that's no longer on the site.
+  const titleOf = (pid) => loadProblemMeta(pid).then((m) => `${m.title} (${pid})`, () => pid);
+  const courseOrder = (pid) => {
+    const i = idx.readyProblems.indexOf(pid);
+    return i === -1 ? Infinity : i;
+  };
+  const examOrder = (d) => {
+    const i = examsData.exams.findIndex((e) => e.id === d.examId);
+    const exam = examsData.exams[i];
+    return [i === -1 ? Infinity : i, exam ? exam.problems.indexOf(d.problemId) : 0];
+  };
+  const practice = drafts.filter((d) => !d.examId).sort((a, b) => courseOrder(a.problemId) - courseOrder(b.problemId));
+  const exams = drafts
+    .filter((d) => d.examId)
+    .sort((a, b) => {
+      const [ea, pa] = examOrder(a);
+      const [eb, pb] = examOrder(b);
+      return ea - eb || pa - pb;
+    });
+
+  const sections = await Promise.all(
+    [...practice, ...exams].map(async (d) => {
+      const exam = d.examId && (examsData.exams.find((e) => e.id === d.examId)?.title || d.examId);
+      const title = `${exam ? `${exam} · ` : ""}${await titleOf(d.problemId)}`;
+      return `# ===== ${title} =====\n\n${d.code.replace(/\s+$/, "")}\n`;
+    }),
+  );
+  return `# SC1303 Practice: my saved code, downloaded ${date}\n# Each section is one problem's code from the site's editor.\n\n${sections.join("\n\n")}`;
+}
+
+function downloadText(filename, text) {
+  const url = URL.createObjectURL(new Blob([text], { type: "text/x-python;charset=utf-8" }));
+  const link = Object.assign(document.createElement("a"), { href: url, download: filename });
+  document.body.append(link);
+  link.click();
+  link.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 
 // ---- learn: tree ---------------------------------------------------------------------
@@ -644,6 +700,14 @@ async function renderPrepExercises(token, body, prep) {
   if (!isCurrent(token)) return;
   const metaById = Object.fromEntries(metas.map((m) => [m.id, m]));
   const solved = ids.filter((id) => problemState(id) === "solved").length;
+  const rows = prep.weeks.flatMap((w) => w.items);
+  const withCode = rows.filter((it) => it.code).length;
+
+  // Whether the professor's solution code exists for it, and where.
+  const codeMark = (it) =>
+    it.code
+      ? `<p class="ex-code">${icon("check", 12)} Solution code: ${esc(it.code)}</p>`
+      : `<p class="ex-code is-none">No solution code given</p>`;
 
   const picks = (problems = []) =>
     problems
@@ -665,6 +729,7 @@ async function renderPrepExercises(token, body, prep) {
           <span class="ex-label"><code>${esc(t.file)}</code></span>
           <div class="ex-main">
             <p class="ex-task">${inlineCode(t.what)}</p>
+            ${codeMark(t)}
             <div class="ex-problems">${picks(t.problems)}</div>
           </div>
         </li>`,
@@ -684,6 +749,7 @@ async function renderPrepExercises(token, body, prep) {
                     <span class="ex-label">${esc(it.label)}</span>
                     <div class="ex-main">
                       <p class="ex-task">${inlineCode(it.task)}${it.template ? ` <span class="chip ex-template">${icon("code", 12)} ${esc(it.template)}</span>` : ""}</p>
+                      ${codeMark(it)}
                       ${it.problems?.length ? `<div class="ex-problems">${picks(it.problems)}</div>` : ""}
                       ${it.note ? `<p class="ex-note">${inlineCode(it.note)}</p>` : ""}
                     </div>
@@ -700,6 +766,7 @@ async function renderPrepExercises(token, body, prep) {
       <p class="lead">Every coding exercise from the Week 5–12 seminars, with the problems here that practise it. The quiz covers the same weeks, so these are the closest guide to what it may ask.</p>
       <span class="chip chip-ok">${solved} / ${ids.length} solved</span>
     </div>
+    <p class="ex-legend"><span class="ex-code">${icon("check", 12)} Solution code</span> marks the ${withCode} of ${rows.length} exercises the professor wrote out as code, in the Colab notebooks, the solution slides or the <code>.py</code> solution files.</p>
     <section class="card ex-week ex-templates">
       <h2>Course templates</h2>
       <p class="muted">The seminars' coding exercises build on these files from the course site.</p>

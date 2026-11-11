@@ -75,3 +75,25 @@ export function clearAttempt(examId) {
 export function resetEverything() {
   store.removeWhere(() => true);
 }
+
+// ---- saved code -----------------------------------------------------------------
+
+/**
+ * Every non-empty code draft in this browser: practice drafts ("code:<problem>")
+ * and mock exam answers ("examcode:<exam>:<problem>").
+ */
+export function savedCode() {
+  let keys = [];
+  try {
+    keys = Object.keys(localStorage).filter((k) => k.startsWith(PREFIX)).map((k) => k.slice(PREFIX.length));
+  } catch {
+    return [];
+  }
+  return keys
+    .filter((k) => k.startsWith("code:") || k.startsWith("examcode:"))
+    .map((k) => {
+      const parts = k.split(":");
+      return { examId: parts[0] === "examcode" ? parts[1] : null, problemId: parts[parts.length - 1], code: store.get(k, "") };
+    })
+    .filter((d) => typeof d.code === "string" && d.code.trim());
+}

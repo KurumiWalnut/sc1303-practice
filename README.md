@@ -47,7 +47,7 @@ The code box has a full-screen button, and Esc exits full screen.
 ## Good to know
 
 - **The first visit downloads about 10 MB** (Python for the browser). After that it's cached.
-- **Your progress is saved in your browser only.** It doesn't sync between devices or browsers, and clearing your browsing data deletes it. To clear it yourself, use the **Reset my progress** link at the bottom of the home page.
+- **Your progress is saved in your browser only.** It doesn't sync between devices or browsers, and clearing your browsing data deletes it. To clear it yourself, use the **Reset my progress** link at the bottom of the home page. **Download my code**, next to it, saves every answer you've typed (practice and mock exams) as one `.py` file.
 - **Tests and solutions are public** in this repository, because the judge runs in your browser. That's fine for practice, but don't use the site for anything graded.
 - Problem statements are written for this site. LeetCode links point to the original problems.
 

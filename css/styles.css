@@ -120,6 +120,8 @@ main:focus { outline: none; }
 .btn-sm { padding: 5px 10px; font-size: 13px; }
 .btn-lg { padding: 11px 20px; font-size: 15px; }
 .link-btn { border: 0; background: none; padding: 0; font: inherit; color: var(--accent-text); text-decoration: underline; cursor: pointer; }
+.export-note { display: block; margin-top: 4px; color: var(--muted); }
+.export-note:empty { display: none; }
 .icon-btn { display: inline-grid; place-items: center; width: 36px; height: 36px; border: 0; border-radius: 8px; background: none; color: var(--text); cursor: pointer; }
 .icon-btn:hover { background: var(--surface-2); }
 
@@ -570,7 +572,7 @@ body.has-fullscreen { overflow: hidden; }
 .cheatsheet h2 { scroll-margin-top: calc(var(--topbar) + 16px); padding-top: 18px; border-top: 1px solid var(--border); }
 .cheatsheet h2:first-child { padding-top: 0; border-top: 0; }
 .ex-intro { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 6px 20px; }
-.ex-intro .lead { margin-bottom: 18px; }
+.ex-intro .lead { margin-bottom: 0; }
 .ex-week { margin-bottom: 14px; }
 .ex-week h2 { font-size: 18px; margin: 0 0 4px; }
 .ex-week > .muted { margin: 0 0 4px; font-size: 14px; }
@@ -581,6 +583,12 @@ body.has-fullscreen { overflow: hidden; }
 .ex-task { margin: 0; color: var(--text); }
 .ex-problems { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
 .ex-note { margin: 8px 0 0; font-size: 14px; color: var(--muted); }
+.ex-code { display: inline-flex; align-items: center; gap: 5px; margin: 6px 0 0; font-size: 13px; font-weight: 600; color: var(--ok); }
+.ex-code.is-none { font-weight: 500; color: var(--muted); }
+p.ex-code { display: flex; }
+.ex-legend { margin: 10px 0 18px; font-size: 14px; color: var(--text-2); max-width: 75ch; }
+.ex-legend .ex-code { margin: 0 2px 0 0; }
+.ex-legend code { font-family: var(--mono); font-size: 0.88em; padding: 1px 5px; border-radius: 5px; background: var(--code-bg); border: 1px solid var(--border); }
 .ex-template { margin-left: 4px; vertical-align: 1px; }
 .ex-row code, .ex-template { font-family: var(--mono); font-size: 0.86em; }
 .ex-task code, .ex-note code { padding: 1px 5px; border-radius: 5px; background: var(--code-bg); border: 1px solid var(--border); color: var(--text); }

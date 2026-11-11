@@ -1,96 +1,96 @@
 {
   "quiz": "Final coding quiz · 12 November, 9:30–11:00 · 4 questions on HackerEarth · weeks 5–12",
   "templates": [
-    { "file": "linkedList1_template.py", "what": "Linked list: print, insert at the tail, print in reverse", "problems": ["linked-list-impl"] },
-    { "file": "BinarySearchTree_template.py", "what": "BST: search, insert, max, in-order traversal, isValidBST", "problems": ["bst-impl", "traversal-impl"] },
-    { "file": "AVL_tree_template.py", "what": "AVL tree: rotations and rebalancing after insert", "problems": ["avl-rotations-impl", "avl-preorder"] },
-    { "file": "Heap_template.py", "what": "Max-heap: insert and delete", "problems": ["max-heap-impl"] },
-    { "file": "graph_template.py", "what": "Graph: depth-first and breadth-first traversal", "problems": ["graph-traversal-impl"] },
-    { "file": "dijkstra_template.py", "what": "Dijkstra's cheapest path between two cities", "problems": ["dijkstra-impl"] },
-    { "file": "exercise2.py", "what": "Quicksort with a Lomuto (and Hoare) partition", "problems": ["lomuto-impl", "hoare-impl", "quicksort-impl"] }
+    {"file": "linkedList1_template.py", "what": "Linked list: print, insert at the tail, print in reverse", "problems": ["linked-list-impl"], "code": "linkedList1_solution.py"},
+    {"file": "BinarySearchTree_template.py", "what": "BST: search, insert, max, in-order traversal, isValidBST", "problems": ["bst-impl", "traversal-impl"], "code": "BinarySearchTree_solution.py"},
+    {"file": "AVL_tree_template.py", "what": "AVL tree: rotations and rebalancing after insert", "problems": ["avl-rotations-impl", "avl-preorder"], "code": "AVL_tree.py"},
+    {"file": "Heap_template.py", "what": "Max-heap: insert and delete", "problems": ["max-heap-impl"], "code": "Heap.py"},
+    {"file": "graph_template.py", "what": "Graph: depth-first and breadth-first traversal", "problems": ["graph-traversal-impl"], "code": "graph.py"},
+    {"file": "dijkstra_template.py", "what": "Dijkstra's cheapest path between two cities", "problems": ["dijkstra-impl"], "code": "dijkstra.py"},
+    {"file": "exercise2.py", "what": "Quicksort with a Lomuto (and Hoare) partition", "problems": ["lomuto-impl", "hoare-impl", "quicksort-impl"], "code": "Week 9 solution slides and Colab notebook"}
   ],
   "weeks": [
     {
       "week": 5,
       "title": "Arrays and Big O",
       "items": [
-        { "label": "Warm-up a, c", "task": "`linear_search(arr, target)` and `delete_by_value(arr, value)`, counting the steps", "problems": ["array-ops-impl"] },
-        { "label": "Warm-up b", "task": "`insert_into_set(s, value)`: add a value only if the set doesn't have it yet", "note": "No practice problem: it's one line with a set, `if value not in s: s.add(value)`." },
-        { "label": "Exercise 1", "task": "Reverse a list without `reverse()`, counting the steps", "problems": ["array-ops-impl", "reverse-string"] },
-        { "label": "Exercise 2", "task": "Sum the even numbers from 1 to 10,000,000, time it, then make it faster", "problems": ["sum-evens"] },
-        { "label": "Exercise 3", "task": "Tic-tac-toe, designed top-down", "note": "A design exercise, so it isn't on the site." }
+        {"label": "Warm-up a, c", "task": "`linear_search(arr, target)` and `delete_by_value(arr, value)`, counting the steps", "problems": ["array-ops-impl"]},
+        {"label": "Warm-up b", "task": "`insert_into_set(s, value)`: add a value only if the set doesn't have it yet", "note": "No practice problem: it's one line with a set, `if value not in s: s.add(value)`."},
+        {"label": "Exercise 1", "task": "Reverse a list without `reverse()`, counting the steps", "problems": ["array-ops-impl", "reverse-string"], "code": "Week 5 Colab notebook"},
+        {"label": "Exercise 2", "task": "Sum the even numbers from 1 to 10,000,000, time it, then make it faster", "problems": ["sum-evens"], "code": "Week 5 Colab notebook"},
+        {"label": "Exercise 3", "task": "Tic-tac-toe, designed top-down", "note": "The notebook has the full program, but it's a design exercise, so it isn't on the site.", "code": "Week 5 Colab notebook"}
       ]
     },
     {
       "week": 6,
       "title": "Searching",
       "items": [
-        { "label": "Exercise 2", "task": "`binary_search(array, search_value)`, also counting the steps", "problems": ["binary-search-impl"] },
-        { "label": "Exercise 3", "task": "Integer square root without `sqrt` (try 45 and 99,999)", "problems": ["integer-sqrt"] },
-        { "label": "Exercise 4", "task": "Smallest rectangle enclosing the black pixels: the naive way, then with binary search", "problems": ["black-pixels-rectangle"] }
+        {"label": "Exercise 2", "task": "`binary_search(array, search_value)`, also counting the steps", "problems": ["binary-search-impl"], "code": "Week 6 Colab notebook"},
+        {"label": "Exercise 3", "task": "Integer square root without `sqrt` (try 45 and 99,999)", "problems": ["integer-sqrt"], "code": "Week 6 Colab notebook"},
+        {"label": "Exercise 4", "task": "Smallest rectangle enclosing the black pixels: the naive way, then with binary search", "problems": ["black-pixels-rectangle"], "code": "Week 6 Colab notebook"}
       ]
     },
     {
       "week": 7,
       "title": "Sorting",
       "items": [
-        { "label": "Exercises 1–2", "task": "Bubble sort that stops early on sorted input and shortens each pass", "problems": ["bubble-sort-impl"] },
-        { "label": "Exercise 3", "task": "The kth smallest element, faster than sorting everything", "problems": ["kth-smallest-selection"] },
-        { "label": "Exercise 4", "task": "Insertion sort that finds each insert position with binary search", "problems": ["insertion-sort-impl", "binary-search-impl"], "note": "Not on the site as one problem yet. These two practise its parts: the shifting stays O(N), only the search gets faster." },
-        { "label": "Exercise 5", "task": "Do ratings from 0 to 10 contain a duplicate? Aim for the lowest time complexity", "problems": ["contains-duplicate"] },
-        { "label": "Exercise 6", "task": "Merge overlapping intervals", "problems": ["merge-intervals"] },
-        { "label": "Exercise 7", "task": "Arrange numbers to form the largest value", "problems": ["largest-number"] }
+        {"label": "Exercises 1–2", "task": "Bubble sort that stops early on sorted input and shortens each pass", "problems": ["bubble-sort-impl"], "code": "Week 7 Colab notebook"},
+        {"label": "Exercise 3", "task": "The kth smallest element, faster than sorting everything", "problems": ["kth-smallest-selection"], "code": "Week 7 Colab notebook"},
+        {"label": "Exercise 4", "task": "Insertion sort that finds each insert position with binary search", "problems": ["insertion-sort-impl", "binary-search-impl"], "note": "Not on the site as one problem yet. These two practise its parts: the shifting stays O(N), only the search gets faster.", "code": "Week 7 Colab notebook"},
+        {"label": "Exercise 5", "task": "Do ratings from 0 to 10 contain a duplicate? Aim for the lowest time complexity", "problems": ["contains-duplicate"], "code": "Week 7 Colab notebook"},
+        {"label": "Exercise 6", "task": "Merge overlapping intervals", "problems": ["merge-intervals"], "code": "Week 7 Colab notebook"},
+        {"label": "Exercise 7", "task": "Arrange numbers to form the largest value", "problems": ["largest-number"], "code": "Week 7 Colab notebook"}
       ]
     },
     {
       "week": 8,
       "title": "Hash tables, stacks and queues",
       "items": [
-        { "label": "Exercise 1", "task": "Majority element with a hash table, in O(N)", "problems": ["majority-element"] },
-        { "label": "Exercise 2", "task": "Intersection of two arrays in O(N)", "problems": ["intersection-of-arrays"] },
-        { "label": "Exercise 3", "task": "Two sum: the indices of two numbers that add up to a target", "problems": ["two-sum"] },
-        { "label": "Exercise 4", "task": "First character that doesn't repeat, using a queue and a dictionary", "problems": ["first-unique-char"] },
-        { "label": "Exercise 5", "task": "The k most frequent elements", "problems": ["top-k-frequent"] }
+        {"label": "Exercise 1", "task": "Majority element with a hash table, in O(N)", "problems": ["majority-element"]},
+        {"label": "Exercise 2", "task": "Intersection of two arrays in O(N)", "problems": ["intersection-of-arrays"]},
+        {"label": "Exercise 3", "task": "Two sum: the indices of two numbers that add up to a target", "problems": ["two-sum"]},
+        {"label": "Exercise 4", "task": "First character that doesn't repeat, using a queue and a dictionary", "problems": ["first-unique-char"]},
+        {"label": "Exercise 5", "task": "The k most frequent elements", "problems": ["top-k-frequent"]}
       ]
     },
     {
       "week": 9,
       "title": "Recursion, DP and quicksort",
       "items": [
-        { "label": "Exercises 1–3, coding 1", "task": "Recursion fixes: a missing base case, `double_array`, a sum capped at 100 without extra calls, and `index_of_x`", "problems": ["recursion-impl"] },
-        { "label": "Exercise 4", "task": "Speed up the Golomb sequence with memoization", "problems": ["memo-fib-impl"] },
-        { "label": "Exercise 5", "task": "Greatest product of any three numbers", "problems": ["max-product-three"] },
-        { "label": "Coding 2", "task": "Complete the Lomuto partition for quicksort", "template": "exercise2.py", "problems": ["lomuto-impl", "quicksort-impl", "hoare-impl"] },
-        { "label": "Coding 3", "task": "Climbing stairs: how many ways to reach step n?", "problems": ["climbing-stairs"] },
-        { "label": "Coding 3++", "task": "Minimum cost to climb past the last step", "problems": ["min-cost-stairs"] }
+        {"label": "Exercises 1–3, coding 1", "task": "Recursion fixes: a missing base case, `double_array`, a sum capped at 100 without extra calls, and `index_of_x`", "problems": ["recursion-impl"], "code": "Week 9 solution slides"},
+        {"label": "Exercise 4", "task": "Speed up the Golomb sequence with memoization", "problems": ["memo-fib-impl"], "code": "Week 9 solution slides"},
+        {"label": "Exercise 5", "task": "Greatest product of any three numbers", "problems": ["max-product-three"], "code": "Week 9 solution slides"},
+        {"label": "Coding 2", "task": "Complete the Lomuto partition for quicksort", "template": "exercise2.py", "problems": ["lomuto-impl", "quicksort-impl", "hoare-impl"], "code": "Week 9 solution slides and Colab notebook"},
+        {"label": "Coding 3", "task": "Climbing stairs: how many ways to reach step n?", "problems": ["climbing-stairs"], "code": "Week 9 solution slides and Colab notebook"},
+        {"label": "Coding 3++", "task": "Minimum cost to climb past the last step", "problems": ["min-cost-stairs"], "code": "Week 9 solution slides and Colab notebook"}
       ]
     },
     {
       "week": 10,
       "title": "Linked lists and binary search trees",
       "items": [
-        { "label": "Exercise 2 A–C", "task": "Print a linked list, insert at the tail, and print it in reverse", "template": "linkedList1_template.py", "problems": ["linked-list-impl"] },
-        { "label": "Exercise 3", "task": "Doubly linked list 1 ↔ 2 ↔ 3 ↔ 4, printed in reverse", "problems": ["doubly-linked-impl"] },
-        { "label": "Exercise 4 A–C", "task": "BST `search`, `insert` and `max`", "template": "BinarySearchTree_template.py", "problems": ["bst-impl"] },
-        { "label": "Exercise 4 D–E", "task": "In-order traversal (fruits in alphabetical order) and `isValidBST`", "template": "BinarySearchTree_template.py", "problems": ["traversal-impl"] },
-        { "label": "Exercise 5", "task": "Merge two sorted linked lists without creating new nodes", "problems": ["merge-two-sorted-lists"] }
+        {"label": "Exercise 2 A–C", "task": "Print a linked list, insert at the tail, and print it in reverse", "template": "linkedList1_template.py", "problems": ["linked-list-impl"], "code": "linkedList1_solution.py"},
+        {"label": "Exercise 3", "task": "Doubly linked list 1 ↔ 2 ↔ 3 ↔ 4, printed in reverse", "problems": ["doubly-linked-impl"], "code": "Week 10 solution slides, doubly_linked.py"},
+        {"label": "Exercise 4 A–C", "task": "BST `search`, `insert` and `max`", "template": "BinarySearchTree_template.py", "problems": ["bst-impl"], "code": "Week 10 solution slides, BinarySearchTree_solution.py"},
+        {"label": "Exercise 4 D–E", "task": "In-order traversal (fruits in alphabetical order) and `isValidBST`", "template": "BinarySearchTree_template.py", "problems": ["traversal-impl"], "code": "Week 10 solution slides"},
+        {"label": "Exercise 5", "task": "Merge two sorted linked lists without creating new nodes", "problems": ["merge-two-sorted-lists"], "code": "Week 10 solution slides"}
       ]
     },
     {
       "week": 11,
       "title": "AVL trees, heaps and tries",
       "items": [
-        { "label": "Coding 1", "task": "AVL `_rotate_left` and `_rotate_right`", "template": "AVL_tree_template.py", "problems": ["avl-rotations-impl", "balance-factor-impl", "avl-preorder"] },
-        { "label": "Coding 2", "task": "Max-heap `insert` and `delete`", "template": "Heap_template.py", "problems": ["max-heap-impl"] },
-        { "label": "Exercises 7–8", "task": "List every word in a trie, and build one for get, go, got, gotten, … (drawn in class)", "problems": ["trie-impl", "autocomplete-impl"] }
+        {"label": "Coding 1", "task": "AVL `_rotate_left` and `_rotate_right`", "template": "AVL_tree_template.py", "problems": ["avl-rotations-impl", "balance-factor-impl", "avl-preorder"], "code": "Week 11 solution slides, AVL_tree.py"},
+        {"label": "Coding 2", "task": "Max-heap `insert` and `delete`", "template": "Heap_template.py", "problems": ["max-heap-impl"], "code": "Week 11 solution slides, Heap.py"},
+        {"label": "Exercises 7–8", "task": "List every word in a trie, and build one for get, go, got, gotten, … (drawn in class)", "problems": ["trie-impl", "autocomplete-impl"]}
       ]
     },
     {
       "week": 12,
       "title": "Graphs and Dijkstra",
       "items": [
-        { "label": "Exercise 2 A–C", "task": "Build a graph from `Vertex` objects, then traverse it depth-first and breadth-first", "template": "graph_template.py", "problems": ["graph-traversal-impl", "adjacency-impl"] },
-        { "label": "Exercise 4", "task": "Complete `dijkstra_shortest_path`", "template": "dijkstra_template.py", "problems": ["dijkstra-impl"] }
+        {"label": "Exercise 2 A–C", "task": "Build a graph from `Vertex` objects, then traverse it depth-first and breadth-first", "template": "graph_template.py", "problems": ["graph-traversal-impl", "adjacency-impl"], "code": "Week 12 solution slides, graph.py"},
+        {"label": "Exercise 4", "task": "Complete `dijkstra_shortest_path`", "template": "dijkstra_template.py", "problems": ["dijkstra-impl"], "code": "Week 12 solution slides, dijkstra.py"}
       ]
     }
   ]
